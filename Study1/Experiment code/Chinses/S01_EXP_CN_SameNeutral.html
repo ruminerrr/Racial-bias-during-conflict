@@ -1,0 +1,1621 @@
+var jsPsych = initJsPsych({
+    timeline: timeline,
+    show_progress_bar: true,
+    message_progress_bar: '完成进度',
+    auto_update_progress_bar: false,
+    show_preload_progress_bar: true,
+});
+
+var timeline = [];
+var n_trials = 260;
+
+/* preload images */
+var preload = {
+    type: jsPsychPreload,
+    auto_preload: true,
+    images: [
+        'stimuli/faces/NCF1.jpg',
+        'stimuli/faces/NCF2.jpg',
+        'stimuli/faces/NCF3.jpg',
+        'stimuli/faces/NCF4.jpg',
+        'stimuli/faces/NCF5.jpg',
+        'stimuli/faces/NCF6.jpg',
+        'stimuli/faces/NCF7.jpg',
+        'stimuli/faces/NCF8.jpg',
+        'stimuli/faces/NCM1.jpg',
+        'stimuli/faces/NCM2.jpg',
+        'stimuli/faces/NCM3.jpg',
+        'stimuli/faces/NCM4.jpg',
+        'stimuli/faces/NCM5.jpg',
+        'stimuli/faces/NCM6.jpg',
+        'stimuli/faces/NCM7.jpg',
+        'stimuli/faces/NCM8.jpg',
+
+        'stimuli/faces/NFF1.jpg',
+        'stimuli/faces/NFF2.jpg',
+        'stimuli/faces/NFF3.jpg',
+        'stimuli/faces/NFF4.jpg',
+        'stimuli/faces/NFF5.jpg',
+        'stimuli/faces/NFF6.jpg',
+        'stimuli/faces/NFF7.jpg',
+        'stimuli/faces/NFF8.jpg',
+        'stimuli/faces/NFM1.jpg',
+        'stimuli/faces/NFM2.jpg',
+        'stimuli/faces/NFM3.jpg',
+        'stimuli/faces/NFM4.jpg',
+        'stimuli/faces/NFM5.jpg',
+        'stimuli/faces/NFM6.jpg',
+        'stimuli/faces/NFM7.jpg',
+        'stimuli/faces/NFM8.jpg',
+
+        'stimuli/trees/1.png',
+        'stimuli/trees/2.png',
+        'stimuli/trees/3.png',
+        'stimuli/trees/4.png',
+        'stimuli/trees/5.png',
+        'stimuli/trees/6.png',
+        'stimuli/trees/7.png',
+        'stimuli/trees/8.png',
+        'stimuli/trees/9.png',
+        'stimuli/trees/10.png',
+        'stimuli/trees/11.png',
+        'stimuli/trees/12.png',
+        'stimuli/trees/13.png',
+        'stimuli/trees/14.png',
+        'stimuli/trees/15.png',
+        'stimuli/trees/16.png',
+
+        'stimuli/ladder.png',
+
+    ]
+};
+timeline.push(preload);
+
+var enter_fullscreen = {
+    type: jsPsychFullscreen,
+    fullscreen_mode: true,
+    message: '<p style="font-size:20px;font-weight:bold;">为确保实验过程中免受其他信息的干扰，</p>' + '<p style="font-size:20px;font-weight:bold;">请点击下面的按钮进入全屏模式。</p>',
+    button_label: "进入全屏"
+};
+timeline.push(enter_fullscreen);
+
+/* define consent form trial */
+var consent = {
+    type: jsPsychHtmlButtonResponse,
+    stimulus: '<p style="font-size:20px;font-weight:bold;">实验知情同意书</p>' +
+        '<p style="text-align:left;"><strong>实验名称：</strong>社会冲突研究</p>' +
+        '<p style="text-align:left;"><strong>主要研究者：</strong>韩晓春副教授（北京师范大学心理学部）</p>' +
+        '<p style="text-align:left;"><strong>联系方式：</strong>发送邮件至xiaochun.han@bnu.edu.cn</p>' +
+        '<p style="text-align:left;"><strong>研究目的：</strong>研究旨在了解人类面对群体冲突时的决策方式，以及相关的心理学特质。实验调查大约需要20分钟。</p>' +
+        '<p style="text-align:left;"><strong>实验流程：</strong>实验包含两部分。第一部分呈现一系列群体冲突场景，请你决定如何对这些冲突进行反应，大约需要10分钟完成。第二部分包含一系列人口统计学信息收集和心理学问卷，大约需要10分钟完成。</p>' +
+        '<p style="text-align:left;"><strong>参加及退出规则：</strong>参加本实验完全取决于您的个人意愿。在参与过程中，您可以随时退出，并且不用承担任何后果。</p>' +
+        '<p style="text-align:left;"><strong>隐私：</strong>本实验完全匿名进行，不会收集您的姓名或其他能够识别您身份的信息。实验中收集的作答仅用作科学研究使用，可能会在学术期刊/书籍上发表，或者用于教学，您的数据未来可能会和其他研究者或实验室分享，但您的个人身份不会被识别。</p>' +
+        '<p style="text-align:left;"><strong>实验报酬：</strong>实验完成后，您将获得15元人民币报酬，以感谢您的时间和努力。调查问卷中包含几道题目用以测验您作答时的认真度。只有完成全部实验，并且正确回答认真度测验的被试才能获得实验报酬。实验报酬将通过支付宝转账发放。</p>' +
+        '<p style="text-align:left;font-size:20px;"><strong>如果您同意以上实验知情同意书的内容，请点击\'同意并且开始实验\'按钮；否则请关闭浏览器界面，退出实验。</strong></p>',
+    choices: ['同意并且开始实验']
+};
+timeline.push(consent);
+
+/* define instructions trial */
+var instructions = {
+    type: jsPsychHtmlButtonResponse,
+    stimulus: '<p ><strong>实验任务一：</strong></p>' +
+        "<p>请想象你的国家与另一个国家发生了军事冲突。</p>" +
+        "<p>你是国家军队的指挥官，你将如何在冲突中进行决策。</p>" +
+        "<p>具体来说，作为军队指挥官，请你决定是否发射导弹进行打击。</p>" +
+        "<p>接下来，你会面对一系列场景，请仔细阅读每个场景，然后进行决策。</p>" + "<p>这部分实验任务大约需要10分钟。</p>" +
+        "<p><strong>实验过程中，请集中注意力。</strong></p>",
+    choices: ['进入实验'],
+    on_start: function () {
+        jsPsych.setProgressBar(0);
+    }
+};
+timeline.push(instructions);
+
+function random(mn, mx) {
+    return Math.random() * (mx - mn) + mn;
+};
+
+var stimuli_asian = [
+
+    /// low soldiers
+    {
+        stimulus: function () {
+            var low = ["1名", "2名", "3名", "4名", "5名"];
+            var hig = ["6名", "7名", "8名", "9名", "10名"];
+            a = Math.floor(random(1, 6) - 1);
+            var html = "<p>作为军队的指挥官，你可以选择发射导弹杀死 <strong>" + low[a] + "</strong> 敌国士兵，但会误杀附近的 <strong>1名</strong> 敌国平民。</p> <p>平民照片如下图所示。</p> <p></p> " + "<img src='stimuli/faces/NCF1.jpg', style='max-width: 30%;'> </img>" + " <p><strong>你是否选择发射武器？</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1名", "2名", "3名", "4名", "5名"];
+            var hig = ["6名", "7名", "8名", "9名", "10名"];
+            a = Math.floor(random(1, 6) - 1);
+            var html = "<p>作为军队的指挥官，你可以选择发射导弹杀死 <strong>" + low[a] + "</strong> 敌国士兵，但会误杀附近的 <strong>1名</strong> 敌国平民。</p> <p>平民照片如下图所示。</p> <p></p> " + "<img src='stimuli/faces/NCF2.jpg', style='max-width: 30%;'> </img>" + " <p><strong>你是否选择发射武器？</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1名", "2名", "3名", "4名", "5名"];
+            var hig = ["6名", "7名", "8名", "9名", "10名"];
+            a = Math.floor(random(1, 6) - 1);
+            var html = "<p>作为军队的指挥官，你可以选择发射导弹杀死 <strong>" + low[a] + "</strong> 敌国士兵，但会误杀附近的 <strong>1名</strong> 敌国平民。</p> <p>平民照片如下图所示。</p> <p></p> " + "<img src='stimuli/faces/NCF3.jpg', style='max-width: 30%;'> </img>" + " <p><strong>你是否选择发射武器？</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1名", "2名", "3名", "4名", "5名"];
+            var hig = ["6名", "7名", "8名", "9名", "10名"];
+            a = Math.floor(random(1, 6) - 1);
+            var html = "<p>作为军队的指挥官，你可以选择发射导弹杀死 <strong>" + low[a] + "</strong> 敌国士兵，但会误杀附近的 <strong>1名</strong> 敌国平民。</p> <p>平民照片如下图所示。</p> <p></p> " + "<img src='stimuli/faces/NCF4.jpg', style='max-width: 30%;'> </img>" + " <p><strong>你是否选择发射武器？</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1名", "2名", "3名", "4名", "5名"];
+            var hig = ["6名", "7名", "8名", "9名", "10名"];
+            a = Math.floor(random(1, 6) - 1);
+            var html = "<p>作为军队的指挥官，你可以选择发射导弹杀死 <strong>" + low[a] + "</strong> 敌国士兵，但会误杀附近的 <strong>1名</strong> 敌国平民。</p> <p>平民照片如下图所示。</p> <p></p> " + "<img src='stimuli/faces/NCF5.jpg', style='max-width: 30%;'> </img>" + " <p><strong>你是否选择发射武器？</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1名", "2名", "3名", "4名", "5名"];
+            var hig = ["6名", "7名", "8名", "9名", "10名"];
+            a = Math.floor(random(1, 6) - 1);
+            var html = "<p>作为军队的指挥官，你可以选择发射导弹杀死 <strong>" + low[a] + "</strong> 敌国士兵，但会误杀附近的 <strong>1名</strong> 敌国平民。</p> <p>平民照片如下图所示。</p> <p></p> " + "<img src='stimuli/faces/NCF6.jpg', style='max-width: 30%;'> </img>" + " <p><strong>你是否选择发射武器？</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1名", "2名", "3名", "4名", "5名"];
+            var hig = ["6名", "7名", "8名", "9名", "10名"];
+            a = Math.floor(random(1, 6) - 1);
+            var html = "<p>作为军队的指挥官，你可以选择发射导弹杀死 <strong>" + low[a] + "</strong> 敌国士兵，但会误杀附近的 <strong>1名</strong> 敌国平民。</p> <p>平民照片如下图所示。</p> <p></p> " + "<img src='stimuli/faces/NCF7.jpg', style='max-width: 30%;'> </img>" + " <p><strong>你是否选择发射武器？</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1名", "2名", "3名", "4名", "5名"];
+            var hig = ["6名", "7名", "8名", "9名", "10名"];
+            a = Math.floor(random(1, 6) - 1);
+            var html = "<p>作为军队的指挥官，你可以选择发射导弹杀死 <strong>" + low[a] + "</strong> 敌国士兵，但会误杀附近的 <strong>1名</strong> 敌国平民。</p> <p>平民照片如下图所示。</p> <p></p> " + "<img src='stimuli/faces/NCF8.jpg', style='max-width: 30%;'> </img>" + " <p><strong>你是否选择发射武器？</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1名", "2名", "3名", "4名", "5名"];
+            var hig = ["6名", "7名", "8名", "9名", "10名"];
+            a = Math.floor(random(1, 6) - 1);
+            var html = "<p>作为军队的指挥官，你可以选择发射导弹杀死 <strong>" + low[a] + "</strong> 敌国士兵，但会误杀附近的 <strong>1名</strong> 敌国平民。</p> <p>平民照片如下图所示。</p> <p></p> " + "<img src='stimuli/faces/NCM1.jpg', style='max-width: 30%;'> </img>" + " <p><strong>你是否选择发射武器？</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1名", "2名", "3名", "4名", "5名"];
+            var hig = ["6名", "7名", "8名", "9名", "10名"];
+            a = Math.floor(random(1, 6) - 1);
+            var html = "<p>作为军队的指挥官，你可以选择发射导弹杀死 <strong>" + low[a] + "</strong> 敌国士兵，但会误杀附近的 <strong>1名</strong> 敌国平民。</p> <p>平民照片如下图所示。</p> <p></p> " + "<img src='stimuli/faces/NCM2.jpg', style='max-width: 30%;'> </img>" + " <p><strong>你是否选择发射武器？</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1名", "2名", "3名", "4名", "5名"];
+            var hig = ["6名", "7名", "8名", "9名", "10名"];
+            a = Math.floor(random(1, 6) - 1);
+            var html = "<p>作为军队的指挥官，你可以选择发射导弹杀死 <strong>" + low[a] + "</strong> 敌国士兵，但会误杀附近的 <strong>1名</strong> 敌国平民。</p> <p>平民照片如下图所示。</p> <p></p> " + "<img src='stimuli/faces/NCM3.jpg', style='max-width: 30%;'> </img>" + " <p><strong>你是否选择发射武器？</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1名", "2名", "3名", "4名", "5名"];
+            var hig = ["6名", "7名", "8名", "9名", "10名"];
+            a = Math.floor(random(1, 6) - 1);
+            var html = "<p>作为军队的指挥官，你可以选择发射导弹杀死 <strong>" + low[a] + "</strong> 敌国士兵，但会误杀附近的 <strong>1名</strong> 敌国平民。</p> <p>平民照片如下图所示。</p> <p></p> " + "<img src='stimuli/faces/NCM4.jpg', style='max-width: 30%;'> </img>" + " <p><strong>你是否选择发射武器？</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1名", "2名", "3名", "4名", "5名"];
+            var hig = ["6名", "7名", "8名", "9名", "10名"];
+            a = Math.floor(random(1, 6) - 1);
+            var html = "<p>作为军队的指挥官，你可以选择发射导弹杀死 <strong>" + low[a] + "</strong> 敌国士兵，但会误杀附近的 <strong>1名</strong> 敌国平民。</p> <p>平民照片如下图所示。</p> <p></p> " + "<img src='stimuli/faces/NCM5.jpg', style='max-width: 30%;'> </img>" + " <p><strong>你是否选择发射武器？</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1名", "2名", "3名", "4名", "5名"];
+            var hig = ["6名", "7名", "8名", "9名", "10名"];
+            a = Math.floor(random(1, 6) - 1);
+            var html = "<p>作为军队的指挥官，你可以选择发射导弹杀死 <strong>" + low[a] + "</strong> 敌国士兵，但会误杀附近的 <strong>1名</strong> 敌国平民。</p> <p>平民照片如下图所示。</p> <p></p> " + "<img src='stimuli/faces/NCM6.jpg', style='max-width: 30%;'> </img>" + " <p><strong>你是否选择发射武器？</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1名", "2名", "3名", "4名", "5名"];
+            var hig = ["6名", "7名", "8名", "9名", "10名"];
+            a = Math.floor(random(1, 6) - 1);
+            var html = "<p>作为军队的指挥官，你可以选择发射导弹杀死 <strong>" + low[a] + "</strong> 敌国士兵，但会误杀附近的 <strong>1名</strong> 敌国平民。</p> <p>平民照片如下图所示。</p> <p></p> " + "<img src='stimuli/faces/NCM7.jpg', style='max-width: 30%;'> </img>" + " <p><strong>你是否选择发射武器？</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1名", "2名", "3名", "4名", "5名"];
+            var hig = ["6名", "7名", "8名", "9名", "10名"];
+            a = Math.floor(random(1, 6) - 1);
+            var html = "<p>作为军队的指挥官，你可以选择发射导弹杀死 <strong>" + low[a] + "</strong> 敌国士兵，但会误杀附近的 <strong>1名</strong> 敌国平民。</p> <p>平民照片如下图所示。</p> <p></p> " + "<img src='stimuli/faces/NCM8.jpg', style='max-width: 30%;'> </img>" + " <p><strong>你是否选择发射武器？</strong></p>";
+            return html;
+        }
+    },
+
+    /// high soldiers
+    {
+        stimulus: function () {
+            var low = ["1名", "2名", "3名", "4名", "5名"];
+            var hig = ["6名", "7名", "8名", "9名", "10名"];
+            a = Math.floor(random(1, 6) - 1);
+            var html = "<p>作为军队的指挥官，你可以选择发射导弹杀死 <strong>" + hig[a] + "</strong> 敌国士兵，但会误杀附近的 <strong>1名</strong> 敌国平民。</p> <p>平民照片如下图所示。</p> <p></p> " + "<img src='stimuli/faces/NCF1.jpg', style='max-width: 30%;'> </img>" + " <p><strong>你是否选择发射武器？</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1名", "2名", "3名", "4名", "5名"];
+            var hig = ["6名", "7名", "8名", "9名", "10名"];
+            a = Math.floor(random(1, 6) - 1);
+            var html = "<p>作为军队的指挥官，你可以选择发射导弹杀死 <strong>" + hig[a] + "</strong> 敌国士兵，但会误杀附近的 <strong>1名</strong> 敌国平民。</p> <p>平民照片如下图所示。</p> <p></p> " + "<img src='stimuli/faces/NCF2.jpg', style='max-width: 30%;'> </img>" + " <p><strong>你是否选择发射武器？</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1名", "2名", "3名", "4名", "5名"];
+            var hig = ["6名", "7名", "8名", "9名", "10名"];
+            a = Math.floor(random(1, 6) - 1);
+            var html = "<p>作为军队的指挥官，你可以选择发射导弹杀死 <strong>" + hig[a] + "</strong> 敌国士兵，但会误杀附近的 <strong>1名</strong> 敌国平民。</p> <p>平民照片如下图所示。</p> <p></p> " + "<img src='stimuli/faces/NCF3.jpg', style='max-width: 30%;'> </img>" + " <p><strong>你是否选择发射武器？</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1名", "2名", "3名", "4名", "5名"];
+            var hig = ["6名", "7名", "8名", "9名", "10名"];
+            a = Math.floor(random(1, 6) - 1);
+            var html = "<p>作为军队的指挥官，你可以选择发射导弹杀死 <strong>" + hig[a] + "</strong> 敌国士兵，但会误杀附近的 <strong>1名</strong> 敌国平民。</p> <p>平民照片如下图所示。</p> <p></p> " + "<img src='stimuli/faces/NCF4.jpg', style='max-width: 30%;'> </img>" + " <p><strong>你是否选择发射武器？</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1名", "2名", "3名", "4名", "5名"];
+            var hig = ["6名", "7名", "8名", "9名", "10名"];
+            a = Math.floor(random(1, 6) - 1);
+            var html = "<p>作为军队的指挥官，你可以选择发射导弹杀死 <strong>" + hig[a] + "</strong> 敌国士兵，但会误杀附近的 <strong>1名</strong> 敌国平民。</p> <p>平民照片如下图所示。</p> <p></p> " + "<img src='stimuli/faces/NCF5.jpg', style='max-width: 30%;'> </img>" + " <p><strong>你是否选择发射武器？</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1名", "2名", "3名", "4名", "5名"];
+            var hig = ["6名", "7名", "8名", "9名", "10名"];
+            a = Math.floor(random(1, 6) - 1);
+            var html = "<p>作为军队的指挥官，你可以选择发射导弹杀死 <strong>" + hig[a] + "</strong> 敌国士兵，但会误杀附近的 <strong>1名</strong> 敌国平民。</p> <p>平民照片如下图所示。</p> <p></p> " + "<img src='stimuli/faces/NCF6.jpg', style='max-width: 30%;'> </img>" + " <p><strong>你是否选择发射武器？</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1名", "2名", "3名", "4名", "5名"];
+            var hig = ["6名", "7名", "8名", "9名", "10名"];
+            a = Math.floor(random(1, 6) - 1);
+            var html = "<p>作为军队的指挥官，你可以选择发射导弹杀死 <strong>" + hig[a] + "</strong> 敌国士兵，但会误杀附近的 <strong>1名</strong> 敌国平民。</p> <p>平民照片如下图所示。</p> <p></p> " + "<img src='stimuli/faces/NCF7.jpg', style='max-width: 30%;'> </img>" + " <p><strong>你是否选择发射武器？</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1名", "2名", "3名", "4名", "5名"];
+            var hig = ["6名", "7名", "8名", "9名", "10名"];
+            a = Math.floor(random(1, 6) - 1);
+            var html = "<p>作为军队的指挥官，你可以选择发射导弹杀死 <strong>" + hig[a] + "</strong> 敌国士兵，但会误杀附近的 <strong>1名</strong> 敌国平民。</p> <p>平民照片如下图所示。</p> <p></p> " + "<img src='stimuli/faces/NCF8.jpg', style='max-width: 30%;'> </img>" + " <p><strong>你是否选择发射武器？</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1名", "2名", "3名", "4名", "5名"];
+            var hig = ["6名", "7名", "8名", "9名", "10名"];
+            a = Math.floor(random(1, 6) - 1);
+            var html = "<p>作为军队的指挥官，你可以选择发射导弹杀死 <strong>" + hig[a] + "</strong> 敌国士兵，但会误杀附近的 <strong>1名</strong> 敌国平民。</p> <p>平民照片如下图所示。</p> <p></p> " + "<img src='stimuli/faces/NCM1.jpg', style='max-width: 30%;'> </img>" + " <p><strong>你是否选择发射武器？</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1名", "2名", "3名", "4名", "5名"];
+            var hig = ["6名", "7名", "8名", "9名", "10名"];
+            a = Math.floor(random(1, 6) - 1);
+            var html = "<p>作为军队的指挥官，你可以选择发射导弹杀死 <strong>" + hig[a] + "</strong> 敌国士兵，但会误杀附近的 <strong>1名</strong> 敌国平民。</p> <p>平民照片如下图所示。</p> <p></p> " + "<img src='stimuli/faces/NCM2.jpg', style='max-width: 30%;'> </img>" + " <p><strong>你是否选择发射武器？</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1名", "2名", "3名", "4名", "5名"];
+            var hig = ["6名", "7名", "8名", "9名", "10名"];
+            a = Math.floor(random(1, 6) - 1);
+            var html = "<p>作为军队的指挥官，你可以选择发射导弹杀死 <strong>" + hig[a] + "</strong> 敌国士兵，但会误杀附近的 <strong>1名</strong> 敌国平民。</p> <p>平民照片如下图所示。</p> <p></p> " + "<img src='stimuli/faces/NCM3.jpg', style='max-width: 30%;'> </img>" + " <p><strong>你是否选择发射武器？</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1名", "2名", "3名", "4名", "5名"];
+            var hig = ["6名", "7名", "8名", "9名", "10名"];
+            a = Math.floor(random(1, 6) - 1);
+            var html = "<p>作为军队的指挥官，你可以选择发射导弹杀死 <strong>" + hig[a] + "</strong> 敌国士兵，但会误杀附近的 <strong>1名</strong> 敌国平民。</p> <p>平民照片如下图所示。</p> <p></p> " + "<img src='stimuli/faces/NCM4.jpg', style='max-width: 30%;'> </img>" + " <p><strong>你是否选择发射武器？</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1名", "2名", "3名", "4名", "5名"];
+            var hig = ["6名", "7名", "8名", "9名", "10名"];
+            a = Math.floor(random(1, 6) - 1);
+            var html = "<p>作为军队的指挥官，你可以选择发射导弹杀死 <strong>" + hig[a] + "</strong> 敌国士兵，但会误杀附近的 <strong>1名</strong> 敌国平民。</p> <p>平民照片如下图所示。</p> <p></p> " + "<img src='stimuli/faces/NCM5.jpg', style='max-width: 30%;'> </img>" + " <p><strong>你是否选择发射武器？</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1名", "2名", "3名", "4名", "5名"];
+            var hig = ["6名", "7名", "8名", "9名", "10名"];
+            a = Math.floor(random(1, 6) - 1);
+            var html = "<p>作为军队的指挥官，你可以选择发射导弹杀死 <strong>" + hig[a] + "</strong> 敌国士兵，但会误杀附近的 <strong>1名</strong> 敌国平民。</p> <p>平民照片如下图所示。</p> <p></p> " + "<img src='stimuli/faces/NCM6.jpg', style='max-width: 30%;'> </img>" + " <p><strong>你是否选择发射武器？</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1名", "2名", "3名", "4名", "5名"];
+            var hig = ["6名", "7名", "8名", "9名", "10名"];
+            a = Math.floor(random(1, 6) - 1);
+            var html = "<p>作为军队的指挥官，你可以选择发射导弹杀死 <strong>" + hig[a] + "</strong> 敌国士兵，但会误杀附近的 <strong>1名</strong> 敌国平民。</p> <p>平民照片如下图所示。</p> <p></p> " + "<img src='stimuli/faces/NCM7.jpg', style='max-width: 30%;'> </img>" + " <p><strong>你是否选择发射武器？</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1名", "2名", "3名", "4名", "5名"];
+            var hig = ["6名", "7名", "8名", "9名", "10名"];
+            a = Math.floor(random(1, 6) - 1);
+            var html = "<p>作为军队的指挥官，你可以选择发射导弹杀死 <strong>" + hig[a] + "</strong> 敌国士兵，但会误杀附近的 <strong>1名</strong> 敌国平民。</p> <p>平民照片如下图所示。</p> <p></p> " + "<img src='stimuli/faces/NCM8.jpg', style='max-width: 30%;'> </img>" + " <p><strong>你是否选择发射武器？</strong></p>";
+            return html;
+        }
+    },
+
+];
+
+var stimuli_caucasian = [
+
+    /// low soldiers
+    {
+        stimulus: function () {
+            var low = ["1名", "2名", "3名", "4名", "5名"];
+            var hig = ["6名", "7名", "8名", "9名", "10名"];
+            a = Math.floor(random(1, 6) - 1);
+            var html = "<p>作为军队的指挥官，你可以选择发射导弹杀死 <strong>" + low[a] + "</strong> 敌国士兵，但会误杀附近的 <strong>1名</strong> 敌国平民。</p> <p>平民照片如下图所示。</p> <p></p> " + "<img src='stimuli/faces/NFF1.jpg', style='max-width: 30%;'> </img>" + " <p><strong>你是否选择发射武器？</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1名", "2名", "3名", "4名", "5名"];
+            var hig = ["6名", "7名", "8名", "9名", "10名"];
+            a = Math.floor(random(1, 6) - 1);
+            var html = "<p>作为军队的指挥官，你可以选择发射导弹杀死 <strong>" + low[a] + "</strong> 敌国士兵，但会误杀附近的 <strong>1名</strong> 敌国平民。</p> <p>平民照片如下图所示。</p> <p></p> " + "<img src='stimuli/faces/NFF2.jpg', style='max-width: 30%;'> </img>" + " <p><strong>你是否选择发射武器？</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1名", "2名", "3名", "4名", "5名"];
+            var hig = ["6名", "7名", "8名", "9名", "10名"];
+            a = Math.floor(random(1, 6) - 1);
+            var html = "<p>作为军队的指挥官，你可以选择发射导弹杀死 <strong>" + low[a] + "</strong> 敌国士兵，但会误杀附近的 <strong>1名</strong> 敌国平民。</p> <p>平民照片如下图所示。</p> <p></p> " + "<img src='stimuli/faces/NFF3.jpg', style='max-width: 30%;'> </img>" + " <p><strong>你是否选择发射武器？</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1名", "2名", "3名", "4名", "5名"];
+            var hig = ["6名", "7名", "8名", "9名", "10名"];
+            a = Math.floor(random(1, 6) - 1);
+            var html = "<p>作为军队的指挥官，你可以选择发射导弹杀死 <strong>" + low[a] + "</strong> 敌国士兵，但会误杀附近的 <strong>1名</strong> 敌国平民。</p> <p>平民照片如下图所示。</p> <p></p> " + "<img src='stimuli/faces/NFF4.jpg', style='max-width: 30%;'> </img>" + " <p><strong>你是否选择发射武器？</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1名", "2名", "3名", "4名", "5名"];
+            var hig = ["6名", "7名", "8名", "9名", "10名"];
+            a = Math.floor(random(1, 6) - 1);
+            var html = "<p>作为军队的指挥官，你可以选择发射导弹杀死 <strong>" + low[a] + "</strong> 敌国士兵，但会误杀附近的 <strong>1名</strong> 敌国平民。</p> <p>平民照片如下图所示。</p> <p></p> " + "<img src='stimuli/faces/NFF5.jpg', style='max-width: 30%;'> </img>" + " <p><strong>你是否选择发射武器？</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1名", "2名", "3名", "4名", "5名"];
+            var hig = ["6名", "7名", "8名", "9名", "10名"];
+            a = Math.floor(random(1, 6) - 1);
+            var html = "<p>作为军队的指挥官，你可以选择发射导弹杀死 <strong>" + low[a] + "</strong> 敌国士兵，但会误杀附近的 <strong>1名</strong> 敌国平民。</p> <p>平民照片如下图所示。</p> <p></p> " + "<img src='stimuli/faces/NFF6.jpg', style='max-width: 30%;'> </img>" + " <p><strong>你是否选择发射武器？</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1名", "2名", "3名", "4名", "5名"];
+            var hig = ["6名", "7名", "8名", "9名", "10名"];
+            a = Math.floor(random(1, 6) - 1);
+            var html = "<p>作为军队的指挥官，你可以选择发射导弹杀死 <strong>" + low[a] + "</strong> 敌国士兵，但会误杀附近的 <strong>1名</strong> 敌国平民。</p> <p>平民照片如下图所示。</p> <p></p> " + "<img src='stimuli/faces/NFF7.jpg', style='max-width: 30%;'> </img>" + " <p><strong>你是否选择发射武器？</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1名", "2名", "3名", "4名", "5名"];
+            var hig = ["6名", "7名", "8名", "9名", "10名"];
+            a = Math.floor(random(1, 6) - 1);
+            var html = "<p>作为军队的指挥官，你可以选择发射导弹杀死 <strong>" + low[a] + "</strong> 敌国士兵，但会误杀附近的 <strong>1名</strong> 敌国平民。</p> <p>平民照片如下图所示。</p> <p></p> " + "<img src='stimuli/faces/NFF8.jpg', style='max-width: 30%;'> </img>" + " <p><strong>你是否选择发射武器？</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1名", "2名", "3名", "4名", "5名"];
+            var hig = ["6名", "7名", "8名", "9名", "10名"];
+            a = Math.floor(random(1, 6) - 1);
+            var html = "<p>作为军队的指挥官，你可以选择发射导弹杀死 <strong>" + low[a] + "</strong> 敌国士兵，但会误杀附近的 <strong>1名</strong> 敌国平民。</p> <p>平民照片如下图所示。</p> <p></p> " + "<img src='stimuli/faces/NFM1.jpg', style='max-width: 30%;'> </img>" + " <p><strong>你是否选择发射武器？</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1名", "2名", "3名", "4名", "5名"];
+            var hig = ["6名", "7名", "8名", "9名", "10名"];
+            a = Math.floor(random(1, 6) - 1);
+            var html = "<p>作为军队的指挥官，你可以选择发射导弹杀死 <strong>" + low[a] + "</strong> 敌国士兵，但会误杀附近的 <strong>1名</strong> 敌国平民。</p> <p>平民照片如下图所示。</p> <p></p> " + "<img src='stimuli/faces/NFM2.jpg', style='max-width: 30%;'> </img>" + " <p><strong>你是否选择发射武器？</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1名", "2名", "3名", "4名", "5名"];
+            var hig = ["6名", "7名", "8名", "9名", "10名"];
+            a = Math.floor(random(1, 6) - 1);
+            var html = "<p>作为军队的指挥官，你可以选择发射导弹杀死 <strong>" + low[a] + "</strong> 敌国士兵，但会误杀附近的 <strong>1名</strong> 敌国平民。</p> <p>平民照片如下图所示。</p> <p></p> " + "<img src='stimuli/faces/NFM3.jpg', style='max-width: 30%;'> </img>" + " <p><strong>你是否选择发射武器？</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1名", "2名", "3名", "4名", "5名"];
+            var hig = ["6名", "7名", "8名", "9名", "10名"];
+            a = Math.floor(random(1, 6) - 1);
+            var html = "<p>作为军队的指挥官，你可以选择发射导弹杀死 <strong>" + low[a] + "</strong> 敌国士兵，但会误杀附近的 <strong>1名</strong> 敌国平民。</p> <p>平民照片如下图所示。</p> <p></p> " + "<img src='stimuli/faces/NFM4.jpg', style='max-width: 30%;'> </img>" + " <p><strong>你是否选择发射武器？</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1名", "2名", "3名", "4名", "5名"];
+            var hig = ["6名", "7名", "8名", "9名", "10名"];
+            a = Math.floor(random(1, 6) - 1);
+            var html = "<p>作为军队的指挥官，你可以选择发射导弹杀死 <strong>" + low[a] + "</strong> 敌国士兵，但会误杀附近的 <strong>1名</strong> 敌国平民。</p> <p>平民照片如下图所示。</p> <p></p> " + "<img src='stimuli/faces/NFM5.jpg', style='max-width: 30%;'> </img>" + " <p><strong>你是否选择发射武器？</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1名", "2名", "3名", "4名", "5名"];
+            var hig = ["6名", "7名", "8名", "9名", "10名"];
+            a = Math.floor(random(1, 6) - 1);
+            var html = "<p>作为军队的指挥官，你可以选择发射导弹杀死 <strong>" + low[a] + "</strong> 敌国士兵，但会误杀附近的 <strong>1名</strong> 敌国平民。</p> <p>平民照片如下图所示。</p> <p></p> " + "<img src='stimuli/faces/NFM6.jpg', style='max-width: 30%;'> </img>" + " <p><strong>你是否选择发射武器？</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1名", "2名", "3名", "4名", "5名"];
+            var hig = ["6名", "7名", "8名", "9名", "10名"];
+            a = Math.floor(random(1, 6) - 1);
+            var html = "<p>作为军队的指挥官，你可以选择发射导弹杀死 <strong>" + low[a] + "</strong> 敌国士兵，但会误杀附近的 <strong>1名</strong> 敌国平民。</p> <p>平民照片如下图所示。</p> <p></p> " + "<img src='stimuli/faces/NFM7.jpg', style='max-width: 30%;'> </img>" + " <p><strong>你是否选择发射武器？</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1名", "2名", "3名", "4名", "5名"];
+            var hig = ["6名", "7名", "8名", "9名", "10名"];
+            a = Math.floor(random(1, 6) - 1);
+            var html = "<p>作为军队的指挥官，你可以选择发射导弹杀死 <strong>" + low[a] + "</strong> 敌国士兵，但会误杀附近的 <strong>1名</strong> 敌国平民。</p> <p>平民照片如下图所示。</p> <p></p> " + "<img src='stimuli/faces/NFM8.jpg', style='max-width: 30%;'> </img>" + " <p><strong>你是否选择发射武器？</strong></p>";
+            return html;
+        }
+    },
+
+    /// high soldiers
+    {
+        stimulus: function () {
+            var low = ["1名", "2名", "3名", "4名", "5名"];
+            var hig = ["6名", "7名", "8名", "9名", "10名"];
+            a = Math.floor(random(1, 6) - 1);
+            var html = "<p>作为军队的指挥官，你可以选择发射导弹杀死 <strong>" + hig[a] + "</strong> 敌国士兵，但会误杀附近的 <strong>1名</strong> 敌国平民。</p> <p>平民照片如下图所示。</p> <p></p> " + "<img src='stimuli/faces/NFF1.jpg', style='max-width: 30%;'> </img>" + " <p><strong>你是否选择发射武器？</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1名", "2名", "3名", "4名", "5名"];
+            var hig = ["6名", "7名", "8名", "9名", "10名"];
+            a = Math.floor(random(1, 6) - 1);
+            var html = "<p>作为军队的指挥官，你可以选择发射导弹杀死 <strong>" + hig[a] + "</strong> 敌国士兵，但会误杀附近的 <strong>1名</strong> 敌国平民。</p> <p>平民照片如下图所示。</p> <p></p> " + "<img src='stimuli/faces/NFF2.jpg', style='max-width: 30%;'> </img>" + " <p><strong>你是否选择发射武器？</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1名", "2名", "3名", "4名", "5名"];
+            var hig = ["6名", "7名", "8名", "9名", "10名"];
+            a = Math.floor(random(1, 6) - 1);
+            var html = "<p>作为军队的指挥官，你可以选择发射导弹杀死 <strong>" + hig[a] + "</strong> 敌国士兵，但会误杀附近的 <strong>1名</strong> 敌国平民。</p> <p>平民照片如下图所示。</p> <p></p> " + "<img src='stimuli/faces/NFF3.jpg', style='max-width: 30%;'> </img>" + " <p><strong>你是否选择发射武器？</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1名", "2名", "3名", "4名", "5名"];
+            var hig = ["6名", "7名", "8名", "9名", "10名"];
+            a = Math.floor(random(1, 6) - 1);
+            var html = "<p>作为军队的指挥官，你可以选择发射导弹杀死 <strong>" + hig[a] + "</strong> 敌国士兵，但会误杀附近的 <strong>1名</strong> 敌国平民。</p> <p>平民照片如下图所示。</p> <p></p> " + "<img src='stimuli/faces/NFF4.jpg', style='max-width: 30%;'> </img>" + " <p><strong>你是否选择发射武器？</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1名", "2名", "3名", "4名", "5名"];
+            var hig = ["6名", "7名", "8名", "9名", "10名"];
+            a = Math.floor(random(1, 6) - 1);
+            var html = "<p>作为军队的指挥官，你可以选择发射导弹杀死 <strong>" + hig[a] + "</strong> 敌国士兵，但会误杀附近的 <strong>1名</strong> 敌国平民。</p> <p>平民照片如下图所示。</p> <p></p> " + "<img src='stimuli/faces/NFF5.jpg', style='max-width: 30%;'> </img>" + " <p><strong>你是否选择发射武器？</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1名", "2名", "3名", "4名", "5名"];
+            var hig = ["6名", "7名", "8名", "9名", "10名"];
+            a = Math.floor(random(1, 6) - 1);
+            var html = "<p>作为军队的指挥官，你可以选择发射导弹杀死 <strong>" + hig[a] + "</strong> 敌国士兵，但会误杀附近的 <strong>1名</strong> 敌国平民。</p> <p>平民照片如下图所示。</p> <p></p> " + "<img src='stimuli/faces/NFF6.jpg', style='max-width: 30%;'> </img>" + " <p><strong>你是否选择发射武器？</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1名", "2名", "3名", "4名", "5名"];
+            var hig = ["6名", "7名", "8名", "9名", "10名"];
+            a = Math.floor(random(1, 6) - 1);
+            var html = "<p>作为军队的指挥官，你可以选择发射导弹杀死 <strong>" + hig[a] + "</strong> 敌国士兵，但会误杀附近的 <strong>1名</strong> 敌国平民。</p> <p>平民照片如下图所示。</p> <p></p> " + "<img src='stimuli/faces/NFF7.jpg', style='max-width: 30%;'> </img>" + " <p><strong>你是否选择发射武器？</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1名", "2名", "3名", "4名", "5名"];
+            var hig = ["6名", "7名", "8名", "9名", "10名"];
+            a = Math.floor(random(1, 6) - 1);
+            var html = "<p>作为军队的指挥官，你可以选择发射导弹杀死 <strong>" + hig[a] + "</strong> 敌国士兵，但会误杀附近的 <strong>1名</strong> 敌国平民。</p> <p>平民照片如下图所示。</p> <p></p> " + "<img src='stimuli/faces/NFF8.jpg', style='max-width: 30%;'> </img>" + " <p><strong>你是否选择发射武器？</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1名", "2名", "3名", "4名", "5名"];
+            var hig = ["6名", "7名", "8名", "9名", "10名"];
+            a = Math.floor(random(1, 6) - 1);
+            var html = "<p>作为军队的指挥官，你可以选择发射导弹杀死 <strong>" + hig[a] + "</strong> 敌国士兵，但会误杀附近的 <strong>1名</strong> 敌国平民。</p> <p>平民照片如下图所示。</p> <p></p> " + "<img src='stimuli/faces/NFM1.jpg', style='max-width: 30%;'> </img>" + " <p><strong>你是否选择发射武器？</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1名", "2名", "3名", "4名", "5名"];
+            var hig = ["6名", "7名", "8名", "9名", "10名"];
+            a = Math.floor(random(1, 6) - 1);
+            var html = "<p>作为军队的指挥官，你可以选择发射导弹杀死 <strong>" + hig[a] + "</strong> 敌国士兵，但会误杀附近的 <strong>1名</strong> 敌国平民。</p> <p>平民照片如下图所示。</p> <p></p> " + "<img src='stimuli/faces/NFM2.jpg', style='max-width: 30%;'> </img>" + " <p><strong>你是否选择发射武器？</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1名", "2名", "3名", "4名", "5名"];
+            var hig = ["6名", "7名", "8名", "9名", "10名"];
+            a = Math.floor(random(1, 6) - 1);
+            var html = "<p>作为军队的指挥官，你可以选择发射导弹杀死 <strong>" + hig[a] + "</strong> 敌国士兵，但会误杀附近的 <strong>1名</strong> 敌国平民。</p> <p>平民照片如下图所示。</p> <p></p> " + "<img src='stimuli/faces/NFM3.jpg', style='max-width: 30%;'> </img>" + " <p><strong>你是否选择发射武器？</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1名", "2名", "3名", "4名", "5名"];
+            var hig = ["6名", "7名", "8名", "9名", "10名"];
+            a = Math.floor(random(1, 6) - 1);
+            var html = "<p>作为军队的指挥官，你可以选择发射导弹杀死 <strong>" + hig[a] + "</strong> 敌国士兵，但会误杀附近的 <strong>1名</strong> 敌国平民。</p> <p>平民照片如下图所示。</p> <p></p> " + "<img src='stimuli/faces/NFM4.jpg', style='max-width: 30%;'> </img>" + " <p><strong>你是否选择发射武器？</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1名", "2名", "3名", "4名", "5名"];
+            var hig = ["6名", "7名", "8名", "9名", "10名"];
+            a = Math.floor(random(1, 6) - 1);
+            var html = "<p>作为军队的指挥官，你可以选择发射导弹杀死 <strong>" + hig[a] + "</strong> 敌国士兵，但会误杀附近的 <strong>1名</strong> 敌国平民。</p> <p>平民照片如下图所示。</p> <p></p> " + "<img src='stimuli/faces/NFM5.jpg', style='max-width: 30%;'> </img>" + " <p><strong>你是否选择发射武器？</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1名", "2名", "3名", "4名", "5名"];
+            var hig = ["6名", "7名", "8名", "9名", "10名"];
+            a = Math.floor(random(1, 6) - 1);
+            var html = "<p>作为军队的指挥官，你可以选择发射导弹杀死 <strong>" + hig[a] + "</strong> 敌国士兵，但会误杀附近的 <strong>1名</strong> 敌国平民。</p> <p>平民照片如下图所示。</p> <p></p> " + "<img src='stimuli/faces/NFM6.jpg', style='max-width: 30%;'> </img>" + " <p><strong>你是否选择发射武器？</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1名", "2名", "3名", "4名", "5名"];
+            var hig = ["6名", "7名", "8名", "9名", "10名"];
+            a = Math.floor(random(1, 6) - 1);
+            var html = "<p>作为军队的指挥官，你可以选择发射导弹杀死 <strong>" + hig[a] + "</strong> 敌国士兵，但会误杀附近的 <strong>1名</strong> 敌国平民。</p> <p>平民照片如下图所示。</p> <p></p> " + "<img src='stimuli/faces/NFM7.jpg', style='max-width: 30%;'> </img>" + " <p><strong>你是否选择发射武器？</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1名", "2名", "3名", "4名", "5名"];
+            var hig = ["6名", "7名", "8名", "9名", "10名"];
+            a = Math.floor(random(1, 6) - 1);
+            var html = "<p>作为军队的指挥官，你可以选择发射导弹杀死 <strong>" + hig[a] + "</strong> 敌国士兵，但会误杀附近的 <strong>1名</strong> 敌国平民。</p> <p>平民照片如下图所示。</p> <p></p> " + "<img src='stimuli/faces/NFM8.jpg', style='max-width: 30%;'> </img>" + " <p><strong>你是否选择发射武器？</strong></p>";
+            return html;
+        }
+    },
+
+];
+
+
+var stimuli_tree = [
+    {
+        stimulus: function () {
+            var low = ["1名", "2名", "3名", "4名", "5名"];
+            var hig = ["6名", "7名", "8名", "9名", "10名"];
+            a = Math.floor(random(1, 6) - 1);
+            var html = "<p>作为军队的指挥官，你可以选择发射导弹杀死 <strong>" + low[a] + "</strong> 敌国士兵，但会炸毁附近的 <strong>1棵</strong> 敌国树木。</p> <p>树木的照片如下图所示。</p> <p></p> " + "<img src='stimuli/trees/1.png', style='max-width: 30%;'> </img>" + " <p><strong>你是否选择发射武器？</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1名", "2名", "3名", "4名", "5名"];
+            var hig = ["6名", "7名", "8名", "9名", "10名"];
+            a = Math.floor(random(1, 6) - 1);
+            var html = "<p>作为军队的指挥官，你可以选择发射导弹杀死 <strong>" + low[a] + "</strong> 敌国士兵，但会炸毁附近的 <strong>1棵</strong> 敌国树木。</p> <p>树木的照片如下图所示。</p> <p></p> " + "<img src='stimuli/trees/2.png', style='max-width: 30%;'> </img>" + " <p><strong>你是否选择发射武器？</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1名", "2名", "3名", "4名", "5名"];
+            var hig = ["6名", "7名", "8名", "9名", "10名"];
+            a = Math.floor(random(1, 6) - 1);
+            var html = "<p>作为军队的指挥官，你可以选择发射导弹杀死 <strong>" + low[a] + "</strong> 敌国士兵，但会炸毁附近的 <strong>1棵</strong> 敌国树木。</p> <p>树木的照片如下图所示。</p> <p></p> " + "<img src='stimuli/trees/3.png', style='max-width: 30%;'> </img>" + " <p><strong>你是否选择发射武器？</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1名", "2名", "3名", "4名", "5名"];
+            var hig = ["6名", "7名", "8名", "9名", "10名"];
+            a = Math.floor(random(1, 6) - 1);
+            var html = "<p>作为军队的指挥官，你可以选择发射导弹杀死 <strong>" + low[a] + "</strong> 敌国士兵，但会炸毁附近的 <strong>1棵</strong> 敌国树木。</p> <p>树木的照片如下图所示。</p> <p></p> " + "<img src='stimuli/trees/4.png', style='max-width: 30%;'> </img>" + " <p><strong>你是否选择发射武器？</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1名", "2名", "3名", "4名", "5名"];
+            var hig = ["6名", "7名", "8名", "9名", "10名"];
+            a = Math.floor(random(1, 6) - 1);
+            var html = "<p>作为军队的指挥官，你可以选择发射导弹杀死 <strong>" + low[a] + "</strong> 敌国士兵，但会炸毁附近的 <strong>1棵</strong> 敌国树木。</p> <p>树木的照片如下图所示。</p> <p></p> " + "<img src='stimuli/trees/5.png', style='max-width: 30%;'> </img>" + " <p><strong>你是否选择发射武器？</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1名", "2名", "3名", "4名", "5名"];
+            var hig = ["6名", "7名", "8名", "9名", "10名"];
+            a = Math.floor(random(1, 6) - 1);
+            var html = "<p>作为军队的指挥官，你可以选择发射导弹杀死 <strong>" + low[a] + "</strong> 敌国士兵，但会炸毁附近的 <strong>1棵</strong> 敌国树木。</p> <p>树木的照片如下图所示。</p> <p></p> " + "<img src='stimuli/trees/6.png', style='max-width: 30%;'> </img>" + " <p><strong>你是否选择发射武器？</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1名", "2名", "3名", "4名", "5名"];
+            var hig = ["6名", "7名", "8名", "9名", "10名"];
+            a = Math.floor(random(1, 6) - 1);
+            var html = "<p>作为军队的指挥官，你可以选择发射导弹杀死 <strong>" + low[a] + "</strong> 敌国士兵，但会炸毁附近的 <strong>1棵</strong> 敌国树木。</p> <p>树木的照片如下图所示。</p> <p></p> " + "<img src='stimuli/trees/7.png', style='max-width: 30%;'> </img>" + " <p><strong>你是否选择发射武器？</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1名", "2名", "3名", "4名", "5名"];
+            var hig = ["6名", "7名", "8名", "9名", "10名"];
+            a = Math.floor(random(1, 6) - 1);
+            var html = "<p>作为军队的指挥官，你可以选择发射导弹杀死 <strong>" + low[a] + "</strong> 敌国士兵，但会炸毁附近的 <strong>1棵</strong> 敌国树木。</p> <p>树木的照片如下图所示。</p> <p></p> " + "<img src='stimuli/trees/8.png', style='max-width: 30%;'> </img>" + " <p><strong>你是否选择发射武器？</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1名", "2名", "3名", "4名", "5名"];
+            var hig = ["6名", "7名", "8名", "9名", "10名"];
+            a = Math.floor(random(1, 6) - 1);
+            var html = "<p>作为军队的指挥官，你可以选择发射导弹杀死 <strong>" + low[a] + "</strong> 敌国士兵，但会炸毁附近的 <strong>1棵</strong> 敌国树木。</p> <p>树木的照片如下图所示。</p> <p></p> " + "<img src='stimuli/trees/9.png', style='max-width: 30%;'> </img>" + " <p><strong>你是否选择发射武器？</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1名", "2名", "3名", "4名", "5名"];
+            var hig = ["6名", "7名", "8名", "9名", "10名"];
+            a = Math.floor(random(1, 6) - 1);
+            var html = "<p>作为军队的指挥官，你可以选择发射导弹杀死 <strong>" + low[a] + "</strong> 敌国士兵，但会炸毁附近的 <strong>1棵</strong> 敌国树木。</p> <p>树木的照片如下图所示。</p> <p></p> " + "<img src='stimuli/trees/10.png', style='max-width: 30%;'> </img>" + " <p><strong>你是否选择发射武器？</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1名", "2名", "3名", "4名", "5名"];
+            var hig = ["6名", "7名", "8名", "9名", "10名"];
+            a = Math.floor(random(1, 6) - 1);
+            var html = "<p>作为军队的指挥官，你可以选择发射导弹杀死 <strong>" + low[a] + "</strong> 敌国士兵，但会炸毁附近的 <strong>1棵</strong> 敌国树木。</p> <p>树木的照片如下图所示。</p> <p></p> " + "<img src='stimuli/trees/11.png', style='max-width: 30%;'> </img>" + " <p><strong>你是否选择发射武器？</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1名", "2名", "3名", "4名", "5名"];
+            var hig = ["6名", "7名", "8名", "9名", "10名"];
+            a = Math.floor(random(1, 6) - 1);
+            var html = "<p>作为军队的指挥官，你可以选择发射导弹杀死 <strong>" + low[a] + "</strong> 敌国士兵，但会炸毁附近的 <strong>1棵</strong> 敌国树木。</p> <p>树木的照片如下图所示。</p> <p></p> " + "<img src='stimuli/trees/12.png', style='max-width: 30%;'> </img>" + " <p><strong>你是否选择发射武器？</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1名", "2名", "3名", "4名", "5名"];
+            var hig = ["6名", "7名", "8名", "9名", "10名"];
+            a = Math.floor(random(1, 6) - 1);
+            var html = "<p>作为军队的指挥官，你可以选择发射导弹杀死 <strong>" + low[a] + "</strong> 敌国士兵，但会炸毁附近的 <strong>1棵</strong> 敌国树木。</p> <p>树木的照片如下图所示。</p> <p></p> " + "<img src='stimuli/trees/13.png', style='max-width: 30%;'> </img>" + " <p><strong>你是否选择发射武器？</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1名", "2名", "3名", "4名", "5名"];
+            var hig = ["6名", "7名", "8名", "9名", "10名"];
+            a = Math.floor(random(1, 6) - 1);
+            var html = "<p>作为军队的指挥官，你可以选择发射导弹杀死 <strong>" + low[a] + "</strong> 敌国士兵，但会炸毁附近的 <strong>1棵</strong> 敌国树木。</p> <p>树木的照片如下图所示。</p> <p></p> " + "<img src='stimuli/trees/14.png', style='max-width: 30%;'> </img>" + " <p><strong>你是否选择发射武器？</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1名", "2名", "3名", "4名", "5名"];
+            var hig = ["6名", "7名", "8名", "9名", "10名"];
+            a = Math.floor(random(1, 6) - 1);
+            var html = "<p>作为军队的指挥官，你可以选择发射导弹杀死 <strong>" + low[a] + "</strong> 敌国士兵，但会炸毁附近的 <strong>1棵</strong> 敌国树木。</p> <p>树木的照片如下图所示。</p> <p></p> " + "<img src='stimuli/trees/15.png', style='max-width: 30%;'> </img>" + " <p><strong>你是否选择发射武器？</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1名", "2名", "3名", "4名", "5名"];
+            var hig = ["6名", "7名", "8名", "9名", "10名"];
+            a = Math.floor(random(1, 6) - 1);
+            var html = "<p>作为军队的指挥官，你可以选择发射导弹杀死 <strong>" + low[a] + "</strong> 敌国士兵，但会炸毁附近的 <strong>1棵</strong> 敌国树木。</p> <p>树木的照片如下图所示。</p> <p></p> " + "<img src='stimuli/trees/16.png', style='max-width: 30%;'> </img>" + " <p><strong>你是否选择发射武器？</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1名", "2名", "3名", "4名", "5名"];
+            var hig = ["6名", "7名", "8名", "9名", "10名"];
+            a = Math.floor(random(1, 6) - 1);
+            var html = "<p>作为军队的指挥官，你可以选择发射导弹杀死 <strong>" + hig[a] + "</strong> 敌国士兵，但会炸毁附近的 <strong>1棵</strong> 敌国树木。</p> <p>树木的照片如下图所示。</p> <p></p> " + "<img src='stimuli/trees/1.png', style='max-width: 30%;'> </img>" + " <p><strong>你是否选择发射武器？</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1名", "2名", "3名", "4名", "5名"];
+            var hig = ["6名", "7名", "8名", "9名", "10名"];
+            a = Math.floor(random(1, 6) - 1);
+            var html = "<p>作为军队的指挥官，你可以选择发射导弹杀死 <strong>" + hig[a] + "</strong> 敌国士兵，但会炸毁附近的 <strong>1棵</strong> 敌国树木。</p> <p>树木的照片如下图所示。</p> <p></p> " + "<img src='stimuli/trees/2.png', style='max-width: 30%;'> </img>" + " <p><strong>你是否选择发射武器？</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1名", "2名", "3名", "4名", "5名"];
+            var hig = ["6名", "7名", "8名", "9名", "10名"];
+            a = Math.floor(random(1, 6) - 1);
+            var html = "<p>作为军队的指挥官，你可以选择发射导弹杀死 <strong>" + hig[a] + "</strong> 敌国士兵，但会炸毁附近的 <strong>1棵</strong> 敌国树木。</p> <p>树木的照片如下图所示。</p> <p></p> " + "<img src='stimuli/trees/3.png', style='max-width: 30%;'> </img>" + " <p><strong>你是否选择发射武器？</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1名", "2名", "3名", "4名", "5名"];
+            var hig = ["6名", "7名", "8名", "9名", "10名"];
+            a = Math.floor(random(1, 6) - 1);
+            var html = "<p>作为军队的指挥官，你可以选择发射导弹杀死 <strong>" + hig[a] + "</strong> 敌国士兵，但会炸毁附近的 <strong>1棵</strong> 敌国树木。</p> <p>树木的照片如下图所示。</p> <p></p> " + "<img src='stimuli/trees/4.png', style='max-width: 30%;'> </img>" + " <p><strong>你是否选择发射武器？</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1名", "2名", "3名", "4名", "5名"];
+            var hig = ["6名", "7名", "8名", "9名", "10名"];
+            a = Math.floor(random(1, 6) - 1);
+            var html = "<p>作为军队的指挥官，你可以选择发射导弹杀死 <strong>" + hig[a] + "</strong> 敌国士兵，但会炸毁附近的 <strong>1棵</strong> 敌国树木。</p> <p>树木的照片如下图所示。</p> <p></p> " + "<img src='stimuli/trees/5.png', style='max-width: 30%;'> </img>" + " <p><strong>你是否选择发射武器？</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1名", "2名", "3名", "4名", "5名"];
+            var hig = ["6名", "7名", "8名", "9名", "10名"];
+            a = Math.floor(random(1, 6) - 1);
+            var html = "<p>作为军队的指挥官，你可以选择发射导弹杀死 <strong>" + hig[a] + "</strong> 敌国士兵，但会炸毁附近的 <strong>1棵</strong> 敌国树木。</p> <p>树木的照片如下图所示。</p> <p></p> " + "<img src='stimuli/trees/6.png', style='max-width: 30%;'> </img>" + " <p><strong>你是否选择发射武器？</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1名", "2名", "3名", "4名", "5名"];
+            var hig = ["6名", "7名", "8名", "9名", "10名"];
+            a = Math.floor(random(1, 6) - 1);
+            var html = "<p>作为军队的指挥官，你可以选择发射导弹杀死 <strong>" + hig[a] + "</strong> 敌国士兵，但会炸毁附近的 <strong>1棵</strong> 敌国树木。</p> <p>树木的照片如下图所示。</p> <p></p> " + "<img src='stimuli/trees/7.png', style='max-width: 30%;'> </img>" + " <p><strong>你是否选择发射武器？</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1名", "2名", "3名", "4名", "5名"];
+            var hig = ["6名", "7名", "8名", "9名", "10名"];
+            a = Math.floor(random(1, 6) - 1);
+            var html = "<p>作为军队的指挥官，你可以选择发射导弹杀死 <strong>" + hig[a] + "</strong> 敌国士兵，但会炸毁附近的 <strong>1棵</strong> 敌国树木。</p> <p>树木的照片如下图所示。</p> <p></p> " + "<img src='stimuli/trees/8.png', style='max-width: 30%;'> </img>" + " <p><strong>你是否选择发射武器？</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1名", "2名", "3名", "4名", "5名"];
+            var hig = ["6名", "7名", "8名", "9名", "10名"];
+            a = Math.floor(random(1, 6) - 1);
+            var html = "<p>作为军队的指挥官，你可以选择发射导弹杀死 <strong>" + hig[a] + "</strong> 敌国士兵，但会炸毁附近的 <strong>1棵</strong> 敌国树木。</p> <p>树木的照片如下图所示。</p> <p></p> " + "<img src='stimuli/trees/9.png', style='max-width: 30%;'> </img>" + " <p><strong>你是否选择发射武器？</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1名", "2名", "3名", "4名", "5名"];
+            var hig = ["6名", "7名", "8名", "9名", "10名"];
+            a = Math.floor(random(1, 6) - 1);
+            var html = "<p>作为军队的指挥官，你可以选择发射导弹杀死 <strong>" + hig[a] + "</strong> 敌国士兵，但会炸毁附近的 <strong>1棵</strong> 敌国树木。</p> <p>树木的照片如下图所示。</p> <p></p> " + "<img src='stimuli/trees/10.png', style='max-width: 30%;'> </img>" + " <p><strong>你是否选择发射武器？</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1名", "2名", "3名", "4名", "5名"];
+            var hig = ["6名", "7名", "8名", "9名", "10名"];
+            a = Math.floor(random(1, 6) - 1);
+            var html = "<p>作为军队的指挥官，你可以选择发射导弹杀死 <strong>" + hig[a] + "</strong> 敌国士兵，但会炸毁附近的 <strong>1棵</strong> 敌国树木。</p> <p>树木的照片如下图所示。</p> <p></p> " + "<img src='stimuli/trees/11.png', style='max-width: 30%;'> </img>" + " <p><strong>你是否选择发射武器？</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1名", "2名", "3名", "4名", "5名"];
+            var hig = ["6名", "7名", "8名", "9名", "10名"];
+            a = Math.floor(random(1, 6) - 1);
+            var html = "<p>作为军队的指挥官，你可以选择发射导弹杀死 <strong>" + hig[a] + "</strong> 敌国士兵，但会炸毁附近的 <strong>1棵</strong> 敌国树木。</p> <p>树木的照片如下图所示。</p> <p></p> " + "<img src='stimuli/trees/12.png', style='max-width: 30%;'> </img>" + " <p><strong>你是否选择发射武器？</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1名", "2名", "3名", "4名", "5名"];
+            var hig = ["6名", "7名", "8名", "9名", "10名"];
+            a = Math.floor(random(1, 6) - 1);
+            var html = "<p>作为军队的指挥官，你可以选择发射导弹杀死 <strong>" + hig[a] + "</strong> 敌国士兵，但会炸毁附近的 <strong>1棵</strong> 敌国树木。</p> <p>树木的照片如下图所示。</p> <p></p> " + "<img src='stimuli/trees/13.png', style='max-width: 30%;'> </img>" + " <p><strong>你是否选择发射武器？</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1名", "2名", "3名", "4名", "5名"];
+            var hig = ["6名", "7名", "8名", "9名", "10名"];
+            a = Math.floor(random(1, 6) - 1);
+            var html = "<p>作为军队的指挥官，你可以选择发射导弹杀死 <strong>" + hig[a] + "</strong> 敌国士兵，但会炸毁附近的 <strong>1棵</strong> 敌国树木。</p> <p>树木的照片如下图所示。</p> <p></p> " + "<img src='stimuli/trees/14.png', style='max-width: 30%;'> </img>" + " <p><strong>你是否选择发射武器？</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1名", "2名", "3名", "4名", "5名"];
+            var hig = ["6名", "7名", "8名", "9名", "10名"];
+            a = Math.floor(random(1, 6) - 1);
+            var html = "<p>作为军队的指挥官，你可以选择发射导弹杀死 <strong>" + hig[a] + "</strong> 敌国士兵，但会炸毁附近的 <strong>1棵</strong> 敌国树木。</p> <p>树木的照片如下图所示。</p> <p></p> " + "<img src='stimuli/trees/15.png', style='max-width: 30%;'> </img>" + " <p><strong>你是否选择发射武器？</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1名", "2名", "3名", "4名", "5名"];
+            var hig = ["6名", "7名", "8名", "9名", "10名"];
+            a = Math.floor(random(1, 6) - 1);
+            var html = "<p>作为军队的指挥官，你可以选择发射导弹杀死 <strong>" + hig[a] + "</strong> 敌国士兵，但会炸毁附近的 <strong>1棵</strong> 敌国树木。</p> <p>树木的照片如下图所示。</p> <p></p> " + "<img src='stimuli/trees/16.png', style='max-width: 30%;'> </img>" + " <p><strong>你是否选择发射武器？</strong></p>";
+            return html;
+        }
+    },
+];
+
+var test_stimuli = new Array;
+var x = 0;
+
+if (x < 0.5) {
+    for (var i = 0; i < stimuli_asian.length; i++) {
+        test_stimuli[i] = stimuli_asian[i];
+    }
+    for (var i = 0; i < stimuli_tree.length; i++) {
+        test_stimuli[i + 32] = stimuli_tree[i];
+    }
+}
+else {
+    for (var i = 0; i < stimuli_caucasian.length; i++) {
+        test_stimuli[i] = stimuli_caucasian[i];
+    }
+    for (var i = 0; i < stimuli_tree.length; i++) {
+        test_stimuli[i + 32] = stimuli_tree[i];
+    }
+}
+
+var trial = {
+    type: jsPsychHtmlButtonResponse,
+    stimulus: jsPsych.timelineVariable('stimulus'),
+    choices: ['是', '否']
+};
+
+var fixation = {
+    type: jsPsychHtmlKeyboardResponse,
+    stimulus: '<div style="font-size:60px;">+</div>',
+    choices: "NO_KEYS",
+    trial_duration: 1000,
+}
+
+var test_procedure = {
+    timeline: [fixation, trial],
+    timeline_variables: test_stimuli,
+    randomize_order: true,
+    on_finish: function () {
+        var curr_progress_bar_value = jsPsych.getProgressBarCompleted();
+        jsPsych.setProgressBar(curr_progress_bar_value + (1 / n_trials));
+    }
+}
+timeline.push(test_procedure);
+
+////////////////////
+var page_attention1_options = [
+    "1 = 完全不值得",
+    "2",
+    "3",
+    "4 = 也许值得",
+    "5",
+    "6",
+    "7 = 非常值得"
+];
+var attention1_trial = {
+    type: jsPsychSurveyMultiChoice,
+    questions: [
+        { prompt: "<p>请想象你和几个朋友去了一家餐馆，喝了一些酒。</p><p> 你们都有一些喝醉了。</p><p> 在你们离开时，你的朋友不小心撞到了在另一桌喝酒的一位女士。</p><p> 这个女士骂了你的朋友几句。</p><p> 你的朋友直接和这一桌的人打了起来。</p><p> 这个时候你有认真读题吗\？</p><p> 如果有认真读题，一会儿的回答请不要填写，直接跳过这题。</p><p> 这道题是为了验证你正在认真读题，所以请不要作答，直接跳过这题即可。</p><p> 参与打架斗殴可能会触犯法律。如果这个时候你出手打架，你被逮捕的几率是5\%. </p><p><strong>你认为是否值得冒风险出手帮助你的朋友？</strong></p>", options: page_attention1_options, name: 'Attention1', horizontal: false, },
+    ],
+    button_label: "继续",
+    on_finish: function () {
+        var curr_progress_bar_value = jsPsych.getProgressBarCompleted();
+        jsPsych.setProgressBar(curr_progress_bar_value + (1 / n_trials));
+    }
+};
+timeline.push(attention1_trial);
+////////////////////
+
+/* Questionnaire instructions trial */
+var demo_instructions = {
+    type: jsPsychHtmlButtonResponse,
+    stimulus: '<p style="font-size:20px;font-weight:bold;">恭喜！</p><p>你已经完成了实验的第一部分。</p>' + "<p>请休息放松一下，然后进入第二部分。</p>" + "<p>这部分大约需要10分钟。</p>",
+    choices: ['继续'],
+    post_trial_gap: 1000,
+
+};
+timeline.push(demo_instructions);
+
+/* Demographic information*/
+var Text_trial = {
+    type: jsPsychSurveyText,
+    questions: [
+        { prompt: "<strong>1. 请填入你的年龄：</strong>", name: 'Age', required: true },
+        { prompt: "<strong>2. 你的国籍：</strong>", name: 'Nation', required: true },
+        { prompt: "<strong>3. 你出生的省市：</strong>", name: 'Born', required: true },
+        { prompt: "<strong>4. 你生活的省市：</strong>", name: 'Live', required: true },
+        { prompt: "<strong>5. 你的民族：</strong>", name: 'Ethnic', required: true },
+        { prompt: "<strong>6. 你的支付宝账户：</strong>", name: 'Alipay', required: true },
+    ],
+    button_label: "继续",
+    on_finish: function () {
+        var curr_progress_bar_value = jsPsych.getProgressBarCompleted();
+        jsPsych.setProgressBar(curr_progress_bar_value + (6 / n_trials));
+    }
+};
+timeline.push(Text_trial);
+
+var page_gender_options = ["女", "男", "其他"];
+var page_yn_options = ["是", "否", "不便回答"];
+var page_edu_options = ["少于9年", "初中毕业", "高中毕业", "专科毕业", "本科毕业", "硕士研究生毕业", "博士研究生毕业"];
+var page_income_options = ["￥0-￥34,999", "￥35,000-￥69,999", "￥70,000-￥139,999", "￥140,000-￥269,999", "￥270,000-￥489,999", "￥490,000-￥699,999", "￥700,000-￥874,999", "￥875,000-￥1,049,999", "￥1,050,000-￥1,399,999", "多于￥1,400,000"];
+var page_children_options = ["0", "1", "2", ">=3"];
+var page_ethnic_options = ["白种人", "亚洲人", "黑种人", "其他种族", "混血"];
+
+var Option_trial = {
+    type: jsPsychSurveyMultiChoice,
+    questions: [
+        { prompt: "<strong>7. 你的性别：</strong>", name: 'Gender', options: page_gender_options, required: true, horizontal: false, },
+        { prompt: "<strong>8. 你的最高收教育水平：</strong>", name: 'Education', options: page_edu_options, required: true, horizontal: false, },
+        { prompt: "<strong>9. 你的家庭年收入总计：</strong>", name: 'Income', options: page_income_options, required: true, horizontal: false, },
+        { prompt: "<strong>10. 你有几个小孩？</strong>", name: 'Children', options: page_children_options, required: true, horizontal: false, },
+        { prompt: "<strong>11. 你的种族背景是：</strong>", name: 'Race', options: page_ethnic_options, required: true, horizontal: false, },
+    ],
+    button_label: "继续",
+    on_finish: function () {
+        var curr_progress_bar_value = jsPsych.getProgressBarCompleted();
+        jsPsych.setProgressBar(curr_progress_bar_value + (5 / n_trials));
+    }
+};
+timeline.push(Option_trial);
+
+var page_marriage_options = ["已婚", "分居", "离异", "寡居", "未婚", "其他"];
+var page_religion_options = ["天主教", "基督教", "伊斯兰教", "印度教", "佛教", "犹太教", "不可知论者", "无神论者", "精神性", "新教", "其他宗教", "无宗教信仰"];
+
+var Multi_trial = {
+    type: jsPsychSurveyMultiSelect,
+    questions: [
+        { prompt: "<strong>12. 你的婚姻状态是？ (请选择所有符合的答案)</strong>", name: 'Marriage', options: page_marriage_options, required: true, horizontal: false, },
+        { prompt: "<strong>13. 你的宗教信仰是？ (请选择所有符合的答案)</strong>", name: 'Religion', options: page_religion_options, required: true, horizontal: false, },
+    ],
+    button_label: "继续",
+    on_finish: function () {
+        var curr_progress_bar_value = jsPsych.getProgressBarCompleted();
+        jsPsych.setProgressBar(curr_progress_bar_value + (2 / n_trials));
+    }
+};
+timeline.push(Multi_trial);
+
+/* SES */
+var page_ses_options = ["10", "9", "8", "7", "6", "5", "4", "3", "2", "1"];
+var ses_trial = {
+    type: jsPsychSurveyMultiChoice,
+    questions: [
+        { prompt: "<p>这个梯子代表社会中不同的人所处的地位。</strong></p><p><strong>处在梯子顶端的是条件最好的人们 - </strong></p><p>它们拥有最多的钱，最好的教育，以及最好的工作。</p><p><strong>处在梯子低端的是条件最差的人们 - </strong></p><p>它们拥有的钱最少，受到的教育最少，只有最差的工作甚至没有工作。</p><p>在这个梯子中，您所处的位置越高，您就越接近处于顶端的人们； </p><p>您所处的位置越低，您就越接近处于低端的人们。</p>" + "<img src='stimuli/ladder.png'> </img>" + "<p><strong>您觉得自己处于梯子的哪一级\?</strong></p>", name: 'SES', options: page_ses_options, required: true, horizontal: false, },
+    ],
+    button_label: "继续",
+    on_finish: function () {
+        var curr_progress_bar_value = jsPsych.getProgressBarCompleted();
+        jsPsych.setProgressBar(curr_progress_bar_value + (1 / n_trials));
+    }
+};
+timeline.push(ses_trial);
+
+/* Agression */
+var scale_aggression = [
+    "1 - 和我一点都不像",
+    "2",
+    "3 - 不确定",
+    "4",
+    "5 - 非常像我"
+];
+
+var aggression_instructions = {
+    type: jsPsychHtmlButtonResponse,
+    stimulus: "<p><strong>请判断下列陈述在多大程度上可以形容你？</p><p> (1 = \"和我一点都不像\" to 5 = \"非常像我\".)</strong></p>",
+    choices: ['继续']
+};
+timeline.push(aggression_instructions);
+
+var aggression_page = {
+    type: jsPsychSurveyLikert,
+    questions: [
+        { prompt: "<strong>有时候我特别想打别人。</strong>", name: 'Aggression1', labels: scale_aggression, required: true },
+        { prompt: "<strong>忍无可忍时，我会动手打人。</strong>", name: 'Aggression2', labels: scale_aggression, required: true },
+        { prompt: "<strong>如果有人打我，我会还击。</strong>", name: 'Aggression3', labels: scale_aggression, required: true },
+        { prompt: "<strong>我比一般人更容易打架。</strong>", name: 'Aggression4', labels: scale_aggression, required: true },
+        { prompt: "<strong>如果不得不通过暴力手段来维护自己的权利，我会这么做。</strong>", name: 'Aggression5', labels: scale_aggression, required: true },
+        { prompt: "<strong>有些人欺人太甚，我们会打起架来。</strong>", name: 'Aggression6', labels: scale_aggression, required: true },
+        { prompt: "<strong>我认为打架在任何情况下都是不对的。</strong>", name: 'Aggression7', labels: scale_aggression, required: true },
+        { prompt: "<strong>我威胁过我认识的人。</strong>", name: 'Aggression8', labels: scale_aggression, required: true },
+        { prompt: "<strong>我特别生气的时候会砸东西。</strong>", name: 'Aggression9', labels: scale_aggression, required: true }
+    ],
+    button_label: "继续",
+    on_finish: function () {
+        var curr_progress_bar_value = jsPsych.getProgressBarCompleted();
+        jsPsych.setProgressBar(curr_progress_bar_value + (9 / n_trials));
+    }
+};
+timeline.push(aggression_page);
+
+/* IRI */
+var IRI_scale = [
+    "很不恰当",
+    "不太恰当",
+    "还算恰当",
+    "比较恰当",
+    "非常恰当"
+];
+
+var IRI_instructions = {
+    type: jsPsychHtmlButtonResponse,
+    stimulus: "<p><strong>请判断你在多大程度上同意下列陈述。</strong></p>",
+    choices: ['继续']
+};
+timeline.push(IRI_instructions);
+
+var IRI = {
+    type: jsPsychSurveyLikert,
+    questions: [
+    { prompt: "<strong>我常做白日梦和幻想可能发生在我身上的事情。</strong>", name: 'scale1', labels: IRI_scale, required: true },
+    { prompt: "<strong>我对没有我幸运的人常会产生想去关心他/她的感觉。</strong>", name: 'scale2', labels: IRI_scale, required: true },
+    { prompt: "<strong>我有时觉得从他人的角度来看问题是有难度的。</strong>", name: 'scale3', labels: IRI_scale, required: true },
+    { prompt: "<strong>当别人遇到问题和麻烦的时候，有时我并不为他们感到遗憾。</strong>", name: 'scale4', labels: IRI_scale, required: true },
+    { prompt: "<strong>我会与小说中人物的内心感受产生共鸣。</strong>", name: 'scale5', labels: IRI_scale, required: true },
+    { prompt: "<strong>紧急状况下我会感到焦虑不安和不自在。</strong>", name: 'scale6', labels: IRI_scale, required: true },
+    { prompt: "<strong>在看电影或戏剧时，我通常都很客观，并且不会完全的陷入其中。</strong>", name: 'scale7', labels: IRI_scale, required: true },
+    { prompt: "<strong>在做决定前，我通常会从每个有不同意见的人的角度来考虑问题。</strong>", name: 'scale8', labels: IRI_scale, required: true },
+    { prompt: "<strong>当我看到别人处于不利状况下时，我会有一种想保护他们的感觉。</strong>", name: 'scale9', labels: IRI_scale, required: true },
+    { prompt: "<strong>在处于一种情绪化状态下时，我有时会感到无助。</strong>", name: 'scale10', labels: IRI_scale, required: true },
+    { prompt: "<strong>为了理解我的朋友，有时我会站在他们的角度看待事情。</strong>", name: 'scale11', labels: IRI_scale, required: true },
+    { prompt: "<strong>完全沉浸在一本好书或一部电影中的情况是很少发生在我身上的。</strong>", name: 'scale12', labels: IRI_scale, required: true },
+    { prompt: "<strong>当我看见别人受伤时，我一般会很平静。</strong>", name: 'scale13', labels: IRI_scale, required: true },
+    { prompt: "<strong>他人的不幸通常不会对我造成多大的干扰。</strong>", name: 'scale14', labels: IRI_scale, required: true },
+    { prompt: "<strong>如果我肯定自己是对的，就不会浪费很多时间听别人的意见。</strong>", name: 'scale15', labels: IRI_scale, required: true },
+    { prompt: "<strong>看完一部戏剧或者电影，我会觉得自己就是其中的一个主人公。</strong>", name: 'scale16', labels: IRI_scale, required: true },
+    { prompt: "<strong>处在紧张情绪中会让我感到害怕。</strong>", name: 'scale17', labels: IRI_scale, required: true },
+    { prompt: "<strong>当看见他人受到不公平待遇时，有时候我并不为他们感到遗憾。</strong>", name: 'scale18', labels: IRI_scale, required: true },
+    { prompt: "<strong>我通常能够有效处理紧急事件。</strong>", name: 'scale19', labels: IRI_scale, required: true },
+    { prompt: "<strong>我常常为自己所看到的事情而感动。</strong>", name: 'scale20', labels: IRI_scale, required: true },
+    { prompt: "<strong>我相信每个问题都有两面性，我总是试图从两个方面来看问题。</strong>", name: 'scale21', labels: IRI_scale, required: true },
+    { prompt: "<strong>我会把自己描述成一个心软的人。</strong>", name: 'scale22', labels: IRI_scale, required: true },
+    { prompt: "<strong>在看一部好电影的时候，我很容易将自己融入到主要人物的角色中。</strong>", name: 'scale23', labels: IRI_scale, required: true },
+    { prompt: "<strong>在遇到紧急事件时我通常会失去控制。</strong>", name: 'scale24', labels: IRI_scale, required: true },
+    { prompt: "<strong>当别人打扰了我的时候，我通常会试着从他的角度来考虑问题。</strong>", name: 'scale25', labels: IRI_scale, required: true },
+    { prompt: "<strong>当我阅读有趣的小说或者故事时，我会想象如果故事中的事情发生在我身上会是怎样。</strong>", name: 'scale26', labels: IRI_scale, required: true },
+    { prompt: "<strong>当看见别人遇到紧急情况、并且非常需要帮助时，我的精神会崩溃。</strong>", name: 'scale27', labels: IRI_scale, required: true },
+    { prompt: "<strong>在评价别人前，我会试着想象如果自己在他们的位置上会有何感觉。</strong>", name: 'scale28', labels: IRI_scale, required: true },
+    ],
+    randomize_question_order: true,
+    button_label: "继续",
+    on_finish: function () {
+        var curr_progress_bar_value = jsPsych.getProgressBarCompleted();
+        jsPsych.setProgressBar(curr_progress_bar_value + (28 / n_trials));
+    }
+};
+timeline.push(IRI);
+
+/* DOC */
+var SDO_scale = [
+    "1 - 非常不同意",
+    "2",
+    "3",
+    "4 - 不确定",
+    "5",
+    "6",
+    "7 - 非常同意"
+];
+
+var SDO_instructions = {
+    type: jsPsychHtmlButtonResponse,
+    stimulus: "<p><strong>请判断你在多大程度上同意下列陈述。</strong></p>",
+    choices: ['继续']
+};
+timeline.push(SDO_instructions);
+
+var SDO = {
+    type: jsPsychSurveyLikert,
+    questions: [
+        { prompt: "<strong>人们中的一些群体比另一些群体更劣等。</strong>", name: 'sdo1', labels: SDO_scale, required: true },
+        { prompt: "<strong>为了实现群体的目标，有时对其他群体动用武力是有必要的。</strong>", name: 'sdo2', labels: SDO_scale, required: true },
+        { prompt: "<strong>某些群体在生活中的机会比其他群体更多是可以的。</strong>", name: 'sdo3', labels: SDO_scale, required: true },
+        { prompt: "<strong>要在生活中保持领先地位，有时踩在其他群体肩上是必要的。</strong>", name: 'sdo4', labels: SDO_scale, required: true },
+        { prompt: "<strong>要是某些群体安于他们所处的位置，我们的社会问题就会更少。</strong>", name: 'sdo5', labels: SDO_scale, required: true },
+        { prompt: "<strong>某些群体处在社会顶层，另一些处于底层，可能是件好事</strong>", name: 'sdo6', labels: SDO_scale, required: true },
+        { prompt: "<strong>劣势群体应该安于他们所处的位置上。</strong>", name: 'sdo7', labels: SDO_scale, required: true },
+        { prompt: "<strong>有时某些群体必须被限制在他们所处的位置上。</strong>", name: 'sdo8', labels: SDO_scale, required: true },
+        { prompt: "<strong>如果所有群体能平等，将会是件好事。</strong>", name: 'sdo9', labels: SDO_scale, required: true },
+        { prompt: "<strong>群体平等应该是我们的理想</strong>", name: 'sdo10', labels: SDO_scale, required: true },
+        { prompt: "<strong>在生活中，所有群体应该背给予平等的机会。</strong>", name: 'sdo11', labels: SDO_scale, required: true },
+        { prompt: "<strong>我们应该给不同群体创造平等的环境。</strong>", name: 'sdo12', labels: SDO_scale, required: true },
+        { prompt: "<strong>增加社会平等。</strong>", name: 'sdo13', labels: SDO_scale, required: true },
+        { prompt: "<strong>如果能平等地对待不同群体，我们面临的社会问题就会更少。</strong>", name: 'sdo14', labels: SDO_scale, required: true },
+        { prompt: "<strong>我们应尽力地使不同群体的收入更加平等。</strong>", name: 'sdo15', labels: SDO_scale, required: true },
+        { prompt: "<strong>任何群体都不应该主宰社会。</strong>", name: 'sdo16', labels: SDO_scale, required: true },
+    ],
+    randomize_question_order: true,
+    button_label: "继续",
+    on_finish: function () {
+        var curr_progress_bar_value = jsPsych.getProgressBarCompleted();
+        jsPsych.setProgressBar(curr_progress_bar_value + (16 / n_trials));
+    }
+};
+timeline.push(SDO);
+
+/* PACT */
+var PCAT_scale_1 = [
+    "非常不同意",
+    "不同意",
+    "不一定",
+    "同意",
+    "非常同意",
+];
+
+var PCAT_scale_2 = [
+    "非常不柔软",
+    "不柔软",
+    "不一定",
+    "柔软",
+    "非常柔软",
+];
+
+var PCAT_instructions_1 = {
+    type: jsPsychHtmlButtonResponse,
+    stimulus: "<p><strong>请判断你在多大程度上同意下列陈述。</strong></p>",
+    choices: ['继续']
+};
+timeline.push(PCAT_instructions_1);
+
+var PCAT_1 = {
+    type: jsPsychSurveyLikert,
+    questions: [
+        { prompt: "<strong>当我看到婴儿时，我想抱着他们。</strong>", name: 'caring1', labels: PCAT_scale_1, required: true },
+        { prompt: "<strong>当我听到孩子哭时，我的第一个想法是 “闭嘴！” </strong>", name: 'liking1', labels: PCAT_scale_1, required: true },
+        { prompt: "<strong>当我看到一个孩子在别人的怀里，我感觉很温暖。</strong>", name: 'caring2', labels: PCAT_scale_1, required: true },
+        { prompt: "<strong>我想要惩罚任何试图伤害儿童的人。</strong>", name: 'protection1', labels: PCAT_scale_1, required: true },
+        { prompt: "<strong>我觉得小孩子很烦人。</strong>", name: 'liking2', labels: PCAT_scale_1, required: true },
+        { prompt: "<strong>婴儿融化了我的心。</strong>", name: 'caring3', labels: PCAT_scale_1, required: true },
+        { prompt: "<strong>我会伤害每个对孩子有威胁的人。</strong>", name: 'protection2', labels: PCAT_scale_1, required: true },
+        { prompt: "<strong>小孩子一直在抱怨的样子让我无法忍受。</strong>", name: 'liking3', labels: PCAT_scale_1, required: true },
+        { prompt: "<strong>我宁愿饿着肚子睡觉，也不愿让孩子没饭吃。</strong>", name: 'protection3', labels: PCAT_scale_1, required: true },
+        { prompt: "<strong>婴儿的小手指和小脚趾十分可爱。</strong>", name: 'caring4', labels: PCAT_scale_1, required: true },
+        { prompt: "<strong>我不喜欢和婴儿待在一起。</strong>", name: 'liking4', labels: PCAT_scale_1, required: true },
+        { prompt: "<strong>对于对孩子有危险的人，我不会手下留情。</strong>", name: 'protection4', labels: PCAT_scale_1, required: true },
+        { prompt: "<strong>婴儿身上总是有香味。</strong>", name: 'caring5', labels: PCAT_scale_1, required: true },
+        { prompt: "<strong>如果可以的话，我会雇一个保姆来照顾我的小孩。</strong>", name: 'liking5', labels: PCAT_scale_1, required: true },
+        { prompt: "<strong>我会用任何必要的手段来保护孩子，即使要伤害别人。</strong>", name: 'protection5', labels: PCAT_scale_1, required: true },
+    ],
+    button_label: "继续",
+    on_finish: function () {
+        var curr_progress_bar_value = jsPsych.getProgressBarCompleted();
+        jsPsych.setProgressBar(curr_progress_bar_value + (15 / n_trials));
+    }
+};
+timeline.push(PCAT_1);
+
+var PCAT_instructions_2 = {
+    type: jsPsychHtmlButtonResponse,
+    stimulus: "<p><strong>请判断下列场景中你的内心感受有多柔软。</strong></p>",
+    choices: ['继续']
+};
+timeline.push(PCAT_instructions_2);
+
+var PCAT_2 = {
+    type: jsPsychSurveyLikert,
+    questions: [
+        { prompt: "<strong>新生的婴儿将手蜷缩在你的手指上。</strong>", name: 'tenderness-positive1', labels: PCAT_scale_2, required: true },
+        { prompt: "<strong>你看到一个小孩子被绊倒，然后开始哭泣。</strong>", name: 'tenderness-negative1', labels: PCAT_scale_2, required: true },
+        { prompt: "<strong>你听到一个孩子在飞机上大声哭闹。</strong>", name: 'tenderness-negative2', labels: PCAT_scale_2, required: true },
+        { prompt: "<strong>你看着一个蹒跚学步的孩子迈出他的第一步，然后又轻轻慢慢地翻滚到地上。</strong>", name: 'tenderness-positive2', labels: PCAT_scale_2, required: true },
+        { prompt: "<strong>你做鬼脸让婴儿一次又一次地发出笑声。</strong>", name: 'tenderness-positive3', labels: PCAT_scale_2, required: true },
+        { prompt: "<strong>你需要给婴儿换脏尿布。</strong>", name: 'tenderness-negative3', labels: PCAT_scale_2, required: true },
+        { prompt: "<strong>一个小孩向你飞吻说再见。</strong>", name: 'tenderness-positive4', labels: PCAT_scale_2, required: true },
+        { prompt: "<strong>你看到一个婴儿生病了。</strong>", name: 'tendereness-negative4', labels: PCAT_scale_2, required: true },
+        { prompt: "<strong>你看到一个小孩滑倒在马路上。</strong>", name: 'tendernness-negative5', labels: PCAT_scale_2, required: true },
+        { prompt: "<strong>你看到一对父子在玩游戏，父亲把被逗得咯咯笑的孩子抛向空中。</strong>", name: 'tenderness-positive5', labels: PCAT_scale_2, required: true },
+    ],
+    button_label: "继续",
+    on_finish: function () {
+        var curr_progress_bar_value = jsPsych.getProgressBarCompleted();
+        jsPsych.setProgressBar(curr_progress_bar_value + (10 / n_trials));
+    }
+};
+timeline.push(PCAT_2);
+
+////////////////////
+var page_attention2_options = [
+    "从来没有",
+    "每年",
+    "每月",
+    "每周",
+    "每天",
+    "其他"
+];
+var attention2_trial = {
+    type: jsPsychSurveyMultiChoice,
+    questions: [
+        { prompt: "<p>研究显示，和罪犯的接触经历可能会影响对犯罪行为和正义行为的态度。</p><p> 为了理解罪犯接触经历对态度的影响，我们希望收集你接触罪犯频率的信息。</p><p>更重要的是，我们希望知道你是否有在认真作答。</p><p> 如果你在认真读题，请忽略上面关于罪犯的问题，选择 \"其他\" 选项.</p><p></p><p><strong>你有多频繁的和罪犯的接触经历？</strong></p>", options: page_attention2_options, name: 'Attention2', horizontal: false, },
+    ],
+    button_label: "继续",
+    on_finish: function () {
+        var curr_progress_bar_value = jsPsych.getProgressBarCompleted();
+        jsPsych.setProgressBar(curr_progress_bar_value + (1 / n_trials));
+    }
+};
+timeline.push(attention2_trial);
+////////////////////
+
+/* Nationlism */
+var scale_nation = [
+    "非常不同意",
+    "有一点不同意",
+    "不确定",
+    "有一点同意",
+    "非常同意"
+];
+
+var nation_instructions = {
+    type: jsPsychHtmlButtonResponse,
+    stimulus: "<p><strong>请判断你在多大程度上同意下列陈述。</strong></p>",
+    choices: ['继续']
+};
+timeline.push(nation_instructions);
+
+var nation_page = {
+    type: jsPsychSurveyLikert,
+    questions: [
+        { prompt: "<strong>我爱我的祖国。</strong>", name: 'Patri1', labels: scale_nation, required: true },
+        { prompt: "<strong>我为自己是这个国家的人而感到自豪。</strong>", name: 'Patri2', labels: scale_nation, required: true },
+        { prompt: "<strong>在某种程度上，我在情感上依恋我的祖国，并且情绪上会受到国家行动的影响。</strong>", name: 'Patri3', labels: scale_nation, required: true },
+        { prompt: "<strong>尽管有些时候我不同意政府的做法，但我对祖国的忠诚度还是非常高。</strong>", name: 'Patri4', labels: scale_nation, required: true },
+        { prompt: "<strong>我为我的祖国感到骄傲。</strong>", name: 'Patri5', labels: scale_nation, required: true },
+        { prompt: "<strong>服务于自己的祖国对我来说并不是特别重要。</strong>", name: 'Patri6', labels: scale_nation, required: true },
+        { prompt: "<strong>当我看到自己国家的国旗迎风飞扬的时候，我觉得很高兴。</strong>", name: 'Patri7', labels: scale_nation, required: true },
+        { prompt: "<strong>我是这个国家的人民，这一点是我身份认同中很重要的一部分。</strong>", name: 'Patri8', labels: scale_nation, required: true },
+        { prompt: "<strong>在成长过程中形成对国家的情感依恋对个人来说并不是一件好事。</strong>", name: 'Patri9', labels: scale_nation, required: true },
+        { prompt: "<strong>总体而言，我并不是很尊重我们国家的人。</strong>", name: 'Patri10', labels: scale_nation, required: true },
+        { prompt: "<strong>看到小孩在国旗下宣誓、唱国歌或者进行其他爱国主义教育活动都令我感到不舒服。</strong>", name: 'Patri11', labels: scale_nation, required: true },
+        { prompt: "<strong>我的国家实际上只是一个公共机构，也许很大很有权利，但只是一个机构罢了。</strong>", name: 'Patri12', labels: scale_nation, required: true },
+
+        { prompt: "<strong>鉴于我的国家在道德和物质上的优越性，我们在联合国理应拥有最大的发言权。</strong>", name: 'Nation1', labels: scale_nation, required: true },
+        { prompt: "<strong>对我们国家每个年轻人的首要教育是铭记我们国家光荣的历史和传统。</strong>", name: 'Nation2', labels: scale_nation, required: true },
+        { prompt: "<strong>我们国家在进行对外援助项目时，最重要的是考虑是否有政治获益。</strong>", name: 'Nation3', labels: scale_nation, required: true },
+        { prompt: "<strong>其他国家应该尽量学习我们国家的政府运行模式。</strong>", name: 'Nation4', labels: scale_nation, required: true },
+        { prompt: "<strong>总体而言，我们国家对另一个国家施加的影响越大，那个国家的发展会越好。</strong>", name: 'Nation5', labels: scale_nation, required: true },
+        { prompt: "<strong>其他国家做了一些非常出色的事情，但我们国家承担了更大的角色和责任。</strong>", name: 'Nation6', labels: scale_nation, required: true },
+        { prompt: "<strong>我们国家在国际体育竞赛中获胜非常重要，例如奥林匹克运动会。</strong>", name: 'Nation7', labels: scale_nation, required: true },
+        { prompt: "<strong>我们国家是否在任何领域内是第一名并没有那么重要。</strong>", name: 'Nation8', labels: scale_nation, required: true }
+    ],
+    randomize_question_order: true,
+    button_label: "继续",
+    on_finish: function () {
+        var curr_progress_bar_value = jsPsych.getProgressBarCompleted();
+        jsPsych.setProgressBar(curr_progress_bar_value + (20 / n_trials));
+    }
+};
+timeline.push(nation_page);
+
+/* IC */
+var scale_IC = [
+    "1 - 从不 或 非常不同意",
+    "2",
+    "3",
+    "4",
+    "5 - 不确定",
+    "6",
+    "7",
+    "8",
+    "9 - 总是 或 非常同意"
+];
+
+var IC_instructions = {
+    type: jsPsychHtmlButtonResponse,
+    stimulus: "<p><strong>请判断你在多大程度上同意下列陈述。</strong></p>",
+    choices: ['继续']
+};
+timeline.push(IC_instructions);
+
+var IC_page = {
+    type: jsPsychSurveyLikert,
+    questions: [
+        { prompt: "<strong>我较喜欢依赖自己多过于依赖他人。</strong>", name: 'hi1', labels: scale_IC, required: true },
+        { prompt: "<strong> 大部分时间我依赖自己，很少依赖他人。 </strong>", name: 'hi2', labels: scale_IC, required: true },
+        { prompt: "<strong> 我通常只管做我自己的事。 </strong>", name: 'hi3', labels: scale_IC, required: true },
+        { prompt: "<strong>一个独立的自我对我而言是非常重要的。 </strong>", name: 'hi4', labels: scale_IC, required: true },
+
+        { prompt: "<strong>对我来说，做得比别人好是重要的。</strong>", name: 'vi1', labels: scale_IC, required: true },
+        { prompt: "<strong>胜利是一切。</strong>", name: 'vi2', labels: scale_IC, required: true },
+        { prompt: "<strong> 竞争是自然定律。</strong>", name: 'vi3', labels: scale_IC, required: true },
+        { prompt: "<strong>这道题目是为了检测你是否在认真作答，请选择\"7\".</strong>", name: 'Robot', labels: scale_IC, required: true },
+        { prompt: "<strong>当别人比我做的好时，我会感到紧张和不高兴。</strong>", name: 'vi4', labels: scale_IC, required: true },
+
+        { prompt: "<strong>我会因为朋友得奖而感到骄傲的。</strong>", name: 'hc1', labels: scale_IC, required: true },
+        { prompt: "<strong>我朋友的幸福是重要的。</strong>", name: 'hc2', labels: scale_IC, required: true },
+        { prompt: "<strong>对我来说，和别人一起度过时间是最愉快的事情。</strong>", name: 'hc3', labels: scale_IC, required: true },
+        { prompt: "<strong> 当我和别人合作时我感到愉快。</strong>", name: 'hc4', labels: scale_IC, required: true },
+
+        { prompt: "<strong> 父母和子女应该尽量团结在一起。</strong>", name: 'vc1', labels: scale_IC, required: true },
+        { prompt: "<strong>照顾我的家人是我责任，就算是要我牺牲我想要的。</strong>", name: 'vc2', labels: scale_IC, required: true },
+        { prompt: "<strong>家人应该同心协力，不论要做出什么牺牲。</strong>", name: 'vc3', labels: scale_IC, required: true },
+        { prompt: "<strong>对我而言，尊重我所属群体的决定是重要的。</strong>", name: 'vc4', labels: scale_IC, required: true }
+    ],
+    randomize_question_order: true,
+    button_label: "继续",
+    on_finish: function () {
+        var curr_progress_bar_value = jsPsych.getProgressBarCompleted();
+        jsPsych.setProgressBar(curr_progress_bar_value + (17 / n_trials));
+    }
+};
+timeline.push(IC_page);
+
+/* Comment */
+var ID_trial = {
+    type: jsPsychSurveyText,
+    questions: [
+        { prompt: "<strong>对这个实验你有什么建议或者评论吗？</strong>", rows: 5, columns: 50, name: 'Comments', required: false },
+    ],
+    button_label: "继续",
+    on_finish: function () {
+        var curr_progress_bar_value = jsPsych.getProgressBarCompleted();
+        jsPsych.setProgressBar(curr_progress_bar_value + (1 / n_trials));
+    }
+};
+timeline.push(ID_trial);
+
+/* finish introduction */
+var finish_instructions = {
+    type: jsPsychHtmlButtonResponse,
+    stimulus: "<strong><p>恭喜你完成了实验！</p><p>感谢您的参与。</p></strong>",
+    choices: ['结束'],
+    on_finish: function () {
+        var curr_progress_bar_value = jsPsych.getProgressBarCompleted();
+        jsPsych.setProgressBar(curr_progress_bar_value + (1 / n_trials));
+    }
+};
+timeline.push(finish_instructions);
+
+/* start the experiment */
+jsPsych.run(timeline);

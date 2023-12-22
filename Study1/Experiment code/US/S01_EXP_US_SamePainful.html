@@ -1,0 +1,1617 @@
+var jsPsych = initJsPsych({
+    timeline: timeline,
+    show_progress_bar: true,
+    message_progress_bar: 'Completion Progress',
+    auto_update_progress_bar: false,
+    show_preload_progress_bar: true,
+    override_safe_mode: true,
+});
+
+var timeline = [];
+var n_trials = 254;
+
+/* preload images */
+var preload = {
+    type: jsPsychPreload,
+    auto_preload: true,
+    images: [
+        'stimuli/faces/PCF1.jpg',
+        'stimuli/faces/PCF2.jpg',
+        'stimuli/faces/PCF3.jpg',
+        'stimuli/faces/PCF4.jpg',
+        'stimuli/faces/PCF5.jpg',
+        'stimuli/faces/PCF6.jpg',
+        'stimuli/faces/PCF7.jpg',
+        'stimuli/faces/PCF8.jpg',
+        'stimuli/faces/PCM1.jpg',
+        'stimuli/faces/PCM2.jpg',
+        'stimuli/faces/PCM3.jpg',
+        'stimuli/faces/PCM4.jpg',
+        'stimuli/faces/PCM5.jpg',
+        'stimuli/faces/PCM6.jpg',
+        'stimuli/faces/PCM7.jpg',
+        'stimuli/faces/PCM8.jpg',
+
+        'stimuli/faces/PFF1.jpg',
+        'stimuli/faces/PFF2.jpg',
+        'stimuli/faces/PFF3.jpg',
+        'stimuli/faces/PFF4.jpg',
+        'stimuli/faces/PFF5.jpg',
+        'stimuli/faces/PFF6.jpg',
+        'stimuli/faces/PFF7.jpg',
+        'stimuli/faces/PFF8.jpg',
+        'stimuli/faces/PFM1.jpg',
+        'stimuli/faces/PFM2.jpg',
+        'stimuli/faces/PFM3.jpg',
+        'stimuli/faces/PFM4.jpg',
+        'stimuli/faces/PFM5.jpg',
+        'stimuli/faces/PFM6.jpg',
+        'stimuli/faces/PFM7.jpg',
+        'stimuli/faces/PFM8.jpg',
+
+        'stimuli/tree/1.png',
+        'stimuli/tree/2.png',
+        'stimuli/tree/3.png',
+        'stimuli/tree/4.png',
+        'stimuli/tree/5.png',
+        'stimuli/tree/6.png',
+        'stimuli/tree/7.png',
+        'stimuli/tree/8.png',
+        'stimuli/tree/9.png',
+        'stimuli/tree/10.png',
+        'stimuli/tree/11.png',
+        'stimuli/tree/12.png',
+        'stimuli/tree/13.png',
+        'stimuli/tree/14.png',
+        'stimuli/tree/15.png',
+        'stimuli/tree/16.png',
+
+        'stimuli/ladder.png',
+
+    ]
+};
+timeline.push(preload);
+
+var enter_fullscreen = {
+    type: jsPsychFullscreen,
+    fullscreen_mode: true,
+    message: '<p>To ensure that the experiment is not disturbed by other information,</p>' + '<p>please click the button below to enter fullscreen mode.</p>',
+    button_label: "Enter Fullscreen"
+};
+timeline.push(enter_fullscreen);
+
+/* define instructions trial */
+var instructions = {
+    type: jsPsychHtmlButtonResponse,
+    stimulus: "<p ><strong>Welcome to the experiment!</strong></p>" +
+        "<p ><strong>In the first task, please imagine:</strong></p>" +
+        "<p>Your country is involved in a military conflict with another country.</p>" +
+        "<p>You are the commander of your army and must make decisions in the conflict.</p>" +
+        "<p>Specifically, as the military commander, you must decide whether to launch a missile to strike enemy.</p>" +
+        "<p>You will face a series of scenarios. Please read each scenario carefully and make a decision.</p>" + 
+        "<p>The task will take around 10 minutes to complete.</p>" +
+        "<p><strong>Please pay your attention during the experiment.</strong></p>",
+    choices: ['Enter the experiment'],
+    on_start: function () {
+        jsPsych.setProgressBar(0);
+    }
+};
+timeline.push(instructions);
+
+function random(mn, mx) {
+    return Math.random() * (mx - mn) + mn;
+};
+
+var stimuli_asian = [
+
+    /// low soldiers
+    {
+        stimulus: function () {
+            var low = ["1 enemy soldier", "2 enemy soldiers", "3 enemy soldiers", "4 enemy soldiers", "5 enemy soldiers"];
+            var high = ["6 enemy soldiers", "7 enemy soldiers", "8 enemy soldiers", "9 enemy soldiers", "10 enemy soldiers"];
+            var a = Math.floor(random(1, 6) - 1);
+            var html = "<p>As the military commander, you could choose to launch a missile to kill <strong>" + low[a] + "</strong> , but would accidentally kill <strong>1 enemy civilian</strong> nearby.</p> <p>The photo of the <strong>enemy civilian</strong> is shown below.</p> <p></p> " + "<img src='stimuli/faces/PCF1.jpg', style='max-width: 30%;'> </img>" + " <p><strong>Would you launch the weapon?</strong></p>";
+            return html;
+        }
+    },
+
+
+    {
+        stimulus: function () {
+            var low = ["1 enemy soldier", "2 enemy soldiers", "3 enemy soldiers", "4 enemy soldiers", "5 enemy soldiers"];
+            var high = ["6 enemy soldiers", "7 enemy soldiers", "8 enemy soldiers", "9 enemy soldiers", "10 enemy soldiers"];
+            var a = Math.floor(random(1, 6) - 1);
+            var html = "<p>As the military commander, you could choose to launch a missile to kill <strong>" + low[a] + "</strong> , but would accidentally kill <strong>1 enemy civilian</strong> nearby.</p> <p>The photo of the <strong>enemy civilian</strong> is shown below.</p> <p></p> " + "<img src='stimuli/faces/PCF2.jpg', style='max-width: 30%;'> </img>" + " <p><strong>Would you launch the weapon?</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1 enemy soldier", "2 enemy soldiers", "3 enemy soldiers", "4 enemy soldiers", "5 enemy soldiers"];
+            var high = ["6 enemy soldiers", "7 enemy soldiers", "8 enemy soldiers", "9 enemy soldiers", "10 enemy soldiers"];
+            var a = Math.floor(random(1, 6) - 1);
+            var html = "<p>As the military commander, you could choose to launch a missile to kill <strong>" + low[a] + "</strong> , but would accidentally kill <strong>1 enemy civilian</strong> nearby.</p> <p>The photo of the <strong>enemy civilian</strong> is shown below.</p> <p></p> " + "<img src='stimuli/faces/PCF3.jpg', style='max-width: 30%;'> </img>" + " <p><strong>Would you launch the weapon?</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1 enemy soldier", "2 enemy soldiers", "3 enemy soldiers", "4 enemy soldiers", "5 enemy soldiers"];
+            var high = ["6 enemy soldiers", "7 enemy soldiers", "8 enemy soldiers", "9 enemy soldiers", "10 enemy soldiers"];
+            var a = Math.floor(random(1, 6) - 1);
+            var html = "<p>As the military commander, you could choose to launch a missile to kill <strong>" + low[a] + "</strong> , but would accidentally kill <strong>1 enemy civilian</strong> nearby.</p> <p>The photo of the <strong>enemy civilian</strong> is shown below.</p> <p></p> " + "<img src='stimuli/faces/PCF4.jpg', style='max-width: 30%;'> </img>" + " <p><strong>Would you launch the weapon?</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1 enemy soldier", "2 enemy soldiers", "3 enemy soldiers", "4 enemy soldiers", "5 enemy soldiers"];
+            var high = ["6 enemy soldiers", "7 enemy soldiers", "8 enemy soldiers", "9 enemy soldiers", "10 enemy soldiers"];
+            var a = Math.floor(random(1, 6) - 1);
+            var html = "<p>As the military commander, you could choose to launch a missile to kill <strong>" + low[a] + "</strong> , but would accidentally kill <strong>1 enemy civilian</strong> nearby.</p> <p>The photo of the <strong>enemy civilian</strong> is shown below.</p> <p></p> " + "<img src='stimuli/faces/PCF5.jpg', style='max-width: 30%;'> </img>" + " <p><strong>Would you launch the weapon?</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1 enemy soldier", "2 enemy soldiers", "3 enemy soldiers", "4 enemy soldiers", "5 enemy soldiers"];
+            var high = ["6 enemy soldiers", "7 enemy soldiers", "8 enemy soldiers", "9 enemy soldiers", "10 enemy soldiers"];
+            var a = Math.floor(random(1, 6) - 1);
+            var html = "<p>As the military commander, you could choose to launch a missile to kill <strong>" + low[a] + "</strong> , but would accidentally kill <strong>1 enemy civilian</strong> nearby.</p> <p>The photo of the <strong>enemy civilian</strong> is shown below.</p> <p></p> " + "<img src='stimuli/faces/PCF6.jpg', style='max-width: 30%;'> </img>" + " <p><strong>Would you launch the weapon?</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1 enemy soldier", "2 enemy soldiers", "3 enemy soldiers", "4 enemy soldiers", "5 enemy soldiers"];
+            var high = ["6 enemy soldiers", "7 enemy soldiers", "8 enemy soldiers", "9 enemy soldiers", "10 enemy soldiers"];
+            var a = Math.floor(random(1, 6) - 1);
+            var html = "<p>As the military commander, you could choose to launch a missile to kill <strong>" + low[a] + "</strong> , but would accidentally kill <strong>1 enemy civilian</strong> nearby.</p> <p>The photo of the <strong>enemy civilian</strong> is shown below.</p> <p></p> " + "<img src='stimuli/faces/PCF7.jpg', style='max-width: 30%;'> </img>" + " <p><strong>Would you launch the weapon?</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1 enemy soldier", "2 enemy soldiers", "3 enemy soldiers", "4 enemy soldiers", "5 enemy soldiers"];
+            var high = ["6 enemy soldiers", "7 enemy soldiers", "8 enemy soldiers", "9 enemy soldiers", "10 enemy soldiers"];
+            var a = Math.floor(random(1, 6) - 1);
+            var html = "<p>As the military commander, you could choose to launch a missile to kill <strong>" + low[a] + "</strong> , but would accidentally kill <strong>1 enemy civilian</strong> nearby.</p> <p>The photo of the <strong>enemy civilian</strong> is shown below.</p> <p></p> " + "<img src='stimuli/faces/PCF8.jpg', style='max-width: 30%;'> </img>" + " <p><strong>Would you launch the weapon?</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1 enemy soldier", "2 enemy soldiers", "3 enemy soldiers", "4 enemy soldiers", "5 enemy soldiers"];
+            var high = ["6 enemy soldiers", "7 enemy soldiers", "8 enemy soldiers", "9 enemy soldiers", "10 enemy soldiers"];
+            var a = Math.floor(random(1, 6) - 1);
+            var html = "<p>As the military commander, you could choose to launch a missile to kill <strong>" + low[a] + "</strong> , but would accidentally kill <strong>1 enemy civilian</strong> nearby.</p> <p>The photo of the <strong>enemy civilian</strong> is shown below.</p> <p></p> " + "<img src='stimuli/faces/PCM1.jpg', style='max-width: 30%;'> </img>" + " <p><strong>Would you launch the weapon?</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1 enemy soldier", "2 enemy soldiers", "3 enemy soldiers", "4 enemy soldiers", "5 enemy soldiers"];
+            var high = ["6 enemy soldiers", "7 enemy soldiers", "8 enemy soldiers", "9 enemy soldiers", "10 enemy soldiers"];
+            var a = Math.floor(random(1, 6) - 1);
+            var html = "<p>As the military commander, you could choose to launch a missile to kill <strong>" + low[a] + "</strong> , but would accidentally kill <strong>1 enemy civilian</strong> nearby.</p> <p>The photo of the <strong>enemy civilian</strong> is shown below.</p> <p></p> " + "<img src='stimuli/faces/PCM2.jpg', style='max-width: 30%;'> </img>" + " <p><strong>Would you launch the weapon?</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1 enemy soldier", "2 enemy soldiers", "3 enemy soldiers", "4 enemy soldiers", "5 enemy soldiers"];
+            var high = ["6 enemy soldiers", "7 enemy soldiers", "8 enemy soldiers", "9 enemy soldiers", "10 enemy soldiers"];
+            var a = Math.floor(random(1, 6) - 1);
+            var html = "<p>As the military commander, you could choose to launch a missile to kill <strong>" + low[a] + "</strong> , but would accidentally kill <strong>1 enemy civilian</strong> nearby.</p> <p>The photo of the <strong>enemy civilian</strong> is shown below.</p> <p></p> " + "<img src='stimuli/faces/PCM3.jpg', style='max-width: 30%;'> </img>" + " <p><strong>Would you launch the weapon?</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1 enemy soldier", "2 enemy soldiers", "3 enemy soldiers", "4 enemy soldiers", "5 enemy soldiers"];
+            var high = ["6 enemy soldiers", "7 enemy soldiers", "8 enemy soldiers", "9 enemy soldiers", "10 enemy soldiers"];
+            var a = Math.floor(random(1, 6) - 1);
+            var html = "<p>As the military commander, you could choose to launch a missile to kill <strong>" + low[a] + "</strong> , but would accidentally kill <strong>1 enemy civilian</strong> nearby.</p> <p>The photo of the <strong>enemy civilian</strong> is shown below.</p> <p></p> " + "<img src='stimuli/faces/PCM4.jpg', style='max-width: 30%;'> </img>" + " <p><strong>Would you launch the weapon?</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1 enemy soldier", "2 enemy soldiers", "3 enemy soldiers", "4 enemy soldiers", "5 enemy soldiers"];
+            var high = ["6 enemy soldiers", "7 enemy soldiers", "8 enemy soldiers", "9 enemy soldiers", "10 enemy soldiers"];
+            var a = Math.floor(random(1, 6) - 1);
+            var html = "<p>As the military commander, you could choose to launch a missile to kill <strong>" + low[a] + "</strong> , but would accidentally kill <strong>1 enemy civilian</strong> nearby.</p> <p>The photo of the <strong>enemy civilian</strong> is shown below.</p> <p></p> " + "<img src='stimuli/faces/PCM5.jpg', style='max-width: 30%;'> </img>" + " <p><strong>Would you launch the weapon?</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1 enemy soldier", "2 enemy soldiers", "3 enemy soldiers", "4 enemy soldiers", "5 enemy soldiers"];
+            var high = ["6 enemy soldiers", "7 enemy soldiers", "8 enemy soldiers", "9 enemy soldiers", "10 enemy soldiers"];
+            var a = Math.floor(random(1, 6) - 1);
+            var html = "<p>As the military commander, you could choose to launch a missile to kill <strong>" + low[a] + "</strong> , but would accidentally kill <strong>1 enemy civilian</strong> nearby.</p> <p>The photo of the <strong>enemy civilian</strong> is shown below.</p> <p></p> " + "<img src='stimuli/faces/PCM6.jpg', style='max-width: 30%;'> </img>" + " <p><strong>Would you launch the weapon?</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1 enemy soldier", "2 enemy soldiers", "3 enemy soldiers", "4 enemy soldiers", "5 enemy soldiers"];
+            var high = ["6 enemy soldiers", "7 enemy soldiers", "8 enemy soldiers", "9 enemy soldiers", "10 enemy soldiers"];
+            var a = Math.floor(random(1, 6) - 1);
+            var html = "<p>As the military commander, you could choose to launch a missile to kill <strong>" + low[a] + "</strong> , but would accidentally kill <strong>1 enemy civilian</strong> nearby.</p> <p>The photo of the <strong>enemy civilian</strong> is shown below.</p> <p></p> " + "<img src='stimuli/faces/PCM7.jpg', style='max-width: 30%;'> </img>" + " <p><strong>Would you launch the weapon?</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1 enemy soldier", "2 enemy soldiers", "3 enemy soldiers", "4 enemy soldiers", "5 enemy soldiers"];
+            var high = ["6 enemy soldiers", "7 enemy soldiers", "8 enemy soldiers", "9 enemy soldiers", "10 enemy soldiers"];
+            var a = Math.floor(random(1, 6) - 1);
+            var html = "<p>As the military commander, you could choose to launch a missile to kill <strong>" + low[a] + "</strong> , but would accidentally kill <strong>1 enemy civilian</strong> nearby.</p> <p>The photo of the <strong>enemy civilian</strong> is shown below.</p> <p></p> " + "<img src='stimuli/faces/PCM8.jpg', style='max-width: 30%;'> </img>" + " <p><strong>Would you launch the weapon?</strong></p>";
+            return html;
+        }
+    },
+
+    /// high soldiers
+    {
+        stimulus: function () {
+            var low = ["1 enemy soldier", "2 enemy soldiers", "3 enemy soldiers", "4 enemy soldiers", "5 enemy soldiers"];
+            var high = ["6 enemy soldiers", "7 enemy soldiers", "8 enemy soldiers", "9 enemy soldiers", "10 enemy soldiers"];
+            var a = Math.floor(random(1, 6) - 1);
+            var html = "<p>As the military commander, you could choose to launch a missile to kill <strong>" + high[a] + "</strong> , but would accidentally kill <strong>1 enemy civilian</strong> nearby.</p> <p>The photo of the <strong>enemy civilian</strong> is shown below.</p> <p></p> " + "<img src='stimuli/faces/PCF1.jpg', style='max-width: 30%;'> </img>" + " <p><strong>Would you launch the weapon?</strong></p>";
+            return html;
+        }
+    },
+
+
+    {
+        stimulus: function () {
+            var low = ["1 enemy soldier", "2 enemy soldiers", "3 enemy soldiers", "4 enemy soldiers", "5 enemy soldiers"];
+            var high = ["6 enemy soldiers", "7 enemy soldiers", "8 enemy soldiers", "9 enemy soldiers", "10 enemy soldiers"];
+            var a = Math.floor(random(1, 6) - 1);
+            var html = "<p>As the military commander, you could choose to launch a missile to kill <strong>" + high[a] + "</strong> , but would accidentally kill <strong>1 enemy civilian</strong> nearby.</p> <p>The photo of the <strong>enemy civilian</strong> is shown below.</p> <p></p> " + "<img src='stimuli/faces/PCF2.jpg', style='max-width: 30%;'> </img>" + " <p><strong>Would you launch the weapon?</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1 enemy soldier", "2 enemy soldiers", "3 enemy soldiers", "4 enemy soldiers", "5 enemy soldiers"];
+            var high = ["6 enemy soldiers", "7 enemy soldiers", "8 enemy soldiers", "9 enemy soldiers", "10 enemy soldiers"];
+            var a = Math.floor(random(1, 6) - 1);
+            var html = "<p>As the military commander, you could choose to launch a missile to kill <strong>" + high[a] + "</strong> , but would accidentally kill <strong>1 enemy civilian</strong> nearby.</p> <p>The photo of the <strong>enemy civilian</strong> is shown below.</p> <p></p> " + "<img src='stimuli/faces/PCF3.jpg', style='max-width: 30%;'> </img>" + " <p><strong>Would you launch the weapon?</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1 enemy soldier", "2 enemy soldiers", "3 enemy soldiers", "4 enemy soldiers", "5 enemy soldiers"];
+            var high = ["6 enemy soldiers", "7 enemy soldiers", "8 enemy soldiers", "9 enemy soldiers", "10 enemy soldiers"];
+            var a = Math.floor(random(1, 6) - 1);
+            var html = "<p>As the military commander, you could choose to launch a missile to kill <strong>" + high[a] + "</strong> , but would accidentally kill <strong>1 enemy civilian</strong> nearby.</p> <p>The photo of the <strong>enemy civilian</strong> is shown below.</p> <p></p> " + "<img src='stimuli/faces/PCF4.jpg', style='max-width: 30%;'> </img>" + " <p><strong>Would you launch the weapon?</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1 enemy soldier", "2 enemy soldiers", "3 enemy soldiers", "4 enemy soldiers", "5 enemy soldiers"];
+            var high = ["6 enemy soldiers", "7 enemy soldiers", "8 enemy soldiers", "9 enemy soldiers", "10 enemy soldiers"];
+            var a = Math.floor(random(1, 6) - 1);
+            var html = "<p>As the military commander, you could choose to launch a missile to kill <strong>" + high[a] + "</strong> , but would accidentally kill <strong>1 enemy civilian</strong> nearby.</p> <p>The photo of the <strong>enemy civilian</strong> is shown below.</p> <p></p> " + "<img src='stimuli/faces/PCF5.jpg', style='max-width: 30%;'> </img>" + " <p><strong>Would you launch the weapon?</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1 enemy soldier", "2 enemy soldiers", "3 enemy soldiers", "4 enemy soldiers", "5 enemy soldiers"];
+            var high = ["6 enemy soldiers", "7 enemy soldiers", "8 enemy soldiers", "9 enemy soldiers", "10 enemy soldiers"];
+            var a = Math.floor(random(1, 6) - 1);
+            var html = "<p>As the military commander, you could choose to launch a missile to kill <strong>" + high[a] + "</strong> , but would accidentally kill <strong>1 enemy civilian</strong> nearby.</p> <p>The photo of the <strong>enemy civilian</strong> is shown below.</p> <p></p> " + "<img src='stimuli/faces/PCF6.jpg', style='max-width: 30%;'> </img>" + " <p><strong>Would you launch the weapon?</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1 enemy soldier", "2 enemy soldiers", "3 enemy soldiers", "4 enemy soldiers", "5 enemy soldiers"];
+            var high = ["6 enemy soldiers", "7 enemy soldiers", "8 enemy soldiers", "9 enemy soldiers", "10 enemy soldiers"];
+            var a = Math.floor(random(1, 6) - 1);
+            var html = "<p>As the military commander, you could choose to launch a missile to kill <strong>" + high[a] + "</strong> , but would accidentally kill <strong>1 enemy civilian</strong> nearby.</p> <p>The photo of the <strong>enemy civilian</strong> is shown below.</p> <p></p> " + "<img src='stimuli/faces/PCF7.jpg', style='max-width: 30%;'> </img>" + " <p><strong>Would you launch the weapon?</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1 enemy soldier", "2 enemy soldiers", "3 enemy soldiers", "4 enemy soldiers", "5 enemy soldiers"];
+            var high = ["6 enemy soldiers", "7 enemy soldiers", "8 enemy soldiers", "9 enemy soldiers", "10 enemy soldiers"];
+            var a = Math.floor(random(1, 6) - 1);
+            var html = "<p>As the military commander, you could choose to launch a missile to kill <strong>" + high[a] + "</strong> , but would accidentally kill <strong>1 enemy civilian</strong> nearby.</p> <p>The photo of the <strong>enemy civilian</strong> is shown below.</p> <p></p> " + "<img src='stimuli/faces/PCF8.jpg', style='max-width: 30%;'> </img>" + " <p><strong>Would you launch the weapon?</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1 enemy soldier", "2 enemy soldiers", "3 enemy soldiers", "4 enemy soldiers", "5 enemy soldiers"];
+            var high = ["6 enemy soldiers", "7 enemy soldiers", "8 enemy soldiers", "9 enemy soldiers", "10 enemy soldiers"];
+            var a = Math.floor(random(1, 6) - 1);
+            var html = "<p>As the military commander, you could choose to launch a missile to kill <strong>" + high[a] + "</strong> , but would accidentally kill <strong>1 enemy civilian</strong> nearby.</p> <p>The photo of the <strong>enemy civilian</strong> is shown below.</p> <p></p> " + "<img src='stimuli/faces/PCM1.jpg', style='max-width: 30%;'> </img>" + " <p><strong>Would you launch the weapon?</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1 enemy soldier", "2 enemy soldiers", "3 enemy soldiers", "4 enemy soldiers", "5 enemy soldiers"];
+            var high = ["6 enemy soldiers", "7 enemy soldiers", "8 enemy soldiers", "9 enemy soldiers", "10 enemy soldiers"];
+            var a = Math.floor(random(1, 6) - 1);
+            var html = "<p>As the military commander, you could choose to launch a missile to kill <strong>" + high[a] + "</strong> , but would accidentally kill <strong>1 enemy civilian</strong> nearby.</p> <p>The photo of the <strong>enemy civilian</strong> is shown below.</p> <p></p> " + "<img src='stimuli/faces/PCM2.jpg', style='max-width: 30%;'> </img>" + " <p><strong>Would you launch the weapon?</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1 enemy soldier", "2 enemy soldiers", "3 enemy soldiers", "4 enemy soldiers", "5 enemy soldiers"];
+            var high = ["6 enemy soldiers", "7 enemy soldiers", "8 enemy soldiers", "9 enemy soldiers", "10 enemy soldiers"];
+            var a = Math.floor(random(1, 6) - 1);
+            var html = "<p>As the military commander, you could choose to launch a missile to kill <strong>" + high[a] + "</strong> , but would accidentally kill <strong>1 enemy civilian</strong> nearby.</p> <p>The photo of the <strong>enemy civilian</strong> is shown below.</p> <p></p> " + "<img src='stimuli/faces/PCM3.jpg', style='max-width: 30%;'> </img>" + " <p><strong>Would you launch the weapon?</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1 enemy soldier", "2 enemy soldiers", "3 enemy soldiers", "4 enemy soldiers", "5 enemy soldiers"];
+            var high = ["6 enemy soldiers", "7 enemy soldiers", "8 enemy soldiers", "9 enemy soldiers", "10 enemy soldiers"];
+            var a = Math.floor(random(1, 6) - 1);
+            var html = "<p>As the military commander, you could choose to launch a missile to kill <strong>" + high[a] + "</strong> , but would accidentally kill <strong>1 enemy civilian</strong> nearby.</p> <p>The photo of the <strong>enemy civilian</strong> is shown below.</p> <p></p> " + "<img src='stimuli/faces/PCM4.jpg', style='max-width: 30%;'> </img>" + " <p><strong>Would you launch the weapon?</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1 enemy soldier", "2 enemy soldiers", "3 enemy soldiers", "4 enemy soldiers", "5 enemy soldiers"];
+            var high = ["6 enemy soldiers", "7 enemy soldiers", "8 enemy soldiers", "9 enemy soldiers", "10 enemy soldiers"];
+            var a = Math.floor(random(1, 6) - 1);
+            var html = "<p>As the military commander, you could choose to launch a missile to kill <strong>" + high[a] + "</strong> , but would accidentally kill <strong>1 enemy civilian</strong> nearby.</p> <p>The photo of the <strong>enemy civilian</strong> is shown below.</p> <p></p> " + "<img src='stimuli/faces/PCM5.jpg', style='max-width: 30%;'> </img>" + " <p><strong>Would you launch the weapon?</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1 enemy soldier", "2 enemy soldiers", "3 enemy soldiers", "4 enemy soldiers", "5 enemy soldiers"];
+            var high = ["6 enemy soldiers", "7 enemy soldiers", "8 enemy soldiers", "9 enemy soldiers", "10 enemy soldiers"];
+            var a = Math.floor(random(1, 6) - 1);
+            var html = "<p>As the military commander, you could choose to launch a missile to kill <strong>" + high[a] + "</strong> , but would accidentally kill <strong>1 enemy civilian</strong> nearby.</p> <p>The photo of the <strong>enemy civilian</strong> is shown below.</p> <p></p> " + "<img src='stimuli/faces/PCM6.jpg', style='max-width: 30%;'> </img>" + " <p><strong>Would you launch the weapon?</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1 enemy soldier", "2 enemy soldiers", "3 enemy soldiers", "4 enemy soldiers", "5 enemy soldiers"];
+            var high = ["6 enemy soldiers", "7 enemy soldiers", "8 enemy soldiers", "9 enemy soldiers", "10 enemy soldiers"];
+            var a = Math.floor(random(1, 6) - 1);
+            var html = "<p>As the military commander, you could choose to launch a missile to kill <strong>" + high[a] + "</strong> , but would accidentally kill <strong>1 enemy civilian</strong> nearby.</p> <p>The photo of the <strong>enemy civilian</strong> is shown below.</p> <p></p> " + "<img src='stimuli/faces/PCM7.jpg', style='max-width: 30%;'> </img>" + " <p><strong>Would you launch the weapon?</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1 enemy soldier", "2 enemy soldiers", "3 enemy soldiers", "4 enemy soldiers", "5 enemy soldiers"];
+            var high = ["6 enemy soldiers", "7 enemy soldiers", "8 enemy soldiers", "9 enemy soldiers", "10 enemy soldiers"];
+            var a = Math.floor(random(1, 6) - 1);
+            var html = "<p>As the military commander, you could choose to launch a missile to kill <strong>" + high[a] + "</strong> , but would accidentally kill <strong>1 enemy civilian</strong> nearby.</p> <p>The photo of the <strong>enemy civilian</strong> is shown below.</p> <p></p> " + "<img src='stimuli/faces/PCM8.jpg', style='max-width: 30%;'> </img>" + " <p><strong>Would you launch the weapon?</strong></p>";
+            return html;
+        }
+    },
+
+];
+
+var stimuli_caucasian = [
+
+    /// low soldiers
+    {
+        stimulus: function () {
+            var low = ["1 enemy soldier", "2 enemy soldiers", "3 enemy soldiers", "4 enemy soldiers", "5 enemy soldiers"];
+            var high = ["6 enemy soldiers", "7 enemy soldiers", "8 enemy soldiers", "9 enemy soldiers", "10 enemy soldiers"];
+            var a = Math.floor(random(1, 6) - 1);
+            var html = "<p>As the military commander, you could choose to launch a missile to kill <strong>" + low[a] + "</strong> , but would accidentally kill <strong>1 enemy civilian</strong> nearby.</p> <p>The photo of the <strong>enemy civilian</strong> is shown below.</p> <p></p> " + "<img src='stimuli/faces/PFF1.jpg', style='max-width: 30%;'> </img>" + " <p><strong>Would you launch the weapon?</strong></p>";
+            return html;
+        }
+    },
+
+
+    {
+        stimulus: function () {
+            var low = ["1 enemy soldier", "2 enemy soldiers", "3 enemy soldiers", "4 enemy soldiers", "5 enemy soldiers"];
+            var high = ["6 enemy soldiers", "7 enemy soldiers", "8 enemy soldiers", "9 enemy soldiers", "10 enemy soldiers"];
+            var a = Math.floor(random(1, 6) - 1);
+            var html = "<p>As the military commander, you could choose to launch a missile to kill <strong>" + low[a] + "</strong> , but would accidentally kill <strong>1 enemy civilian</strong> nearby.</p> <p>The photo of the <strong>enemy civilian</strong> is shown below.</p> <p></p> " + "<img src='stimuli/faces/PFF2.jpg', style='max-width: 30%;'> </img>" + " <p><strong>Would you launch the weapon?</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1 enemy soldier", "2 enemy soldiers", "3 enemy soldiers", "4 enemy soldiers", "5 enemy soldiers"];
+            var high = ["6 enemy soldiers", "7 enemy soldiers", "8 enemy soldiers", "9 enemy soldiers", "10 enemy soldiers"];
+            var a = Math.floor(random(1, 6) - 1);
+            var html = "<p>As the military commander, you could choose to launch a missile to kill <strong>" + low[a] + "</strong> , but would accidentally kill <strong>1 enemy civilian</strong> nearby.</p> <p>The photo of the <strong>enemy civilian</strong> is shown below.</p> <p></p> " + "<img src='stimuli/faces/PFF3.jpg', style='max-width: 30%;'> </img>" + " <p><strong>Would you launch the weapon?</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1 enemy soldier", "2 enemy soldiers", "3 enemy soldiers", "4 enemy soldiers", "5 enemy soldiers"];
+            var high = ["6 enemy soldiers", "7 enemy soldiers", "8 enemy soldiers", "9 enemy soldiers", "10 enemy soldiers"];
+            var a = Math.floor(random(1, 6) - 1);
+            var html = "<p>As the military commander, you could choose to launch a missile to kill <strong>" + low[a] + "</strong> , but would accidentally kill <strong>1 enemy civilian</strong> nearby.</p> <p>The photo of the <strong>enemy civilian</strong> is shown below.</p> <p></p> " + "<img src='stimuli/faces/PFF4.jpg', style='max-width: 30%;'> </img>" + " <p><strong>Would you launch the weapon?</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1 enemy soldier", "2 enemy soldiers", "3 enemy soldiers", "4 enemy soldiers", "5 enemy soldiers"];
+            var high = ["6 enemy soldiers", "7 enemy soldiers", "8 enemy soldiers", "9 enemy soldiers", "10 enemy soldiers"];
+            var a = Math.floor(random(1, 6) - 1);
+            var html = "<p>As the military commander, you could choose to launch a missile to kill <strong>" + low[a] + "</strong> , but would accidentally kill <strong>1 enemy civilian</strong> nearby.</p> <p>The photo of the <strong>enemy civilian</strong> is shown below.</p> <p></p> " + "<img src='stimuli/faces/PFF5.jpg', style='max-width: 30%;'> </img>" + " <p><strong>Would you launch the weapon?</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1 enemy soldier", "2 enemy soldiers", "3 enemy soldiers", "4 enemy soldiers", "5 enemy soldiers"];
+            var high = ["6 enemy soldiers", "7 enemy soldiers", "8 enemy soldiers", "9 enemy soldiers", "10 enemy soldiers"];
+            var a = Math.floor(random(1, 6) - 1);
+            var html = "<p>As the military commander, you could choose to launch a missile to kill <strong>" + low[a] + "</strong> , but would accidentally kill <strong>1 enemy civilian</strong> nearby.</p> <p>The photo of the <strong>enemy civilian</strong> is shown below.</p> <p></p> " + "<img src='stimuli/faces/PFF6.jpg', style='max-width: 30%;'> </img>" + " <p><strong>Would you launch the weapon?</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1 enemy soldier", "2 enemy soldiers", "3 enemy soldiers", "4 enemy soldiers", "5 enemy soldiers"];
+            var high = ["6 enemy soldiers", "7 enemy soldiers", "8 enemy soldiers", "9 enemy soldiers", "10 enemy soldiers"];
+            var a = Math.floor(random(1, 6) - 1);
+            var html = "<p>As the military commander, you could choose to launch a missile to kill <strong>" + low[a] + "</strong> , but would accidentally kill <strong>1 enemy civilian</strong> nearby.</p> <p>The photo of the <strong>enemy civilian</strong> is shown below.</p> <p></p> " + "<img src='stimuli/faces/PFF7.jpg', style='max-width: 30%;'> </img>" + " <p><strong>Would you launch the weapon?</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1 enemy soldier", "2 enemy soldiers", "3 enemy soldiers", "4 enemy soldiers", "5 enemy soldiers"];
+            var high = ["6 enemy soldiers", "7 enemy soldiers", "8 enemy soldiers", "9 enemy soldiers", "10 enemy soldiers"];
+            var a = Math.floor(random(1, 6) - 1);
+            var html = "<p>As the military commander, you could choose to launch a missile to kill <strong>" + low[a] + "</strong> , but would accidentally kill <strong>1 enemy civilian</strong> nearby.</p> <p>The photo of the <strong>enemy civilian</strong> is shown below.</p> <p></p> " + "<img src='stimuli/faces/PFF8.jpg', style='max-width: 30%;'> </img>" + " <p><strong>Would you launch the weapon?</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1 enemy soldier", "2 enemy soldiers", "3 enemy soldiers", "4 enemy soldiers", "5 enemy soldiers"];
+            var high = ["6 enemy soldiers", "7 enemy soldiers", "8 enemy soldiers", "9 enemy soldiers", "10 enemy soldiers"];
+            var a = Math.floor(random(1, 6) - 1);
+            var html = "<p>As the military commander, you could choose to launch a missile to kill <strong>" + low[a] + "</strong> , but would accidentally kill <strong>1 enemy civilian</strong> nearby.</p> <p>The photo of the <strong>enemy civilian</strong> is shown below.</p> <p></p> " + "<img src='stimuli/faces/PFM1.jpg', style='max-width: 30%;'> </img>" + " <p><strong>Would you launch the weapon?</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1 enemy soldier", "2 enemy soldiers", "3 enemy soldiers", "4 enemy soldiers", "5 enemy soldiers"];
+            var high = ["6 enemy soldiers", "7 enemy soldiers", "8 enemy soldiers", "9 enemy soldiers", "10 enemy soldiers"];
+            var a = Math.floor(random(1, 6) - 1);
+            var html = "<p>As the military commander, you could choose to launch a missile to kill <strong>" + low[a] + "</strong> , but would accidentally kill <strong>1 enemy civilian</strong> nearby.</p> <p>The photo of the <strong>enemy civilian</strong> is shown below.</p> <p></p> " + "<img src='stimuli/faces/PFM2.jpg', style='max-width: 30%;'> </img>" + " <p><strong>Would you launch the weapon?</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1 enemy soldier", "2 enemy soldiers", "3 enemy soldiers", "4 enemy soldiers", "5 enemy soldiers"];
+            var high = ["6 enemy soldiers", "7 enemy soldiers", "8 enemy soldiers", "9 enemy soldiers", "10 enemy soldiers"];
+            var a = Math.floor(random(1, 6) - 1);
+            var html = "<p>As the military commander, you could choose to launch a missile to kill <strong>" + low[a] + "</strong> , but would accidentally kill <strong>1 enemy civilian</strong> nearby.</p> <p>The photo of the <strong>enemy civilian</strong> is shown below.</p> <p></p> " + "<img src='stimuli/faces/PFM3.jpg', style='max-width: 30%;'> </img>" + " <p><strong>Would you launch the weapon?</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1 enemy soldier", "2 enemy soldiers", "3 enemy soldiers", "4 enemy soldiers", "5 enemy soldiers"];
+            var high = ["6 enemy soldiers", "7 enemy soldiers", "8 enemy soldiers", "9 enemy soldiers", "10 enemy soldiers"];
+            var a = Math.floor(random(1, 6) - 1);
+            var html = "<p>As the military commander, you could choose to launch a missile to kill <strong>" + low[a] + "</strong> , but would accidentally kill <strong>1 enemy civilian</strong> nearby.</p> <p>The photo of the <strong>enemy civilian</strong> is shown below.</p> <p></p> " + "<img src='stimuli/faces/PFM4.jpg', style='max-width: 30%;'> </img>" + " <p><strong>Would you launch the weapon?</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1 enemy soldier", "2 enemy soldiers", "3 enemy soldiers", "4 enemy soldiers", "5 enemy soldiers"];
+            var high = ["6 enemy soldiers", "7 enemy soldiers", "8 enemy soldiers", "9 enemy soldiers", "10 enemy soldiers"];
+            var a = Math.floor(random(1, 6) - 1);
+            var html = "<p>As the military commander, you could choose to launch a missile to kill <strong>" + low[a] + "</strong> , but would accidentally kill <strong>1 enemy civilian</strong> nearby.</p> <p>The photo of the <strong>enemy civilian</strong> is shown below.</p> <p></p> " + "<img src='stimuli/faces/PFM5.jpg', style='max-width: 30%;'> </img>" + " <p><strong>Would you launch the weapon?</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1 enemy soldier", "2 enemy soldiers", "3 enemy soldiers", "4 enemy soldiers", "5 enemy soldiers"];
+            var high = ["6 enemy soldiers", "7 enemy soldiers", "8 enemy soldiers", "9 enemy soldiers", "10 enemy soldiers"];
+            var a = Math.floor(random(1, 6) - 1);
+            var html = "<p>As the military commander, you could choose to launch a missile to kill <strong>" + low[a] + "</strong> , but would accidentally kill <strong>1 enemy civilian</strong> nearby.</p> <p>The photo of the <strong>enemy civilian</strong> is shown below.</p> <p></p> " + "<img src='stimuli/faces/PFM6.jpg', style='max-width: 30%;'> </img>" + " <p><strong>Would you launch the weapon?</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1 enemy soldier", "2 enemy soldiers", "3 enemy soldiers", "4 enemy soldiers", "5 enemy soldiers"];
+            var high = ["6 enemy soldiers", "7 enemy soldiers", "8 enemy soldiers", "9 enemy soldiers", "10 enemy soldiers"];
+            var a = Math.floor(random(1, 6) - 1);
+            var html = "<p>As the military commander, you could choose to launch a missile to kill <strong>" + low[a] + "</strong> , but would accidentally kill <strong>1 enemy civilian</strong> nearby.</p> <p>The photo of the <strong>enemy civilian</strong> is shown below.</p> <p></p> " + "<img src='stimuli/faces/PFM7.jpg', style='max-width: 30%;'> </img>" + " <p><strong>Would you launch the weapon?</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1 enemy soldier", "2 enemy soldiers", "3 enemy soldiers", "4 enemy soldiers", "5 enemy soldiers"];
+            var high = ["6 enemy soldiers", "7 enemy soldiers", "8 enemy soldiers", "9 enemy soldiers", "10 enemy soldiers"];
+            var a = Math.floor(random(1, 6) - 1);
+            var html = "<p>As the military commander, you could choose to launch a missile to kill <strong>" + low[a] + "</strong> , but would accidentally kill <strong>1 enemy civilian</strong> nearby.</p> <p>The photo of the <strong>enemy civilian</strong> is shown below.</p> <p></p> " + "<img src='stimuli/faces/PFM8.jpg', style='max-width: 30%;'> </img>" + " <p><strong>Would you launch the weapon?</strong></p>";
+            return html;
+        }
+    },
+
+    /// high soldiers
+    {
+        stimulus: function () {
+            var low = ["1 enemy soldier", "2 enemy soldiers", "3 enemy soldiers", "4 enemy soldiers", "5 enemy soldiers"];
+            var high = ["6 enemy soldiers", "7 enemy soldiers", "8 enemy soldiers", "9 enemy soldiers", "10 enemy soldiers"];
+            var a = Math.floor(random(1, 6) - 1);
+            var html = "<p>As the military commander, you could choose to launch a missile to kill <strong>" + high[a] + "</strong> , but would accidentally kill <strong>1 enemy civilian</strong> nearby.</p> <p>The photo of the <strong>enemy civilian</strong> is shown below.</p> <p></p> " + "<img src='stimuli/faces/PFF1.jpg', style='max-width: 30%;'> </img>" + " <p><strong>Would you launch the weapon?</strong></p>";
+            return html;
+        }
+    },
+
+
+    {
+        stimulus: function () {
+            var low = ["1 enemy soldier", "2 enemy soldiers", "3 enemy soldiers", "4 enemy soldiers", "5 enemy soldiers"];
+            var high = ["6 enemy soldiers", "7 enemy soldiers", "8 enemy soldiers", "9 enemy soldiers", "10 enemy soldiers"];
+            var a = Math.floor(random(1, 6) - 1);
+            var html = "<p>As the military commander, you could choose to launch a missile to kill <strong>" + high[a] + "</strong> , but would accidentally kill <strong>1 enemy civilian</strong> nearby.</p> <p>The photo of the <strong>enemy civilian</strong> is shown below.</p> <p></p> " + "<img src='stimuli/faces/PFF2.jpg', style='max-width: 30%;'> </img>" + " <p><strong>Would you launch the weapon?</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1 enemy soldier", "2 enemy soldiers", "3 enemy soldiers", "4 enemy soldiers", "5 enemy soldiers"];
+            var high = ["6 enemy soldiers", "7 enemy soldiers", "8 enemy soldiers", "9 enemy soldiers", "10 enemy soldiers"];
+            var a = Math.floor(random(1, 6) - 1);
+            var html = "<p>As the military commander, you could choose to launch a missile to kill <strong>" + high[a] + "</strong> , but would accidentally kill <strong>1 enemy civilian</strong> nearby.</p> <p>The photo of the <strong>enemy civilian</strong> is shown below.</p> <p></p> " + "<img src='stimuli/faces/PFF3.jpg', style='max-width: 30%;'> </img>" + " <p><strong>Would you launch the weapon?</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1 enemy soldier", "2 enemy soldiers", "3 enemy soldiers", "4 enemy soldiers", "5 enemy soldiers"];
+            var high = ["6 enemy soldiers", "7 enemy soldiers", "8 enemy soldiers", "9 enemy soldiers", "10 enemy soldiers"];
+            var a = Math.floor(random(1, 6) - 1);
+            var html = "<p>As the military commander, you could choose to launch a missile to kill <strong>" + high[a] + "</strong> , but would accidentally kill <strong>1 enemy civilian</strong> nearby.</p> <p>The photo of the <strong>enemy civilian</strong> is shown below.</p> <p></p> " + "<img src='stimuli/faces/PFF4.jpg', style='max-width: 30%;'> </img>" + " <p><strong>Would you launch the weapon?</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1 enemy soldier", "2 enemy soldiers", "3 enemy soldiers", "4 enemy soldiers", "5 enemy soldiers"];
+            var high = ["6 enemy soldiers", "7 enemy soldiers", "8 enemy soldiers", "9 enemy soldiers", "10 enemy soldiers"];
+            var a = Math.floor(random(1, 6) - 1);
+            var html = "<p>As the military commander, you could choose to launch a missile to kill <strong>" + high[a] + "</strong> , but would accidentally kill <strong>1 enemy civilian</strong> nearby.</p> <p>The photo of the <strong>enemy civilian</strong> is shown below.</p> <p></p> " + "<img src='stimuli/faces/PFF5.jpg', style='max-width: 30%;'> </img>" + " <p><strong>Would you launch the weapon?</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1 enemy soldier", "2 enemy soldiers", "3 enemy soldiers", "4 enemy soldiers", "5 enemy soldiers"];
+            var high = ["6 enemy soldiers", "7 enemy soldiers", "8 enemy soldiers", "9 enemy soldiers", "10 enemy soldiers"];
+            var a = Math.floor(random(1, 6) - 1);
+            var html = "<p>As the military commander, you could choose to launch a missile to kill <strong>" + high[a] + "</strong> , but would accidentally kill <strong>1 enemy civilian</strong> nearby.</p> <p>The photo of the <strong>enemy civilian</strong> is shown below.</p> <p></p> " + "<img src='stimuli/faces/PFF6.jpg', style='max-width: 30%;'> </img>" + " <p><strong>Would you launch the weapon?</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1 enemy soldier", "2 enemy soldiers", "3 enemy soldiers", "4 enemy soldiers", "5 enemy soldiers"];
+            var high = ["6 enemy soldiers", "7 enemy soldiers", "8 enemy soldiers", "9 enemy soldiers", "10 enemy soldiers"];
+            var a = Math.floor(random(1, 6) - 1);
+            var html = "<p>As the military commander, you could choose to launch a missile to kill <strong>" + high[a] + "</strong> , but would accidentally kill <strong>1 enemy civilian</strong> nearby.</p> <p>The photo of the <strong>enemy civilian</strong> is shown below.</p> <p></p> " + "<img src='stimuli/faces/PFF7.jpg', style='max-width: 30%;'> </img>" + " <p><strong>Would you launch the weapon?</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1 enemy soldier", "2 enemy soldiers", "3 enemy soldiers", "4 enemy soldiers", "5 enemy soldiers"];
+            var high = ["6 enemy soldiers", "7 enemy soldiers", "8 enemy soldiers", "9 enemy soldiers", "10 enemy soldiers"];
+            var a = Math.floor(random(1, 6) - 1);
+            var html = "<p>As the military commander, you could choose to launch a missile to kill <strong>" + high[a] + "</strong> , but would accidentally kill <strong>1 enemy civilian</strong> nearby.</p> <p>The photo of the <strong>enemy civilian</strong> is shown below.</p> <p></p> " + "<img src='stimuli/faces/PFF8.jpg', style='max-width: 30%;'> </img>" + " <p><strong>Would you launch the weapon?</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1 enemy soldier", "2 enemy soldiers", "3 enemy soldiers", "4 enemy soldiers", "5 enemy soldiers"];
+            var high = ["6 enemy soldiers", "7 enemy soldiers", "8 enemy soldiers", "9 enemy soldiers", "10 enemy soldiers"];
+            var a = Math.floor(random(1, 6) - 1);
+            var html = "<p>As the military commander, you could choose to launch a missile to kill <strong>" + high[a] + "</strong> , but would accidentally kill <strong>1 enemy civilian</strong> nearby.</p> <p>The photo of the <strong>enemy civilian</strong> is shown below.</p> <p></p> " + "<img src='stimuli/faces/PFM1.jpg', style='max-width: 30%;'> </img>" + " <p><strong>Would you launch the weapon?</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1 enemy soldier", "2 enemy soldiers", "3 enemy soldiers", "4 enemy soldiers", "5 enemy soldiers"];
+            var high = ["6 enemy soldiers", "7 enemy soldiers", "8 enemy soldiers", "9 enemy soldiers", "10 enemy soldiers"];
+            var a = Math.floor(random(1, 6) - 1);
+            var html = "<p>As the military commander, you could choose to launch a missile to kill <strong>" + high[a] + "</strong> , but would accidentally kill <strong>1 enemy civilian</strong> nearby.</p> <p>The photo of the <strong>enemy civilian</strong> is shown below.</p> <p></p> " + "<img src='stimuli/faces/PFM2.jpg', style='max-width: 30%;'> </img>" + " <p><strong>Would you launch the weapon?</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1 enemy soldier", "2 enemy soldiers", "3 enemy soldiers", "4 enemy soldiers", "5 enemy soldiers"];
+            var high = ["6 enemy soldiers", "7 enemy soldiers", "8 enemy soldiers", "9 enemy soldiers", "10 enemy soldiers"];
+            var a = Math.floor(random(1, 6) - 1);
+            var html = "<p>As the military commander, you could choose to launch a missile to kill <strong>" + high[a] + "</strong> , but would accidentally kill <strong>1 enemy civilian</strong> nearby.</p> <p>The photo of the <strong>enemy civilian</strong> is shown below.</p> <p></p> " + "<img src='stimuli/faces/PFM3.jpg', style='max-width: 30%;'> </img>" + " <p><strong>Would you launch the weapon?</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1 enemy soldier", "2 enemy soldiers", "3 enemy soldiers", "4 enemy soldiers", "5 enemy soldiers"];
+            var high = ["6 enemy soldiers", "7 enemy soldiers", "8 enemy soldiers", "9 enemy soldiers", "10 enemy soldiers"];
+            var a = Math.floor(random(1, 6) - 1);
+            var html = "<p>As the military commander, you could choose to launch a missile to kill <strong>" + high[a] + "</strong> , but would accidentally kill <strong>1 enemy civilian</strong> nearby.</p> <p>The photo of the <strong>enemy civilian</strong> is shown below.</p> <p></p> " + "<img src='stimuli/faces/PFM4.jpg', style='max-width: 30%;'> </img>" + " <p><strong>Would you launch the weapon?</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1 enemy soldier", "2 enemy soldiers", "3 enemy soldiers", "4 enemy soldiers", "5 enemy soldiers"];
+            var high = ["6 enemy soldiers", "7 enemy soldiers", "8 enemy soldiers", "9 enemy soldiers", "10 enemy soldiers"];
+            var a = Math.floor(random(1, 6) - 1);
+            var html = "<p>As the military commander, you could choose to launch a missile to kill <strong>" + high[a] + "</strong> , but would accidentally kill <strong>1 enemy civilian</strong> nearby.</p> <p>The photo of the <strong>enemy civilian</strong> is shown below.</p> <p></p> " + "<img src='stimuli/faces/PFM5.jpg', style='max-width: 30%;'> </img>" + " <p><strong>Would you launch the weapon?</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1 enemy soldier", "2 enemy soldiers", "3 enemy soldiers", "4 enemy soldiers", "5 enemy soldiers"];
+            var high = ["6 enemy soldiers", "7 enemy soldiers", "8 enemy soldiers", "9 enemy soldiers", "10 enemy soldiers"];
+            var a = Math.floor(random(1, 6) - 1);
+            var html = "<p>As the military commander, you could choose to launch a missile to kill <strong>" + high[a] + "</strong> , but would accidentally kill <strong>1 enemy civilian</strong> nearby.</p> <p>The photo of the <strong>enemy civilian</strong> is shown below.</p> <p></p> " + "<img src='stimuli/faces/PFM6.jpg', style='max-width: 30%;'> </img>" + " <p><strong>Would you launch the weapon?</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1 enemy soldier", "2 enemy soldiers", "3 enemy soldiers", "4 enemy soldiers", "5 enemy soldiers"];
+            var high = ["6 enemy soldiers", "7 enemy soldiers", "8 enemy soldiers", "9 enemy soldiers", "10 enemy soldiers"];
+            var a = Math.floor(random(1, 6) - 1);
+            var html = "<p>As the military commander, you could choose to launch a missile to kill <strong>" + high[a] + "</strong> , but would accidentally kill <strong>1 enemy civilian</strong> nearby.</p> <p>The photo of the <strong>enemy civilian</strong> is shown below.</p> <p></p> " + "<img src='stimuli/faces/PFM7.jpg', style='max-width: 30%;'> </img>" + " <p><strong>Would you launch the weapon?</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1 enemy soldier", "2 enemy soldiers", "3 enemy soldiers", "4 enemy soldiers", "5 enemy soldiers"];
+            var high = ["6 enemy soldiers", "7 enemy soldiers", "8 enemy soldiers", "9 enemy soldiers", "10 enemy soldiers"];
+            var a = Math.floor(random(1, 6) - 1);
+            var html = "<p>As the military commander, you could choose to launch a missile to kill <strong>" + high[a] + "</strong> , but would accidentally kill <strong>1 enemy civilian</strong> nearby.</p> <p>The photo of the <strong>enemy civilian</strong> is shown below.</p> <p></p> " + "<img src='stimuli/faces/PFM8.jpg', style='max-width: 30%;'> </img>" + " <p><strong>Would you launch the weapon?</strong></p>";
+            return html;
+        }
+    },
+
+];
+
+
+var stimuli_tree = [
+
+
+    {
+        stimulus: function () {
+            var low = ["1 enemy soldier", "2 enemy soldiers", "3 enemy soldiers", "4 enemy soldiers", "5 enemy soldiers"];
+            var high = ["6 enemy soldiers", "7 enemy soldiers", "8 enemy soldiers", "9 enemy soldiers", "10 enemy soldiers"];
+            var a = Math.floor(random(1, 6) - 1);
+            var html = "<p>As the military commander, you could choose to launch a missile to kill <strong>" + low[a] + "</strong> , but would accidentally kill <strong>1 enemy tree</strong> nearby.</p> <p>The photo of the <strong>enemy tree</strong> is shown below.</p> <p></p> " + "<img src='stimuli/tree/1.png', style='max-width: 30%;'> </img>" + " <p><strong>Would you launch the weapon?</strong></p>";
+            return html;
+        }
+    },
+
+
+    {
+        stimulus: function () {
+            var low = ["1 enemy soldier", "2 enemy soldiers", "3 enemy soldiers", "4 enemy soldiers", "5 enemy soldiers"];
+            var high = ["6 enemy soldiers", "7 enemy soldiers", "8 enemy soldiers", "9 enemy soldiers", "10 enemy soldiers"];
+            var a = Math.floor(random(1, 6) - 1);
+            var html = "<p>As the military commander, you could choose to launch a missile to kill <strong>" + low[a] + "</strong> , but would accidentally kill <strong>1 enemy tree</strong> nearby.</p> <p>The photo of the <strong>enemy tree</strong> is shown below.</p> <p></p> " + "<img src='stimuli/tree/2.png', style='max-width: 30%;'> </img>" + " <p><strong>Would you launch the weapon?</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1 enemy soldier", "2 enemy soldiers", "3 enemy soldiers", "4 enemy soldiers", "5 enemy soldiers"];
+            var high = ["6 enemy soldiers", "7 enemy soldiers", "8 enemy soldiers", "9 enemy soldiers", "10 enemy soldiers"];
+            var a = Math.floor(random(1, 6) - 1);
+            var html = "<p>As the military commander, you could choose to launch a missile to kill <strong>" + low[a] + "</strong> , but would accidentally kill <strong>1 enemy tree</strong> nearby.</p> <p>The photo of the <strong>enemy tree</strong> is shown below.</p> <p></p> " + "<img src='stimuli/tree/3.png', style='max-width: 30%;'> </img>" + " <p><strong>Would you launch the weapon?</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1 enemy soldier", "2 enemy soldiers", "3 enemy soldiers", "4 enemy soldiers", "5 enemy soldiers"];
+            var high = ["6 enemy soldiers", "7 enemy soldiers", "8 enemy soldiers", "9 enemy soldiers", "10 enemy soldiers"];
+            var a = Math.floor(random(1, 6) - 1);
+            var html = "<p>As the military commander, you could choose to launch a missile to kill <strong>" + low[a] + "</strong> , but would accidentally kill <strong>1 enemy tree</strong> nearby.</p> <p>The photo of the <strong>enemy tree</strong> is shown below.</p> <p></p> " + "<img src='stimuli/tree/4.png', style='max-width: 30%;'> </img>" + " <p><strong>Would you launch the weapon?</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1 enemy soldier", "2 enemy soldiers", "3 enemy soldiers", "4 enemy soldiers", "5 enemy soldiers"];
+            var high = ["6 enemy soldiers", "7 enemy soldiers", "8 enemy soldiers", "9 enemy soldiers", "10 enemy soldiers"];
+            var a = Math.floor(random(1, 6) - 1);
+            var html = "<p>As the military commander, you could choose to launch a missile to kill <strong>" + low[a] + "</strong> , but would accidentally kill <strong>1 enemy tree</strong> nearby.</p> <p>The photo of the <strong>enemy tree</strong> is shown below.</p> <p></p> " + "<img src='stimuli/tree/5.png', style='max-width: 30%;'> </img>" + " <p><strong>Would you launch the weapon?</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1 enemy soldier", "2 enemy soldiers", "3 enemy soldiers", "4 enemy soldiers", "5 enemy soldiers"];
+            var high = ["6 enemy soldiers", "7 enemy soldiers", "8 enemy soldiers", "9 enemy soldiers", "10 enemy soldiers"];
+            var a = Math.floor(random(1, 6) - 1);
+            var html = "<p>As the military commander, you could choose to launch a missile to kill <strong>" + low[a] + "</strong> , but would accidentally kill <strong>1 enemy tree</strong> nearby.</p> <p>The photo of the <strong>enemy tree</strong> is shown below.</p> <p></p> " + "<img src='stimuli/tree/6.png', style='max-width: 30%;'> </img>" + " <p><strong>Would you launch the weapon?</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1 enemy soldier", "2 enemy soldiers", "3 enemy soldiers", "4 enemy soldiers", "5 enemy soldiers"];
+            var high = ["6 enemy soldiers", "7 enemy soldiers", "8 enemy soldiers", "9 enemy soldiers", "10 enemy soldiers"];
+            var a = Math.floor(random(1, 6) - 1);
+            var html = "<p>As the military commander, you could choose to launch a missile to kill <strong>" + low[a] + "</strong> , but would accidentally kill <strong>1 enemy tree</strong> nearby.</p> <p>The photo of the <strong>enemy tree</strong> is shown below.</p> <p></p> " + "<img src='stimuli/tree/7.png', style='max-width: 30%;'> </img>" + " <p><strong>Would you launch the weapon?</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1 enemy soldier", "2 enemy soldiers", "3 enemy soldiers", "4 enemy soldiers", "5 enemy soldiers"];
+            var high = ["6 enemy soldiers", "7 enemy soldiers", "8 enemy soldiers", "9 enemy soldiers", "10 enemy soldiers"];
+            var a = Math.floor(random(1, 6) - 1);
+            var html = "<p>As the military commander, you could choose to launch a missile to kill <strong>" + low[a] + "</strong> , but would accidentally kill <strong>1 enemy tree</strong> nearby.</p> <p>The photo of the <strong>enemy tree</strong> is shown below.</p> <p></p> " + "<img src='stimuli/tree/8.png', style='max-width: 30%;'> </img>" + " <p><strong>Would you launch the weapon?</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1 enemy soldier", "2 enemy soldiers", "3 enemy soldiers", "4 enemy soldiers", "5 enemy soldiers"];
+            var high = ["6 enemy soldiers", "7 enemy soldiers", "8 enemy soldiers", "9 enemy soldiers", "10 enemy soldiers"];
+            var a = Math.floor(random(1, 6) - 1);
+            var html = "<p>As the military commander, you could choose to launch a missile to kill <strong>" + low[a] + "</strong> , but would accidentally kill <strong>1 enemy tree</strong> nearby.</p> <p>The photo of the <strong>enemy tree</strong> is shown below.</p> <p></p> " + "<img src='stimuli/tree/9.png', style='max-width: 30%;'> </img>" + " <p><strong>Would you launch the weapon?</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1 enemy soldier", "2 enemy soldiers", "3 enemy soldiers", "4 enemy soldiers", "5 enemy soldiers"];
+            var high = ["6 enemy soldiers", "7 enemy soldiers", "8 enemy soldiers", "9 enemy soldiers", "10 enemy soldiers"];
+            var a = Math.floor(random(1, 6) - 1);
+            var html = "<p>As the military commander, you could choose to launch a missile to kill <strong>" + low[a] + "</strong> , but would accidentally kill <strong>1 enemy tree</strong> nearby.</p> <p>The photo of the <strong>enemy tree</strong> is shown below.</p> <p></p> " + "<img src='stimuli/tree/10.png', style='max-width: 30%;'> </img>" + " <p><strong>Would you launch the weapon?</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1 enemy soldier", "2 enemy soldiers", "3 enemy soldiers", "4 enemy soldiers", "5 enemy soldiers"];
+            var high = ["6 enemy soldiers", "7 enemy soldiers", "8 enemy soldiers", "9 enemy soldiers", "10 enemy soldiers"];
+            var a = Math.floor(random(1, 6) - 1);
+            var html = "<p>As the military commander, you could choose to launch a missile to kill <strong>" + low[a] + "</strong> , but would accidentally kill <strong>1 enemy tree</strong> nearby.</p> <p>The photo of the <strong>enemy tree</strong> is shown below.</p> <p></p> " + "<img src='stimuli/tree/11.png', style='max-width: 30%;'> </img>" + " <p><strong>Would you launch the weapon?</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1 enemy soldier", "2 enemy soldiers", "3 enemy soldiers", "4 enemy soldiers", "5 enemy soldiers"];
+            var high = ["6 enemy soldiers", "7 enemy soldiers", "8 enemy soldiers", "9 enemy soldiers", "10 enemy soldiers"];
+            var a = Math.floor(random(1, 6) - 1);
+            var html = "<p>As the military commander, you could choose to launch a missile to kill <strong>" + low[a] + "</strong> , but would accidentally kill <strong>1 enemy tree</strong> nearby.</p> <p>The photo of the <strong>enemy tree</strong> is shown below.</p> <p></p> " + "<img src='stimuli/tree/12.png', style='max-width: 30%;'> </img>" + " <p><strong>Would you launch the weapon?</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1 enemy soldier", "2 enemy soldiers", "3 enemy soldiers", "4 enemy soldiers", "5 enemy soldiers"];
+            var high = ["6 enemy soldiers", "7 enemy soldiers", "8 enemy soldiers", "9 enemy soldiers", "10 enemy soldiers"];
+            var a = Math.floor(random(1, 6) - 1);
+            var html = "<p>As the military commander, you could choose to launch a missile to kill <strong>" + low[a] + "</strong> , but would accidentally kill <strong>1 enemy tree</strong> nearby.</p> <p>The photo of the <strong>enemy tree</strong> is shown below.</p> <p></p> " + "<img src='stimuli/tree/13.png', style='max-width: 30%;'> </img>" + " <p><strong>Would you launch the weapon?</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1 enemy soldier", "2 enemy soldiers", "3 enemy soldiers", "4 enemy soldiers", "5 enemy soldiers"];
+            var high = ["6 enemy soldiers", "7 enemy soldiers", "8 enemy soldiers", "9 enemy soldiers", "10 enemy soldiers"];
+            var a = Math.floor(random(1, 6) - 1);
+            var html = "<p>As the military commander, you could choose to launch a missile to kill <strong>" + low[a] + "</strong> , but would accidentally kill <strong>1 enemy tree</strong> nearby.</p> <p>The photo of the <strong>enemy tree</strong> is shown below.</p> <p></p> " + "<img src='stimuli/tree/14.png', style='max-width: 30%;'> </img>" + " <p><strong>Would you launch the weapon?</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1 enemy soldier", "2 enemy soldiers", "3 enemy soldiers", "4 enemy soldiers", "5 enemy soldiers"];
+            var high = ["6 enemy soldiers", "7 enemy soldiers", "8 enemy soldiers", "9 enemy soldiers", "10 enemy soldiers"];
+            var a = Math.floor(random(1, 6) - 1);
+            var html = "<p>As the military commander, you could choose to launch a missile to kill <strong>" + low[a] + "</strong> , but would accidentally kill <strong>1 enemy tree</strong> nearby.</p> <p>The photo of the <strong>enemy tree</strong> is shown below.</p> <p></p> " + "<img src='stimuli/tree/15.png', style='max-width: 30%;'> </img>" + " <p><strong>Would you launch the weapon?</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1 enemy soldier", "2 enemy soldiers", "3 enemy soldiers", "4 enemy soldiers", "5 enemy soldiers"];
+            var high = ["6 enemy soldiers", "7 enemy soldiers", "8 enemy soldiers", "9 enemy soldiers", "10 enemy soldiers"];
+            var a = Math.floor(random(1, 6) - 1);
+            var html = "<p>As the military commander, you could choose to launch a missile to kill <strong>" + low[a] + "</strong> , but would accidentally kill <strong>1 enemy tree</strong> nearby.</p> <p>The photo of the <strong>enemy tree</strong> is shown below.</p> <p></p> " + "<img src='stimuli/tree/16.png', style='max-width: 30%;'> </img>" + " <p><strong>Would you launch the weapon?</strong></p>";
+            return html;
+        }
+    },
+
+    /// high soldiers
+
+    {
+        stimulus: function () {
+            var low = ["1 enemy soldier", "2 enemy soldiers", "3 enemy soldiers", "4 enemy soldiers", "5 enemy soldiers"];
+            var high = ["6 enemy soldiers", "7 enemy soldiers", "8 enemy soldiers", "9 enemy soldiers", "10 enemy soldiers"];
+            var a = Math.floor(random(1, 6) - 1);
+            var html = "<p>As the military commander, you could choose to launch a missile to kill <strong>" + high[a] + "</strong> , but would accidentally kill <strong>1 enemy tree</strong> nearby.</p> <p>The photo of the <strong>enemy tree</strong> is shown below.</p> <p></p> " + "<img src='stimuli/tree/1.png', style='max-width: 30%;'> </img>" + " <p><strong>Would you launch the weapon?</strong></p>";
+            return html;
+        }
+    },
+
+
+    {
+        stimulus: function () {
+            var low = ["1 enemy soldier", "2 enemy soldiers", "3 enemy soldiers", "4 enemy soldiers", "5 enemy soldiers"];
+            var high = ["6 enemy soldiers", "7 enemy soldiers", "8 enemy soldiers", "9 enemy soldiers", "10 enemy soldiers"];
+            var a = Math.floor(random(1, 6) - 1);
+            var html = "<p>As the military commander, you could choose to launch a missile to kill <strong>" + high[a] + "</strong> , but would accidentally kill <strong>1 enemy tree</strong> nearby.</p> <p>The photo of the <strong>enemy tree</strong> is shown below.</p> <p></p> " + "<img src='stimuli/tree/2.png', style='max-width: 30%;'> </img>" + " <p><strong>Would you launch the weapon?</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1 enemy soldier", "2 enemy soldiers", "3 enemy soldiers", "4 enemy soldiers", "5 enemy soldiers"];
+            var high = ["6 enemy soldiers", "7 enemy soldiers", "8 enemy soldiers", "9 enemy soldiers", "10 enemy soldiers"];
+            var a = Math.floor(random(1, 6) - 1);
+            var html = "<p>As the military commander, you could choose to launch a missile to kill <strong>" + high[a] + "</strong> , but would accidentally kill <strong>1 enemy tree</strong> nearby.</p> <p>The photo of the <strong>enemy tree</strong> is shown below.</p> <p></p> " + "<img src='stimuli/tree/3.png', style='max-width: 30%;'> </img>" + " <p><strong>Would you launch the weapon?</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1 enemy soldier", "2 enemy soldiers", "3 enemy soldiers", "4 enemy soldiers", "5 enemy soldiers"];
+            var high = ["6 enemy soldiers", "7 enemy soldiers", "8 enemy soldiers", "9 enemy soldiers", "10 enemy soldiers"];
+            var a = Math.floor(random(1, 6) - 1);
+            var html = "<p>As the military commander, you could choose to launch a missile to kill <strong>" + high[a] + "</strong> , but would accidentally kill <strong>1 enemy tree</strong> nearby.</p> <p>The photo of the <strong>enemy tree</strong> is shown below.</p> <p></p> " + "<img src='stimuli/tree/4.png', style='max-width: 30%;'> </img>" + " <p><strong>Would you launch the weapon?</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1 enemy soldier", "2 enemy soldiers", "3 enemy soldiers", "4 enemy soldiers", "5 enemy soldiers"];
+            var high = ["6 enemy soldiers", "7 enemy soldiers", "8 enemy soldiers", "9 enemy soldiers", "10 enemy soldiers"];
+            var a = Math.floor(random(1, 6) - 1);
+            var html = "<p>As the military commander, you could choose to launch a missile to kill <strong>" + high[a] + "</strong> , but would accidentally kill <strong>1 enemy tree</strong> nearby.</p> <p>The photo of the <strong>enemy tree</strong> is shown below.</p> <p></p> " + "<img src='stimuli/tree/5.png', style='max-width: 30%;'> </img>" + " <p><strong>Would you launch the weapon?</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1 enemy soldier", "2 enemy soldiers", "3 enemy soldiers", "4 enemy soldiers", "5 enemy soldiers"];
+            var high = ["6 enemy soldiers", "7 enemy soldiers", "8 enemy soldiers", "9 enemy soldiers", "10 enemy soldiers"];
+            var a = Math.floor(random(1, 6) - 1);
+            var html = "<p>As the military commander, you could choose to launch a missile to kill <strong>" + high[a] + "</strong> , but would accidentally kill <strong>1 enemy tree</strong> nearby.</p> <p>The photo of the <strong>enemy tree</strong> is shown below.</p> <p></p> " + "<img src='stimuli/tree/6.png', style='max-width: 30%;'> </img>" + " <p><strong>Would you launch the weapon?</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1 enemy soldier", "2 enemy soldiers", "3 enemy soldiers", "4 enemy soldiers", "5 enemy soldiers"];
+            var high = ["6 enemy soldiers", "7 enemy soldiers", "8 enemy soldiers", "9 enemy soldiers", "10 enemy soldiers"];
+            var a = Math.floor(random(1, 6) - 1);
+            var html = "<p>As the military commander, you could choose to launch a missile to kill <strong>" + high[a] + "</strong> , but would accidentally kill <strong>1 enemy tree</strong> nearby.</p> <p>The photo of the <strong>enemy tree</strong> is shown below.</p> <p></p> " + "<img src='stimuli/tree/7.png', style='max-width: 30%;'> </img>" + " <p><strong>Would you launch the weapon?</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1 enemy soldier", "2 enemy soldiers", "3 enemy soldiers", "4 enemy soldiers", "5 enemy soldiers"];
+            var high = ["6 enemy soldiers", "7 enemy soldiers", "8 enemy soldiers", "9 enemy soldiers", "10 enemy soldiers"];
+            var a = Math.floor(random(1, 6) - 1);
+            var html = "<p>As the military commander, you could choose to launch a missile to kill <strong>" + high[a] + "</strong> , but would accidentally kill <strong>1 enemy tree</strong> nearby.</p> <p>The photo of the <strong>enemy tree</strong> is shown below.</p> <p></p> " + "<img src='stimuli/tree/8.png', style='max-width: 30%;'> </img>" + " <p><strong>Would you launch the weapon?</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1 enemy soldier", "2 enemy soldiers", "3 enemy soldiers", "4 enemy soldiers", "5 enemy soldiers"];
+            var high = ["6 enemy soldiers", "7 enemy soldiers", "8 enemy soldiers", "9 enemy soldiers", "10 enemy soldiers"];
+            var a = Math.floor(random(1, 6) - 1);
+            var html = "<p>As the military commander, you could choose to launch a missile to kill <strong>" + high[a] + "</strong> , but would accidentally kill <strong>1 enemy tree</strong> nearby.</p> <p>The photo of the <strong>enemy tree</strong> is shown below.</p> <p></p> " + "<img src='stimuli/tree/9.png', style='max-width: 30%;'> </img>" + " <p><strong>Would you launch the weapon?</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1 enemy soldier", "2 enemy soldiers", "3 enemy soldiers", "4 enemy soldiers", "5 enemy soldiers"];
+            var high = ["6 enemy soldiers", "7 enemy soldiers", "8 enemy soldiers", "9 enemy soldiers", "10 enemy soldiers"];
+            var a = Math.floor(random(1, 6) - 1);
+            var html = "<p>As the military commander, you could choose to launch a missile to kill <strong>" + high[a] + "</strong> , but would accidentally kill <strong>1 enemy tree</strong> nearby.</p> <p>The photo of the <strong>enemy tree</strong> is shown below.</p> <p></p> " + "<img src='stimuli/tree/10.png', style='max-width: 30%;'> </img>" + " <p><strong>Would you launch the weapon?</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1 enemy soldier", "2 enemy soldiers", "3 enemy soldiers", "4 enemy soldiers", "5 enemy soldiers"];
+            var high = ["6 enemy soldiers", "7 enemy soldiers", "8 enemy soldiers", "9 enemy soldiers", "10 enemy soldiers"];
+            var a = Math.floor(random(1, 6) - 1);
+            var html = "<p>As the military commander, you could choose to launch a missile to kill <strong>" + high[a] + "</strong> , but would accidentally kill <strong>1 enemy tree</strong> nearby.</p> <p>The photo of the <strong>enemy tree</strong> is shown below.</p> <p></p> " + "<img src='stimuli/tree/11.png', style='max-width: 30%;'> </img>" + " <p><strong>Would you launch the weapon?</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1 enemy soldier", "2 enemy soldiers", "3 enemy soldiers", "4 enemy soldiers", "5 enemy soldiers"];
+            var high = ["6 enemy soldiers", "7 enemy soldiers", "8 enemy soldiers", "9 enemy soldiers", "10 enemy soldiers"];
+            var a = Math.floor(random(1, 6) - 1);
+            var html = "<p>As the military commander, you could choose to launch a missile to kill <strong>" + high[a] + "</strong> , but would accidentally kill <strong>1 enemy tree</strong> nearby.</p> <p>The photo of the <strong>enemy tree</strong> is shown below.</p> <p></p> " + "<img src='stimuli/tree/12.png', style='max-width: 30%;'> </img>" + " <p><strong>Would you launch the weapon?</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1 enemy soldier", "2 enemy soldiers", "3 enemy soldiers", "4 enemy soldiers", "5 enemy soldiers"];
+            var high = ["6 enemy soldiers", "7 enemy soldiers", "8 enemy soldiers", "9 enemy soldiers", "10 enemy soldiers"];
+            var a = Math.floor(random(1, 6) - 1);
+            var html = "<p>As the military commander, you could choose to launch a missile to kill <strong>" + high[a] + "</strong> , but would accidentally kill <strong>1 enemy tree</strong> nearby.</p> <p>The photo of the <strong>enemy tree</strong> is shown below.</p> <p></p> " + "<img src='stimuli/tree/13.png', style='max-width: 30%;'> </img>" + " <p><strong>Would you launch the weapon?</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1 enemy soldier", "2 enemy soldiers", "3 enemy soldiers", "4 enemy soldiers", "5 enemy soldiers"];
+            var high = ["6 enemy soldiers", "7 enemy soldiers", "8 enemy soldiers", "9 enemy soldiers", "10 enemy soldiers"];
+            var a = Math.floor(random(1, 6) - 1);
+            var html = "<p>As the military commander, you could choose to launch a missile to kill <strong>" + high[a] + "</strong> , but would accidentally kill <strong>1 enemy tree</strong> nearby.</p> <p>The photo of the <strong>enemy tree</strong> is shown below.</p> <p></p> " + "<img src='stimuli/tree/14.png', style='max-width: 30%;'> </img>" + " <p><strong>Would you launch the weapon?</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1 enemy soldier", "2 enemy soldiers", "3 enemy soldiers", "4 enemy soldiers", "5 enemy soldiers"];
+            var high = ["6 enemy soldiers", "7 enemy soldiers", "8 enemy soldiers", "9 enemy soldiers", "10 enemy soldiers"];
+            var a = Math.floor(random(1, 6) - 1);
+            var html = "<p>As the military commander, you could choose to launch a missile to kill <strong>" + high[a] + "</strong> , but would accidentally kill <strong>1 enemy tree</strong> nearby.</p> <p>The photo of the <strong>enemy tree</strong> is shown below.</p> <p></p> " + "<img src='stimuli/tree/15.png', style='max-width: 30%;'> </img>" + " <p><strong>Would you launch the weapon?</strong></p>";
+            return html;
+        }
+    },
+
+    {
+        stimulus: function () {
+            var low = ["1 enemy soldier", "2 enemy soldiers", "3 enemy soldiers", "4 enemy soldiers", "5 enemy soldiers"];
+            var high = ["6 enemy soldiers", "7 enemy soldiers", "8 enemy soldiers", "9 enemy soldiers", "10 enemy soldiers"];
+            var a = Math.floor(random(1, 6) - 1);
+            var html = "<p>As the military commander, you could choose to launch a missile to kill <strong>" + high[a] + "</strong> , but would accidentally kill <strong>1 enemy tree</strong> nearby.</p> <p>The photo of the <strong>enemy tree</strong> is shown below.</p> <p></p> " + "<img src='stimuli/tree/16.png', style='max-width: 30%;'> </img>" + " <p><strong>Would you launch the weapon?</strong></p>";
+            return html;
+        }
+    },
+];
+
+var test_stimuli = new Array;
+var x = 1;
+
+if (x < 0.5) {
+    for (var i = 0; i < stimuli_asian.length; i++) {
+        test_stimuli[i] = stimuli_asian[i];
+    }
+    for (var i = 0; i < stimuli_tree.length; i++) {
+        test_stimuli[i + 32] = stimuli_tree[i];
+    }
+}
+else {
+    for (var i = 0; i < stimuli_caucasian.length; i++) {
+        test_stimuli[i] = stimuli_caucasian[i];
+    }
+    for (var i = 0; i < stimuli_tree.length; i++) {
+        test_stimuli[i + 32] = stimuli_tree[i];
+    }
+}
+
+var trial = {
+    type: jsPsychHtmlButtonResponse,
+    stimulus: jsPsych.timelineVariable('stimulus'),
+    choices: ['Yes', 'No']
+};
+
+var fixation = {
+    type: jsPsychHtmlKeyboardResponse,
+    stimulus: '<div style="font-size:60px;">+</div>',
+    choices: "NO_KEYS",
+    trial_duration: 1000,
+}
+
+var test_procedure = {
+    timeline: [fixation, trial],
+    timeline_variables: test_stimuli,
+    randomize_order: true,
+    on_finish: function () {
+        var curr_progress_bar_value = jsPsych.getProgressBarCompleted();
+        jsPsych.setProgressBar(curr_progress_bar_value + (1 / n_trials));
+    }
+}
+timeline.push(test_procedure);
+
+////////////////////
+var page_attention1_options = [
+    "1 = Not at all worth it",
+    "2",
+    "3",
+    "4 = Maybe worth it",
+    "5",
+    "6",
+    "7 = Totally worth it"
+];
+var attention1_trial = {
+    type: jsPsychSurveyMultiChoice,
+    questions: [
+        { prompt: "<p>Imagine you go to a bar with some friends and have some drinks.</p><p> You drink enough to feel drunk.</p><p> As you are leaving, your friend accidentally bumps into a woman who is drinking with another group.</p><p> The woman starts cussing at your friend.</p><p> Next thing you know, your friends are fighting with the other group.</p><p> Are you reading and paying attention to the questions?</p><p> If so, we want you to leave this question blank.</p><p> Yes, that is right, to show you are reading, please just skip to the next page without answering this question.</p><p> The sentence for fighting is probation. If you jump in, the chance of being arrested is 5\%. </p><p><strong>Is it worth the risk to jump into the fight with your friends?</strong></p>", options: page_attention1_options, name: 'Attention1', horizontal: false, },
+    ],
+    button_label: "Continue",
+    on_finish: function () {
+        var curr_progress_bar_value = jsPsych.getProgressBarCompleted();
+        jsPsych.setProgressBar(curr_progress_bar_value + (1 / n_trials));
+    }
+};
+timeline.push(attention1_trial);
+////////////////////
+
+/* Questionnaire instructions trial */
+var demo_instructions = {
+    type: jsPsychHtmlButtonResponse,
+    stimulus: '<p style="font-size:20px;font-weight:bold;">Great!</p><p>You have finished the first part of the experiment!</p>' + "<p>Please relax a little bit and then contine to answer some questions regarding yourself.</p>" + "<p>The next part will take around 10 minutes to complete.</p>",
+    choices: ['Continue'],
+    post_trial_gap: 1000,
+
+};
+timeline.push(demo_instructions);
+
+/* Demographic information*/
+var Text_trial = {
+    type: jsPsychSurveyText,
+    questions: [
+        { prompt: "<strong>1. What is your age?</strong>", name: 'Age', required: true },
+        { prompt: "<strong>2. What is your nationality?</strong>", name: 'Nation', required: true },
+        { prompt: "<strong>3. What country were you born in?</strong>", name: 'Born', required: true },
+        { prompt: "<strong>4. What country do you live in?</strong>", name: 'Live', required: true },
+    ],
+    button_label: "Continue",
+    on_finish: function () {
+        var curr_progress_bar_value = jsPsych.getProgressBarCompleted();
+        jsPsych.setProgressBar(curr_progress_bar_value + (4 / n_trials));
+    }
+};
+timeline.push(Text_trial);
+
+var page_gender_options = ["Female", "Male", "Other"];
+var page_yn_options = ["Yes", "No", "Rather not answer"];
+var page_edu_options = ["Less than 9 years", "Some High School", "High School GED", "High School Diploma", "Technical/trade School", "Associate Degree", "Bachelor's Degree", "Advanced Degree"];
+var page_income_options = ["$0-$4,999", "$5,000-$9,999", "$10,000-$19,999", "$20,000 - $39,999", "$40,000 - $69,999", "$70,000 - $99,999", "$100,000 - $124,999", "$125,000 - $149,999", "$150,000 - $199,999", "More than $200,000"];
+var page_children_options = ["0", "1", "2", ">=3"];
+var page_ethnic_options = ["American Indian or Alaska Native", "Asian", "Black or African American", "Hispanic or Latino", "Native Hawaiian or Other Pacific Islander", "White", "Other"];
+
+var Option_trial = {
+    type: jsPsychSurveyMultiChoice,
+    questions: [
+        { prompt: "<strong>5. What is your gender?</strong>", options: page_gender_options, name: 'Gender', horizontal: false, required: true },
+        //{ prompt: "<strong>8. Have you ever been diagnosed with a mental illness?</strong>", options: page_yn_options, name: 'Mental', horizontal: false, required: true },
+        { prompt: "<strong>6. What is your highest level of education?</strong>", options: page_edu_options, name: 'Education', horizontal: false, required: true },
+        { prompt: "<strong>7. What is your total annual household income?</strong>", options: page_income_options, name: 'Income', horizontal: false, required: true },
+        { prompt: "<strong>8. How many children do you have?</strong>", options: page_children_options, name: 'Children', horizontal: false, required: true },
+        { prompt: "<strong>9. What is your ethnic background?</strong>", options: page_ethnic_options, name: 'Ethnicity', horizontal: false, required: true },
+    ],
+    button_label: "Continue",
+    on_finish: function () {
+        var curr_progress_bar_value = jsPsych.getProgressBarCompleted();
+        jsPsych.setProgressBar(curr_progress_bar_value + (5 / n_trials));
+    }
+};
+timeline.push(Option_trial);
+
+var page_marriage_options = ["Married", "Separated", "Divorced", "Widowed", "Single", "Other"];
+var page_religion_options = ["Catholic", "Christian", "Islam", "Hinduism", "Buddhism", "Judaism", "Agnostic", "Atheist", "Spiritual", "Protestant", "Other religion", "No religion"];
+
+var Multi_trial = {
+    type: jsPsychSurveyMultiSelect,
+    questions: [
+        { prompt: "<strong>12. What is your marital status? (Check all that apply)</strong>", name: 'Marriage', options: page_marriage_options, required: true, horizontal: false, },
+        { prompt: "<strong>13. What is your religion? (Check all that apply)</strong>", name: 'Religion', options: page_religion_options, required: true, horizontal: false, },
+    ],
+    button_label: "Continue",
+    on_finish: function () {
+        var curr_progress_bar_value = jsPsych.getProgressBarCompleted();
+        jsPsych.setProgressBar(curr_progress_bar_value + (2 / n_trials));
+    }
+};
+timeline.push(Multi_trial);
+
+/* SES */
+var page_ses_options = ["10", "9", "8", "7", "6", "5", "4", "3", "2", "1"];
+var ses_trial = {
+    type: jsPsychSurveyMultiChoice,
+    questions: [
+        { prompt: "<p>Think of this ladder as representing where people stand in the society.</strong></p><p><strong>At the top of the ladder are the people who are the best off - </strong></p><p>those who have the most money, the most education and the most respected jobs.</p><p><strong>At the bottom are the people who are the worst off - </strong></p><p>who have the least money, least education and the least respected jobs or no job.</p><p>The higher up you are on this ladder, the closer you are to the people at the very top; </p><p>the lower you are, the closer you are to the people at the very bottom.</p>" + "<img src='stimuli/ladder.png'> </img>" + "<p><strong>Where would you place your self on this ladder\?</strong></p>", name: 'SES', options: page_ses_options, required: true, horizontal: false, },
+    ],
+    button_label: "Continue",
+    on_finish: function () {
+        var curr_progress_bar_value = jsPsych.getProgressBarCompleted();
+        jsPsych.setProgressBar(curr_progress_bar_value + (1 / n_trials));
+    }
+};
+timeline.push(ses_trial);
+
+/* Agression */
+var scale_aggression = [
+  "1 - Extremely uncharacteristic of me", 
+  "2", 
+  "3 - Uncertain", 
+  "4",
+  "5 - Extremely characteristic of me"
+];
+
+var aggression_instructions = {
+    type: jsPsychHtmlButtonResponse,
+    stimulus: "<p><strong>Please indicate the extent that the following statements could describe you.</p><p> (1 = \"extremely uncharacteristic of me\" to 5 = \"extremely characteristic of me\".)</strong></p>",
+    choices: ['Continue']
+};
+timeline.push(aggression_instructions);
+
+var aggression_page = {
+    type: jsPsychSurveyLikert,
+    questions: [
+    {prompt: "<strong>Once in a while I can not control the urge to strike another person.</strong>", name: 'Aggression1', labels: scale_aggression, required: true},
+    {prompt: "<strong>Given enough provocation, I may hit another person.</strong>", name: 'Aggression2', labels: scale_aggression, required: true},
+    {prompt: "<strong>If somebody hits me, I hit back.</strong>", name: 'Aggression3', labels: scale_aggression, required: true},
+    {prompt: "<strong>I get into fights a little more than the average person.</strong>", name: 'Aggression4', labels: scale_aggression, required: true},
+    {prompt: "<strong>If I have to resort to violence to protect my rights, I will.</strong>", name: 'Aggression5', labels: scale_aggression, required: true},
+    {prompt: "<strong>There are people who pushed me so far that we came to blows.</strong>", name: 'Aggression6', labels: scale_aggression, required: true},
+    {prompt: "<strong>I can think of no good reason for ever hitting a person.</strong>", name: 'Aggression7', labels: scale_aggression, required: true},
+    {prompt: "<strong>I have threatened people I know.</strong>", name: 'Aggression8', labels: scale_aggression, required: true},
+    {prompt: "<strong>I have become so mad that I have broken things.</strong>", name: 'Aggression9', labels: scale_aggression, required: true}
+  ],
+    button_label: "Continue",
+    on_finish: function () {
+        var curr_progress_bar_value = jsPsych.getProgressBarCompleted();
+        jsPsych.setProgressBar(curr_progress_bar_value + (9 / n_trials));
+    }
+};
+timeline.push(aggression_page);
+
+/* IRI */
+var IRI_scale = [
+    "1 - Does not describe me well",
+    "2",
+    "3 - Uncertain",
+    "4",
+    "5 - Does not describe me well",
+];
+
+var IRI_instructions = {
+    type: jsPsychHtmlButtonResponse,
+    stimulus: "<p><strong>Please indicate the extent that the following statements could describe you. </strong></p><p><strong> (1 = \"Does not describe me well\" to 5 = \"Does decribe me well\".)</strong></p>",
+    choices: ['Continue']
+};
+timeline.push(IRI_instructions);
+
+var IRI = {
+    type: jsPsychSurveyLikert,
+    questions: [
+        { prompt: "<strong>I daydream and fantasize, with some regularity, about things that might happen to me.</strong>", name: 'fs1', labels: IRI_scale, required: true },
+        { prompt: "<strong>I often have tender, concerned feelings for people less fortunate than me.</strong>", name: 'ecs1', labels: IRI_scale, required: true },
+        { prompt: "<strong>I sometimes find it difficult to see things from the \"other guy's\" point of view.</strong>", name: 'pts1', labels: IRI_scale, required: true },
+        { prompt: "<strong>Sometimes I don't feel sorry for other people when they are having problems.</strong>", name: 'ecs2', labels: IRI_scale, required: true },
+        { prompt: "<strong>I really get involved with the feelings of the characters in a novel.</strong>", name: 'fs2', labels: IRI_scale, required: true },
+        { prompt: "<strong>In emergency situations, I feel apprehensive and ill-at-ease.</strong>", name: 'pds1', labels: IRI_scale, required: true },
+        { prompt: "<strong>I am usually objective when I watch a movie or play, and I don't often get completely caught up in it.</strong>", name: 'fs3', labels: IRI_scale, required: true },
+        { prompt: "<strong>I try to look at everybody's side of a disagreement before I make a decision.</strong>", name: 'pts2', labels: IRI_scale, required: true },
+        { prompt: "<strong>When I see someone being taken advantage of, I feel kind of protective toward them.</strong>", name: 'ecs3', labels: IRI_scale, required: true },
+        { prompt: "<strong>I sometimes feel helpless when I am in the middle of a very emotional situation.</strong>", name: 'pds2', labels: IRI_scale, required: true },
+        { prompt: "<strong>I sometimes try to understand my friends better by imagining how things look from their perspective.</strong>", name: 'pts3', labels: IRI_scale, required: true },
+        { prompt: "<strong>Becoming extremely involved in a good book or movie is somewhat rare for me.</strong>", name: 'fs4', labels: IRI_scale, required: true },
+        { prompt: "<strong>When I see someone get hurt, I tend to remain calm.</strong>", name: 'pds3', labels: IRI_scale, required: true },
+        { prompt: "<strong>Other people's misfortunes do not usually disturb me a great deal.</strong>", name: 'ecs4', labels: IRI_scale, required: true },
+        { prompt: "<strong>If I'm sure I'm right about something, I don't waste much time listening to other people's arguments.</strong>", name: 'pts4', labels: IRI_scale, required: true },
+        { prompt: "<strong>After seeing a play or movie, I have felt as though I were one of the characters.</strong>", name: 'fs5', labels: IRI_scale, required: true },
+        { prompt: "<strong>Being in a tense emotional situation scares me.</strong>", name: 'pds4', labels: IRI_scale, required: true },
+        { prompt: "<strong>When I see someone being treated unfairly, I sometimes don't feel very much pity for them.</strong>", name: 'ecs5', labels: IRI_scale, required: true },
+        { prompt: "<strong>I am usually pretty effective in dealing with emergencies.</strong>", name: 'pds5', labels: IRI_scale, required: true },
+        { prompt: "<strong>I am often quite touched by things that I see happen.</strong>", name: 'ecs6', labels: IRI_scale, required: true },
+        { prompt: "<strong>I believe that there are two sides to every question and try to look at them both.</strong>", name: 'pts5', labels: IRI_scale, required: true },
+        { prompt: "<strong>I would describe myself as a pretty soft-hearted person.</strong>", name: 'ecs7', labels: IRI_scale, required: true },
+        { prompt: "<strong>When I watch a good movie, I can very easily put myself in the place of a leading character.</strong>", name: 'fs6', labels: IRI_scale, required: true },
+        { prompt: "<strong>I tend to lose control during emergencies.</strong>", name: 'pds6', labels: IRI_scale, required: true },
+        { prompt: "<strong>When I'm upset at someone, I usually try to \"put myself in his shoes\" for a while.</strong>", name: 'pts6', labels: IRI_scale, required: true },
+        { prompt: "<strong>When I am reading an interesting story or novel, I imagine how I would feel if the events in the story were happening to me.</strong>", name: 'fs7', labels: IRI_scale, required: true },
+        { prompt: "<strong>When I see someone who badly needs help in an emergency, I go to pieces.</strong>", name: 'pds7', labels: IRI_scale, required: true },
+        { prompt: "<strong>Before criticizing somebody, I try to imagine how I would feel if I were in their place.</strong>", name: 'pts7', labels: IRI_scale, required: true },
+    ],
+    randomize_question_order: true,
+    button_label: "Continue",
+    on_finish: function () {
+        var curr_progress_bar_value = jsPsych.getProgressBarCompleted();
+        jsPsych.setProgressBar(curr_progress_bar_value + (28 / n_trials));
+    }
+};
+timeline.push(IRI);
+
+/* SDO */
+var SDO_scale = [
+    "1 - very negative",
+    "2 - Negative",
+    "3 - Slightly negative",
+    "4 - Neither positive nor negative",
+    "5 - Slightly positive",
+    "6 - Positive",
+    "7 - very positive"
+];
+
+var SDO_instructions = {
+    type: jsPsychHtmlButtonResponse,
+    stimulus: "<p><strong>Which of the following objects or statements do you have a positive or negative feeling towards? </strong></p><p><strong> (1 = \"Very negative\" to 7 = \"Very positive\") </strong></p>",
+    choices: ['Continue']
+};
+timeline.push(SDO_instructions);
+
+var SDO = {
+    type: jsPsychSurveyLikert,
+    questions: [
+        { prompt: "<strong>Some groups of people are simply inferior to other groups.</strong>", name: 'sdo1', labels: SDO_scale, required: true },
+        { prompt: "<strong>In getting what you want, it is sometimes necessary to use force against other groups.</strong>", name: 'sdo2', labels: SDO_scale, required: true },
+        { prompt: "<strong>It's OK if some groups have more of a chance in life than others.</strong>", name: 'sdo3', labels: SDO_scale, required: true },
+        { prompt: "<strong>To get ahead in life, it is sometimes necessary to step on other groups.</strong>", name: 'sdo4', labels: SDO_scale, required: true },
+        { prompt: "<strong>If certain groups stayed in their place, we would have fewer problems.</strong>", name: 'sdo5', labels: SDO_scale, required: true },
+        { prompt: "<strong>It's probably a good thing that certain groups are at the top and other groups are at the bottom.</strong>", name: 'sdo6', labels: SDO_scale, required: true },
+        { prompt: "<strong>Inferior groups should stay in their place.</strong>", name: 'sdo7', labels: SDO_scale, required: true },
+        { prompt: "<strong>Sometimes other groups must be kept in their place.</strong>", name: 'sdo8', labels: SDO_scale, required: true },
+        { prompt: "<strong>It would be good if groups could be equal.</strong>", name: 'sdo9', labels: SDO_scale, required: true },
+        { prompt: "<strong>Group equality should be our ideal.</strong>", name: 'sdo10', labels: SDO_scale, required: true },
+        { prompt: "<strong>All groups should be given an equal chance in life.。</strong>", name: 'sdo11', labels: SDO_scale, required: true },
+        { prompt: "<strong>We should do what we can to equalize conditions for different groups.</strong>", name: 'sdo12', labels: SDO_scale, required: true },
+        { prompt: "<strong>Increased social equality.</strong>", name: 'sdo13', labels: SDO_scale, required: true },
+        { prompt: "<strong>We would have fewer problems if we treated people more equally.</strong>", name: 'sdo14', labels: SDO_scale, required: true },
+        { prompt: "<strong>We should strive to make incomes as equal as possible.</strong>", name: 'sdo15', labels: SDO_scale, required: true },
+        { prompt: "<strong>No one group should dominate in society.</strong>", name: 'sdo16', labels: SDO_scale, required: true },
+    ],
+    randomize_question_order: true,
+    button_label: "Continue",
+    on_finish: function () {
+        var curr_progress_bar_value = jsPsych.getProgressBarCompleted();
+        jsPsych.setProgressBar(curr_progress_bar_value + (16 / n_trials));
+    }
+};
+timeline.push(SDO);
+
+/* PACT */
+var PCAT_scale_1 = [
+    "1 - Strongly Disagree",
+    "2",
+    "3 - Neutral",
+    "4",
+    "5 - Strongly Agree",
+];
+
+var PCAT_scale_2 = [
+    "1 - No tenderness at all",
+    "2",
+    "3 - Neutral",
+    "4",
+    "5 - A lot of tenderness",
+];
+
+var PCAT_instructions_1 = {
+    type: jsPsychHtmlButtonResponse,
+    stimulus: "<p><strong>Please indicate the extent you agree with the following statements.</strong></p><strong><p> (1 = \"Strongly Disagree\" to 5 = \"Srongly Agree\") </strong></p>",
+    choices: ['Continue']
+};
+timeline.push(PCAT_instructions_1);
+
+var PCAT_1 = {
+    type: jsPsychSurveyLikert,
+    questions: [
+        { prompt: "<strong>When I see infants, I want to hold them.</strong>", name: 'caring1', labels: PCAT_scale_1, required: true },
+        { prompt: "<strong>When I hear a child crying, my first thought is \"shut up!\" </strong>", name: 'liking1', labels: PCAT_scale_1, required: true },
+        { prompt: "<strong>When I see a child in someone's arms, I feel warm inside.</strong>", name: 'caring2', labels: PCAT_scale_1, required: true },
+        { prompt: "<strong>I would feel compelled to punish anyone who tried to harm a child.</strong>", name: 'protection1', labels: PCAT_scale_1, required: true },
+        { prompt: "<strong>I think that kids are annoying.</strong>", name: 'liking2', labels: PCAT_scale_1, required: true },
+        { prompt: "<strong>Babies melt my heart.</strong>", name: 'caring3', labels: PCAT_scale_1, required: true },
+        { prompt: "<strong>I would hurt anyone who was a threat to a child.</strong>", name: 'protection2', labels: PCAT_scale_1, required: true },
+        { prompt: "<strong>I can't stand how children whine all the time.</strong>", name: 'liking3', labels: PCAT_scale_1, required: true },
+        { prompt: "<strong>I would sooner go to bed hungry than let a child go without food.</strong>", name: 'protection3', labels: PCAT_scale_1, required: true },
+        { prompt: "<strong>A baby's tiny fingers and toes are so adorable.</strong>", name: 'caring4', labels: PCAT_scale_1, required: true },
+        { prompt: "<strong>I don't like to be around babies.</strong>", name: 'liking4', labels: PCAT_scale_1, required: true },
+        { prompt: "<strong>I would show no mercy to someone who was a danger to a child.</strong>", name: 'protection4', labels: PCAT_scale_1, required: true },
+        { prompt: "<strong>Babies generally smell great.</strong>", name: 'caring5', labels: PCAT_scale_1, required: true },
+        { prompt: "<strong>If I could, I would hire a nanny to take care of my children.</strong>", name: 'liking5', labels: PCAT_scale_1, required: true },
+        { prompt: "<strong>I would use any means necessary to protect a child, even if I had to hurt others.</strong>", name: 'protection5', labels: PCAT_scale_1, required: true },
+    ],
+    button_label: "Contine",
+    on_finish: function () {
+        var curr_progress_bar_value = jsPsych.getProgressBarCompleted();
+        jsPsych.setProgressBar(curr_progress_bar_value + (10 / n_trials));
+    }
+};
+timeline.push(PCAT_1);
+
+var PCAT_instructions_2 = {
+    type: jsPsychHtmlButtonResponse,
+    stimulus: "<p><strong>Please imagine spercific situations involving children below, and rate the amount of tenderness you would feel in each situation. </strong></p><p><strong> (Ternderness is \"a warm, gentle feeling of sympathetic affection.\") </strong></p><strong><p> (1 = \"No tenderness at all\" to 5 = \"A lot of tenderness\") </strong></p>",
+    choices: ['Continue']
+};
+timeline.push(PCAT_instructions_2);
+
+var PCAT_2 = {
+    type: jsPsychSurveyLikert,
+    questions: [
+        { prompt: "<strong>A newborn baby curls its hand around your finger.</strong>", name: 'tenderness-positive1', labels: PCAT_scale_2, required: true },
+        { prompt: "<strong>You hear a young child trip and fall, and begin to cry.</strong>", name: 'tenderness-negative1', labels: PCAT_scale_2, required: true },
+        { prompt: "<strong>You hear a child crying loudly on an airplane.</strong>", name: 'tenderness-negative2', labels: PCAT_scale_2, required: true },
+        { prompt: "<strong>You watch as a toddler takes their first step and tumbles gently back down.</strong>", name: 'tenderness-positive2', labels: PCAT_scale_2, required: true },
+        { prompt: "<strong>You make a baby laugh over and over again by making silly faces.</strong>", name: 'tenderness-positive3', labels: PCAT_scale_2, required: true },
+        { prompt: "<strong>You need to change a baby's soiled diaper.</strong>", name: 'tenderness-negative3', labels: PCAT_scale_2, required: true },
+        { prompt: "<strong>A child blows you kisses to say goodbye.</strong>", name: 'tenderness-positive4', labels: PCAT_scale_2, required: true },
+        { prompt: "<strong>You see that a baby is sick.</strong>", name: 'tendereness-negative4', labels: PCAT_scale_2, required: true },
+        { prompt: "<strong>You see a child slip and fall onto the pavement.</strong>", name: 'tendernness-negative5', labels: PCAT_scale_2, required: true },
+        { prompt: "<strong>You see a father tossing his giggling baby up into the air as a game.</strong>", name: 'tenderness-positive5', labels: PCAT_scale_2, required: true },
+    ],
+    button_label: "Continue",
+    on_finish: function () {
+        var curr_progress_bar_value = jsPsych.getProgressBarCompleted();
+        jsPsych.setProgressBar(curr_progress_bar_value + (10 / n_trials));
+    }
+};
+timeline.push(PCAT_2);
+
+////////////////////
+var page_attention2_options = [
+    "Never",
+    "Yearly",
+    "Monthly",
+    "Weekly",
+    "Daily",
+    "Other"
+];
+var attention2_trial = {
+    type: jsPsychSurveyMultiChoice,
+    questions: [
+        { prompt: "<p>Studies show that contact with offenders may influence attitudes about crime and justice.</p><p> To help us understand how contact with offenders affects attitudes, we are interested in information about your exposure to convicted criminals.</p><p> More importantly, we are interested in whether you actually take the time to read directions.</p><p> To show that you have read the instructions, please ignore the question below about how often you talk to offenders and instead select the \"other\" option.</p><p></p><p><strong>How often do you talk to someone who has been convicted of a crime?</strong></p>", options: page_attention2_options, name: 'Attention2', horizontal: false, },
+    ],
+    button_label: "Continue",
+    on_finish: function () {
+        var curr_progress_bar_value = jsPsych.getProgressBarCompleted();
+        jsPsych.setProgressBar(curr_progress_bar_value + (1 / n_trials));
+    }
+};
+timeline.push(attention2_trial);
+////////////////////
+
+/* Nationlism */
+var scale_nation = [
+  "Strongly Disagree", 
+  "Moderately Disagree", 
+  "Neutral", 
+  "Moderately Agree",
+  "Strongly Agree"
+];
+
+var nation_instructions = {
+    type: jsPsychHtmlButtonResponse,
+    stimulus: "<p><strong>Please indicate the extent you agree with the following statements.</strong></p>",
+    choices: ['Continue']
+};
+timeline.push(nation_instructions);
+
+var nation_page = {
+    type: jsPsychSurveyLikert,
+    questions: [
+    {prompt: "<strong>I love my country.</strong>", name: 'Patri1', labels: scale_nation, required: true},
+    {prompt: "<strong>I am proud to be a people of my country.</strong>", name: 'Patri2', labels: scale_nation, required: true},
+    {prompt: "<strong>In a sense, I am emotionally attached to my coutry and emotionally affected by its actions.</strong>", name: 'Patri3', labels: scale_nation, required: true},
+    {prompt: "<strong>Although at times I may not agree with the government, my commitment to my country always remains strong.</strong>", name: 'Patri4', labels: scale_nation, required: true},
+    {prompt: "<strong>I feel a great pride in that land that is my country.</strong>", name: 'Patri5', labels: scale_nation, required: true},
+    {prompt: "<strong>It is not that important for me to serve my country.</strong>", name: 'Patri6', labels: scale_nation, required: true},
+    {prompt: "<strong>When I see the flag of my country flying I feel great.</strong>", name: 'Patri7', labels: scale_nation, required: true},
+    {prompt: "<strong>The fact that I am a people of my country is an important part of my identity.</strong>", name: 'Patri8', labels: scale_nation, required: true},
+    {prompt: "<strong>It is not constructive for one to develop an emotional attachment to his/her country.</strong>", name: 'Patri9', labels: scale_nation, required: true},
+    {prompt: "<strong>In general, I have very little respect for the people of my country.</strong>", name: 'Patri10', labels: scale_nation, required: true},
+    {prompt: "<strong>It bothers me to see children made to pledge allegiance to the flag or sing the national anthem or otherwise induced to adopt such strong patriotic attitudes.</strong>", name: 'Patri11', labels: scale_nation, required: true},
+    {prompt: "<strong>My country is really just an institution, big and powerful yes, but just an institution.</strong>", name: 'Patri12', labels: scale_nation, required: true},
+
+    {prompt: "<strong>In view of my country's moral and material superiority, it is only right that we should have the biggest say in deciding United Nations policy.</strong>", name: 'Nation1', labels: scale_nation, required: true},
+    {prompt: "<strong>The first duty of every young people of my country is to honor our national history and heritage.</strong>", name: 'Nation2', labels: scale_nation, required: true},
+    {prompt: "<strong>The important thing for my country's foreign aid program is to see to it that my country gains a political advantage.</strong>", name: 'Nation3', labels: scale_nation, required: true},
+    {prompt: "<strong>Other countries should try to make their government as much like ours as possible.</strong>", name: 'Nation4', labels: scale_nation, required: true},
+    {prompt: "<strong>Generally, the more influence my coutry has on other nations, the better off they are.</strong>", name: 'Nation5', labels: scale_nation, required: true},
+    {prompt: "<strong>Foreign nations have done some very fine things but it takes my country to do things in a big way.</strong>", name: 'Nation6', labels: scale_nation, required: true},
+    {prompt: "<strong>It is important that my country win in international sporting competition like the Olympics.</strong>", name: 'Nation7', labels: scale_nation, required: true},
+    {prompt: "<strong>It is really not important that my country be number one in whatever it does.</strong>", name: 'Nation8', labels: scale_nation, required: true}
+  ],
+    randomize_question_order: true,
+    button_label: "Continue",
+    on_finish: function () {
+        var curr_progress_bar_value = jsPsych.getProgressBarCompleted();
+        jsPsych.setProgressBar(curr_progress_bar_value + (20 / n_trials));
+    }
+};
+timeline.push(nation_page);
+
+/* IC */
+var scale_IC = [
+  "1 - never or definitely no",
+  "2", 
+  "3",
+  "4", 
+  "5 - Neutral", 
+  "6", 
+  "7",
+  "8",
+  "9 - Always or definitely yes"
+];
+
+var IC_instructions = {
+    type: jsPsychHtmlButtonResponse,
+    stimulus: "<p><strong>Please indicate the extent you agree with the following statements. </p><p>(1 = \"never or definitely no\" and 9 = \"always or definitely yes\".)</strong></p>",
+    choices: ['Continue']
+};
+timeline.push(IC_instructions);
+
+var IC_page = {
+    type: jsPsychSurveyLikert,
+    questions: [
+    {prompt: "<strong>I'd rather depend on myself than others.</strong>", name: 'hi1', labels: scale_IC, required: true},
+    {prompt: "<strong> I rely on myself most of the time; I rarely rely on others. </strong>", name: 'hi2', labels: scale_IC, required: true},
+    {prompt: "<strong> I often do \"my own thing.\" </strong>", name: 'hi3', labels: scale_IC, required: true},
+    {prompt: "<strong>My personal identity, independent of others, is very important to me. </strong>", name: 'hi4', labels: scale_IC, required: true},
+
+    {prompt: "<strong>It is important that I do my job better than others.</strong>", name: 'vi1', labels: scale_IC, required: true},
+    {prompt: "<strong>Winning is everything. </strong>", name: 'vi2', labels: scale_IC, required: true},
+    {prompt: "<strong> Competition is the law of nature.</strong>", name: 'vi3', labels: scale_IC, required: true},
+    {prompt: "<strong>This item is for robot detection. Please select \"7\".</strong>", name: 'Robot2', labels: scale_IC, required: true},
+    {prompt: "<strong>When another person does better than I do, I get tense and aroused.</strong>", name: 'vi4', labels: scale_IC, required: true},
+
+    {prompt: "<strong> If a coworker gets a prize, I would feel proud.</strong>", name: 'hc1', labels: scale_IC, required: true},
+    {prompt: "<strong>The well-being of my coworkers is important to me.</strong>", name: 'hc2', labels: scale_IC, required: true},
+    {prompt: "<strong>To me, pleasure is spending time with others.</strong>", name: 'hc3', labels: scale_IC, required: true},
+    {prompt: "<strong> I feel good when I cooperate with others.</strong>", name: 'hc4', labels: scale_IC, required: true},
+
+    {prompt: "<strong> Parents and children must stay together as much as possible.</strong>", name: 'vc1', labels: scale_IC, required: true},
+    {prompt: "<strong> It is my duty to take care of my family, even when I have to sacrifice what I want.</strong>", name: 'vc2', labels: scale_IC, required: true},
+    {prompt: "<strong>Family members should stick together, no matter what sacrifices are required.</strong>", name: 'vc3', labels: scale_IC, required: true},
+    {prompt: "<strong> It is important to me that I respect the decisions made by my groups.</strong>", name: 'vc4', labels: scale_IC, required: true}
+  ],
+    randomize_question_order: true,
+    button_label: "Continue",
+    on_finish: function () {
+        var curr_progress_bar_value = jsPsych.getProgressBarCompleted();
+        jsPsych.setProgressBar(curr_progress_bar_value + (17 / n_trials));
+    }
+};
+timeline.push(IC_page);
+
+/* Comment */
+var ID_trial = {
+    type: jsPsychSurveyText,
+    questions: [
+        { prompt: "<strong>Please enter your MTurk worker ID:</strong>", name: 'ID', required: true },
+        { prompt: "<strong>Do you have any comments regarding the survey?</strong>", rows: 5, columns: 50, name: 'Comments', required: false },
+    ],
+    button_label: "Continue",
+    on_finish: function () {
+        var curr_progress_bar_value = jsPsych.getProgressBarCompleted();
+        jsPsych.setProgressBar(curr_progress_bar_value + (2 / n_trials));
+    }
+};
+timeline.push(ID_trial);
+
+/* finish introduction */
+var finish_instructions = {
+    type: jsPsychHtmlButtonResponse,
+    stimulus: Button(),
+    choices: ['Finish'],
+    on_finish: function () {
+        var curr_progress_bar_value = jsPsych.getProgressBarCompleted();
+        jsPsych.setProgressBar(curr_progress_bar_value + (1 / n_trials));
+    }
+};
+timeline.push(finish_instructions);
+
+/* start the experiment */
+jsPsych.run(timeline);
